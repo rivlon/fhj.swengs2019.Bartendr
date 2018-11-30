@@ -10,14 +10,14 @@ public class Drink {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Long id;
 
     private String name;
     private int temperatureCelsius;
     private int temperatureFahrenheit;
     private boolean isAlcoholic;
     private String color;
-    private String character;
+    private String description;
     private String style;
 
     @ManyToOne
@@ -37,7 +37,7 @@ public class Drink {
     }
 
     // apply same hack as in size with boolean flag for unit
-    public Drink(String name, int temperature, boolean isAlcoholic, String color, String character, String style, boolean unitCelsius) {
+    public Drink(String name, int temperature, boolean isAlcoholic, String color, String description, String style, boolean unitCelsius) {
         this.name = name;
         if (unitCelsius) {
             this.temperatureCelsius = temperature;
@@ -48,7 +48,7 @@ public class Drink {
         }
         this.isAlcoholic = isAlcoholic;
         this.color = color;
-        this.character = character;
+        this.description = description;
         this.style = style;
     }
 
@@ -67,7 +67,7 @@ public class Drink {
                 isAlcoholic == drink.isAlcoholic &&
                 name.equals(drink.name) &&
                 Objects.equals(color, drink.color) &&
-                Objects.equals(character, drink.character) &&
+                Objects.equals(description, drink.description) &&
                 Objects.equals(style, drink.style) &&
                 Objects.equals(place, drink.place) &&
                 Objects.equals(size, drink.size) &&
@@ -76,7 +76,7 @@ public class Drink {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, temperatureCelsius, temperatureFahrenheit, isAlcoholic, color, character, style, place, size, category);
+        return Objects.hash(id, name, temperatureCelsius, temperatureFahrenheit, isAlcoholic, color, description, style, place, size, category);
     }
 
     public int getTemperatureFahrenheit() {
@@ -95,7 +95,7 @@ public class Drink {
                 ", temperatureCelsius=" + temperatureCelsius +
                 ", isAlcoholic=" + isAlcoholic +
                 ", color='" + color + '\'' +
-                ", character='" + character + '\'' +
+                ", description='" + description + '\'' +
                 ", style='" + style + '\'' +
                 ", place=" + place +
                 ", size=" + size +
@@ -104,11 +104,11 @@ public class Drink {
                 '}';
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -144,12 +144,12 @@ public class Drink {
         this.color = color;
     }
 
-    public String getCharacter() {
-        return character;
+    public String getDescription() {
+        return description;
     }
 
-    public void setCharacter(String character) {
-        this.character = character;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public String getStyle() {
