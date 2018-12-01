@@ -17,8 +17,6 @@ public class Drink {
     private int temperatureCelsius;
     private int temperatureFahrenheit;
 
-    @Column(name = "is_alcoholic", columnDefinition = "TINYINT(1)")
-    //@Type(type = "org.hibernate.type.NumericBooleanType")
     private boolean isAlcoholic;
     private String color;
     private String description;
@@ -43,16 +41,10 @@ public class Drink {
     public Drink() {
     }
 
-    // apply same hack as in size with boolean flag for unit
-    public Drink(String name, int temperature, boolean isAlcoholic, String color, String description, String style, boolean unitCelsius) {
+    public Drink(String name, int temperatureCelsius, int temperatureFahrenheit, boolean isAlcoholic, String color, String description, String style) {
         this.name = name;
-        if (unitCelsius) {
-            this.temperatureCelsius = temperature;
-            this.temperatureFahrenheit = (int) Math.round((temperature * 1.8) + 32);
-        } else {
-            this.temperatureFahrenheit = temperature;
-            this.temperatureCelsius = (int) Math.round((temperature - 32) * 1.8);
-        }
+        this.temperatureCelsius = temperatureCelsius;
+        this.temperatureFahrenheit = temperatureFahrenheit;
         this.isAlcoholic = isAlcoholic;
         this.color = color;
         this.description = description;

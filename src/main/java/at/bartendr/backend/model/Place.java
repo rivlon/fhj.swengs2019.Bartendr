@@ -24,6 +24,14 @@ public class Place {
     @JsonIgnore
     private long version;
 
+    public Place() {
+    }
+
+    public Place(String name, String plusCode) {
+        this.name = name;
+        this.plusCode = plusCode;
+    }
+
     public Long getId() {
         return id;
     }
@@ -62,14 +70,6 @@ public class Place {
 
     public void setVersion(long version) {
         this.version = version;
-    }
-
-    public Place() {
-    }
-
-    public Place(String name, String plusCode) {
-        this.name = name;
-        this.plusCode = plusCode;
     }
 
     @Override

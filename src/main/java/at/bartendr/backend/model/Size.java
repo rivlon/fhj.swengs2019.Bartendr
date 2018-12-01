@@ -27,17 +27,10 @@ public class Size {
     public Size() {
     }
 
-    // have to cheat a little to accomplish unit conversion. last parameter defines unit: true -> ml, false -> floz
-    // this can and will be solved more elegantly
-    public Size(String name, int vol, boolean unitML) {
+    public Size(String name, int volML, int volFlOz) {
         this.name = name;
-        if (unitML) {
-            this.volML = vol;
-            this.volFlOz = (int) Math.round(vol / 29.5735);
-        } else {
-            this.volFlOz = vol;
-            this.volML = (int) Math.round(vol * 29.5735);
-        }
+            this.volML = volML;
+            this.volFlOz = volFlOz;
     }
 
     public Long getId() {
