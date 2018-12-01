@@ -1,6 +1,7 @@
 package at.bartendr.backend.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
 import java.util.Objects;
@@ -15,18 +16,24 @@ public class Drink {
     private String name;
     private int temperatureCelsius;
     private int temperatureFahrenheit;
+
+    @Column(name = "is_alcoholic", columnDefinition = "TINYINT(1)")
+    //@Type(type = "org.hibernate.type.NumericBooleanType")
     private boolean isAlcoholic;
     private String color;
     private String description;
     private String style;
 
     @ManyToOne
+    @JsonIgnoreProperties("drinks")
     private Place place;
 
     @ManyToOne
+    @JsonIgnoreProperties("drinks")
     private Size size;
 
     @ManyToOne
+    @JsonIgnoreProperties("drinks")
     private Category category;
 
     @Version
