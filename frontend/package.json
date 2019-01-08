@@ -24,7 +24,7 @@
     "rxjs": "~6.3.3",
     "zone.js": "~0.8.26",
     "@auth0/angular-jwt": "^2.1.0",
-    "ngx-bootstrap": "^3.1.4",
+    "@ng-bootstrap/ng-bootstrap": "^4.0.1",
     "bootstrap": "^4.2.1"
   },
   "devDependencies": {
