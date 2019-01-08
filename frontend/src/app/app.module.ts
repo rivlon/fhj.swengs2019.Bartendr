@@ -10,6 +10,7 @@ import { LoginComponent } from './login/login.component';
 import { LocationFormComponent } from './location-form/location-form.component';
 import { CreateDrinkFormComponent } from './create-drink-form/create-drink-form.component';
 import { CreateLocationFormComponent } from './create-location-form/create-location-form.component';
+import { LocationsComponent } from './locations/locations.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { CreateLocationFormComponent } from './create-location-form/create-locat
     LoginComponent,
     LocationFormComponent,
     CreateDrinkFormComponent,
-    CreateLocationFormComponent
+    CreateLocationFormComponent,
+    LocationsComponent
   ],
   imports: [
     BrowserModule,
