@@ -73,9 +73,44 @@ public class UserDetailsServiceImpl implements UserDetailsService {
             tester.setPassword(encoder.encode("tester"));
             userRepository.save(tester);
         }
+        if (locationRepository.count() == 0) {
+
+            Location pucher = new Location();
+            pucher.setName("Cafe Pucher");
+            pucher.setPlusCode("3CC5+3Q Graz");
+            pucher.setRating(4);
+            locationRepository.save(pucher);
+
+            Location tamTam = new Location();
+            tamTam.setName("TamTam");
+            tamTam.setPlusCode("3C8Q+FR Graz");
+            tamTam.setRating(3);
+            locationRepository.save(tamTam);
+
+            Location murStüberl = new Location();
+            murStüberl.setName("MurStüberl zum Stamperl");
+            murStüberl.setPlusCode("3CCP+8V Graz");
+            murStüberl.setRating(3);
+            locationRepository.save(murStüberl);
+
+            Location poga = new Location();
+            poga.setName("Postgarage");
+            poga.setPlusCode("3C8H+CF Graz");
+            poga.setRating(4);
+            locationRepository.save(poga);
+
+        }
+
         if (drinkRepository.count() == 0) {
             Drink hausBier = new Drink();
             hausBier.setName("Hausbier");
+            hausBier.setCategory("Beer");
+            if (locationRepository.findByName("Cafe Pucher").isPresent()) {
+                hausBier.setLocation(locationRepository.findByName("Cafe Pucher").get());
+            }
+            if (locationRepository.findByName("MurStüberl zum Stamperl").isPresent()) {
+                hausBier.setLocation(locationRepository.findByName("MurStüberl zum Stamperl").get());
+            }
             hausBier.setAge(16);
             hausBier.setPrice(3.3f);
             hausBier.setRating(4.4f);
@@ -83,6 +118,10 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
             Drink freitagsBier = new Drink();
             freitagsBier.setName("Freitags Bier");
+            freitagsBier.setCategory("Beer");
+            if (locationRepository.findByName("Cafe Pucher").isPresent()) {
+                freitagsBier.setLocation(locationRepository.findByName("Cafe Pucher").get());
+            }
             freitagsBier.setAge(16);
             freitagsBier.setPrice(2.9f);
             freitagsBier.setRating(5);
@@ -90,6 +129,10 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
             Drink berlinerLuft = new Drink();
             berlinerLuft.setName("Berliner Luft");
+            berlinerLuft.setCategory("High Percentage!");
+            if (locationRepository.findByName("TamTam").isPresent()) {
+                berlinerLuft.setLocation(locationRepository.findByName("TamTam").get());
+            }
             berlinerLuft.setAge(18);
             berlinerLuft.setPrice(3.5f);
             berlinerLuft.setRating(5);
@@ -97,46 +140,19 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
             Drink tequilla = new Drink();
             tequilla.setName("Tequilla");
+            tequilla.setCategory("High Percentage!");
+            if (locationRepository.findByName("Postgarage").isPresent()) {
+                tequilla.setLocation(locationRepository.findByName("Postgarage").get());
+            }
+            if (locationRepository.findByName("TamTam").isPresent()) {
+                tequilla.setLocation(locationRepository.findByName("TamTam").get());
+            }
             tequilla.setAge(18);
             tequilla.setPrice(3);
             tequilla.setRating(3);
             drinkRepository.save(tequilla);
         }
 
-        if (locationRepository.count() == 0) {
-
-            Location pucher = new Location();
-            pucher.setName("Cafe Pucher");
-            pucher.setPlusCode("3CC5+3Q Graz");
-            pucher.setRating(4);
-            if (drinkRepository.count() != 0) {
-                try {
-                    Optional<Drink> hausB = drinkRepository.findByName("Haus Bier");
-                    List<Drink> drinkList = pucher.getDrinks();
-                    drinkList.add(hausB.get());
-                    pucher.setDrinks(drinkList);
-                } catch (Exception e) {
-                    System.out.println("LOl");
-                }
-            }
-            locationRepository.save(pucher);
-
-            Location tamTam = new Location();
-            tamTam.setName("TamTam");
-            tamTam.setPlusCode("3C8Q+FR Graz");
-            tamTam.setRating(3);
-            if (drinkRepository.count() != 0) {
-                try {
-                    Optional<Drink> berlinerL = drinkRepository.findByName("Berliner Luft");
-                    List<Drink> drinkList = tamTam.getDrinks();
-                    drinkList.add(berlinerL.get());
-                    tamTam.setDrinks(drinkList);
-                } catch (Exception e) {
-                    System.out.println("LOl");
-                }
-            }
-            locationRepository.save(tamTam);
-        }
 
     }
 

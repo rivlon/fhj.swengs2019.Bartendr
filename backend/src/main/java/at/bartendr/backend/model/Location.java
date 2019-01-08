@@ -17,7 +17,7 @@ public class Location {
 
     private String plusCode;
 
-    private int rating;
+    private float rating;
 
     @OneToMany(mappedBy = "location")
     private List<Drink> drinks;
@@ -29,7 +29,7 @@ public class Location {
     public Location() {
     }
 
-    public Location(String name, String plusCode, int rating, List<Drink> drinks, long version) {
+    public Location(String name, String plusCode, float rating, List<Drink> drinks, long version) {
         this.name = name;
         this.plusCode = plusCode;
         this.rating = rating;
@@ -61,11 +61,11 @@ public class Location {
         this.plusCode = plusCode;
     }
 
-    public int getRating() {
+    public float getRating() {
         return rating;
     }
 
-    public void setRating(int rating) {
+    public void setRating(float rating) {
         this.rating = rating;
     }
 
@@ -90,28 +90,16 @@ public class Location {
         if (this == o) return true;
         if (!(o instanceof Location)) return false;
         Location location = (Location) o;
-        return getRating() == location.getRating() &&
+        return Float.compare(location.getRating(), getRating()) == 0 &&
                 getVersion() == location.getVersion() &&
                 getId().equals(location.getId()) &&
                 getName().equals(location.getName()) &&
                 getPlusCode().equals(location.getPlusCode()) &&
-                getDrinks().equals(location.getDrinks());
+                Objects.equals(getDrinks(), location.getDrinks());
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(getId(), getName(), getPlusCode(), getRating(), getDrinks(), getVersion());
-    }
-
-    @Override
-    public String toString() {
-        return "Location{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", plusCode='" + plusCode + '\'' +
-                ", rating=" + rating +
-                ", drinks=" + drinks +
-                ", version=" + version +
-                '}';
     }
 }
