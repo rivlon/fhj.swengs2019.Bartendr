@@ -71,6 +71,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
             at.bartendr.backend.model.User tester = new at.bartendr.backend.model.User();
             tester.setUsername("tester");
             tester.setPassword(encoder.encode("tester"));
+            tester.setAdmin(false);
             userRepository.save(tester);
         }
         if (locationRepository.count() == 0) {
