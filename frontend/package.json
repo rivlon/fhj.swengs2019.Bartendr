@@ -25,6 +25,7 @@
     "zone.js": "~0.8.26",
     "@auth0/angular-jwt": "^2.1.0",
     "@ng-bootstrap/ng-bootstrap": "^4.0.1",
+    "ngx-bootstrap": "^3.1.4",
     "bootstrap": "^4.2.1",
     "now-ui-kit": "^1.1.0"
   },
