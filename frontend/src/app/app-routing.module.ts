@@ -7,12 +7,14 @@ import {LocationFormComponent} from './location-form/location-form.component';
 import {UserProfileComponent} from './user-profile/user-profile.component';
 import {CreateDrinkFormComponent} from './create-drink-form/create-drink-form.component';
 import {CreateLocationFormComponent} from './create-location-form/create-location-form.component';
+import {LocationsComponent} from './locations/locations.component';
 
 const routes: Routes = [
   {path: '', redirectTo: '/login', pathMatch: 'full'},
   {path: 'login', component: LoginComponent},
   {path: 'drink-list', component: DrinkListComponent},
   {path: 'drink-form/:id', component: DrinkFormComponent},
+  {path: 'locations', component: LocationsComponent},
   {path: 'location-form/:id', component: LocationFormComponent},
   {path: 'user-profile/:id', component: UserProfileComponent},
   {path: 'create-drink-form', component: CreateDrinkFormComponent},
