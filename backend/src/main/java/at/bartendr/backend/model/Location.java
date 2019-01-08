@@ -92,10 +92,10 @@ public class Location {
         Location location = (Location) o;
         return getRating() == location.getRating() &&
                 getVersion() == location.getVersion() &&
-                Objects.equals(getId(), location.getId()) &&
-                Objects.equals(getName(), location.getName()) &&
-                Objects.equals(getPlusCode(), location.getPlusCode()) &&
-                Objects.equals(getDrinks(), location.getDrinks());
+                getId().equals(location.getId()) &&
+                getName().equals(location.getName()) &&
+                getPlusCode().equals(location.getPlusCode()) &&
+                getDrinks().equals(location.getDrinks());
     }
 
     @Override
@@ -114,6 +114,4 @@ public class Location {
                 ", version=" + version +
                 '}';
     }
-
-
 }

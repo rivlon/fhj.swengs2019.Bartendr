@@ -17,7 +17,7 @@ public class Drink {
     private String category;
     private float price;
     private int age;
-    private int rating;
+    private float rating;
 
     @ManyToOne
     @JsonIgnoreProperties("drinks")
@@ -30,7 +30,7 @@ public class Drink {
     public Drink() {
     }
 
-    public Drink(String name, String category, float price, int age, int rating, Location location, long version) {
+    public Drink(String name, String category, float price, int age, float rating, Location location, long version) {
         this.name = name;
         this.category = category;
         this.price = price;
@@ -80,11 +80,11 @@ public class Drink {
         this.age = age;
     }
 
-    public int getRating() {
+    public float getRating() {
         return rating;
     }
 
-    public void setRating(int rating) {
+    public void setRating(float rating) {
         this.rating = rating;
     }
 
@@ -111,7 +111,7 @@ public class Drink {
         Drink drink = (Drink) o;
         return Float.compare(drink.getPrice(), getPrice()) == 0 &&
                 getAge() == drink.getAge() &&
-                getRating() == drink.getRating() &&
+                Float.compare(drink.getRating(), getRating()) == 0 &&
                 getVersion() == drink.getVersion() &&
                 getId().equals(drink.getId()) &&
                 getName().equals(drink.getName()) &&
@@ -137,6 +137,4 @@ public class Drink {
                 ", version=" + version +
                 '}';
     }
-
-
 }
