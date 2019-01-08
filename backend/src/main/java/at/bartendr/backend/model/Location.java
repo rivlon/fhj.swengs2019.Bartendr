@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Objects;
 
 @Entity
-public class Place {
+public class Location {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -17,19 +17,24 @@ public class Place {
 
     private String plusCode;
 
-    @OneToMany(mappedBy = "place")
+    private int rating;
+
+    @OneToMany(mappedBy = "location")
     private List<Drink> drinks;
 
     @Version
     @JsonIgnore
     private long version;
 
-    public Place() {
+    public Location() {
     }
 
-    public Place(String name, String plusCode) {
+    public Location(String name, String plusCode, int rating, List<Drink> drinks, long version) {
         this.name = name;
         this.plusCode = plusCode;
+        this.rating = rating;
+        this.drinks = drinks;
+        this.version = version;
     }
 
     public Long getId() {
@@ -56,6 +61,14 @@ public class Place {
         this.plusCode = plusCode;
     }
 
+    public int getRating() {
+        return rating;
+    }
+
+    public void setRating(int rating) {
+        this.rating = rating;
+    }
+
     public List<Drink> getDrinks() {
         return drinks;
     }
@@ -74,32 +87,33 @@ public class Place {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-        Place place = (Place) o;
-        return id == place.id &&
-                version == place.version &&
-                name.equals(place.name) &&
-                Objects.equals(plusCode, place.plusCode);
+        if (this == o) return true;
+        if (!(o instanceof Location)) return false;
+        Location location = (Location) o;
+        return getRating() == location.getRating() &&
+                getVersion() == location.getVersion() &&
+                Objects.equals(getId(), location.getId()) &&
+                Objects.equals(getName(), location.getName()) &&
+                Objects.equals(getPlusCode(), location.getPlusCode()) &&
+                Objects.equals(getDrinks(), location.getDrinks());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, plusCode, version);
+        return Objects.hash(getId(), getName(), getPlusCode(), getRating(), getDrinks(), getVersion());
     }
 
     @Override
     public String toString() {
-        return "Place{" +
+        return "Location{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", plusCode='" + plusCode + '\'' +
+                ", rating=" + rating +
                 ", drinks=" + drinks +
                 ", version=" + version +
                 '}';
     }
+
+
 }
