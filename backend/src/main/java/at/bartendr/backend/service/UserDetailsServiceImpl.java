@@ -1,0 +1,143 @@
+package at.bartendr.backend.service;
+
+import at.bartendr.backend.model.DrinkRepository;
+import at.bartendr.backend.model.LocationRepository;
+import at.bartendr.backend.model.Location;
+import at.bartendr.backend.model.Drink;
+import at.bartendr.backend.model.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.AuthorityUtils;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import javax.annotation.PostConstruct;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Optional;
+
+@Service("userDetailsService")   // It has to be annotated with @Service.
+public class UserDetailsServiceImpl implements UserDetailsService {
+
+    @Autowired
+    private BCryptPasswordEncoder encoder;
+
+    @Autowired
+    private UserRepository userRepository;
+
+    @Autowired
+    private LocationRepository locationRepository;
+
+    @Autowired
+    private DrinkRepository drinkRepository;
+
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        try {
+            at.bartendr.backend.model.User user = userRepository.findByUsername(username);
+            if (user.getUsername().equals(username)) {
+
+                // Remember that Spring needs roles to be in this format: "ROLE_" + userRole (i.e. "ROLE_ADMIN")
+                // So, we need to set it to that format, so we can verify and compare roles (i.e. hasRole("ADMIN")).
+                List<GrantedAuthority> grantedAuthorities = AuthorityUtils
+                        .commaSeparatedStringToAuthorityList(user.isAdmin() ? "ROLE_ADMIN" : "ROLE_USER");
+
+                // The "User" class is provided by Spring and represents a model class for user to be returned by UserDetailsService
+                // And used by auth manager to verify and check user authentication.
+                return new User(user.getUsername(), user.getPassword(), grantedAuthorities);
+            }
+        } catch (Exception e) {
+        }
+        // If user not found. Throw this exception.
+        throw new UsernameNotFoundException("Username: " + username + " not found");
+    }
+
+    @PostConstruct()
+    @Transactional
+    public void initUsers() {
+        if (userRepository.count() == 0) {
+            at.bartendr.backend.model.User admin = new at.bartendr.backend.model.User();
+            admin.setUsername("admin");
+            admin.setPassword(encoder.encode("admin"));
+            admin.setAdmin(true);
+            userRepository.save(admin);
+
+            at.bartendr.backend.model.User tester = new at.bartendr.backend.model.User();
+            tester.setUsername("tester");
+            tester.setPassword(encoder.encode("tester"));
+            userRepository.save(tester);
+        }
+        if (drinkRepository.count() == 0) {
+            Drink hausBier = new Drink();
+            hausBier.setName("Hausbier");
+            hausBier.setAge(16);
+            hausBier.setPrice(3.3f);
+            hausBier.setRating(4.4f);
+            drinkRepository.save(hausBier);
+
+            Drink freitagsBier = new Drink();
+            freitagsBier.setName("Freitags Bier");
+            freitagsBier.setAge(16);
+            freitagsBier.setPrice(2.9f);
+            freitagsBier.setRating(5);
+            drinkRepository.save(freitagsBier);
+
+            Drink berlinerLuft = new Drink();
+            berlinerLuft.setName("Berliner Luft");
+            berlinerLuft.setAge(18);
+            berlinerLuft.setPrice(3.5f);
+            berlinerLuft.setRating(5);
+            drinkRepository.save(berlinerLuft);
+
+            Drink tequilla = new Drink();
+            tequilla.setName("Tequilla");
+            tequilla.setAge(18);
+            tequilla.setPrice(3);
+            tequilla.setRating(3);
+            drinkRepository.save(tequilla);
+        }
+
+        if (locationRepository.count() == 0) {
+
+            Location pucher = new Location();
+            pucher.setName("Cafe Pucher");
+            pucher.setPlusCode("3CC5+3Q Graz");
+            pucher.setRating(4);
+            if (drinkRepository.count() != 0) {
+                try {
+                    Optional<Drink> hausB = drinkRepository.findByName("Haus Bier");
+                    List<Drink> drinkList = pucher.getDrinks();
+                    drinkList.add(hausB.get());
+                    pucher.setDrinks(drinkList);
+                } catch (Exception e) {
+                    System.out.println("LOl");
+                }
+            }
+            locationRepository.save(pucher);
+
+            Location tamTam = new Location();
+            tamTam.setName("TamTam");
+            tamTam.setPlusCode("3C8Q+FR Graz");
+            tamTam.setRating(3);
+            if (drinkRepository.count() != 0) {
+                try {
+                    Optional<Drink> berlinerL = drinkRepository.findByName("Berliner Luft");
+                    List<Drink> drinkList = tamTam.getDrinks();
+                    drinkList.add(berlinerL.get());
+                    tamTam.setDrinks(drinkList);
+                } catch (Exception e) {
+                    System.out.println("LOl");
+                }
+            }
+            locationRepository.save(tamTam);
+        }
+
+    }
+
+}

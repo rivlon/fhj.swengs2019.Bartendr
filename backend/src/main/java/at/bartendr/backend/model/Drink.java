@@ -14,93 +14,30 @@ public class Drink {
     private Long id;
 
     private String name;
-    private int temperatureCelsius;
-    private int temperatureFahrenheit;
-
-    private boolean isAlcoholic;
-    private String color;
-    private String description;
-    private String style;
+    private String category;
+    private float price;
+    private int age;
+    private float rating;
 
     @ManyToOne
     @JsonIgnoreProperties("drinks")
-    private Place place;
+    private Location location;
 
-    @ManyToOne
-    @JsonIgnoreProperties("drinks")
-    private Size size;
-
-    @ManyToOne
-    @JsonIgnoreProperties("drinks")
-    private Category category;
-
-    @Version
+        @Version
     @JsonIgnore
     private long version;
 
     public Drink() {
     }
 
-    public Drink(String name, int temperatureCelsius, int temperatureFahrenheit, boolean isAlcoholic, String color, String description, String style) {
+    public Drink(String name, String category, float price, int age, float rating, Location location, long version) {
         this.name = name;
-        this.temperatureCelsius = temperatureCelsius;
-        this.temperatureFahrenheit = temperatureFahrenheit;
-        this.isAlcoholic = isAlcoholic;
-        this.color = color;
-        this.description = description;
-        this.style = style;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-        Drink drink = (Drink) o;
-        return id == drink.id &&
-                temperatureCelsius == drink.temperatureCelsius &&
-                temperatureFahrenheit == drink.temperatureFahrenheit &&
-                isAlcoholic == drink.isAlcoholic &&
-                name.equals(drink.name) &&
-                Objects.equals(color, drink.color) &&
-                Objects.equals(description, drink.description) &&
-                Objects.equals(style, drink.style) &&
-                Objects.equals(place, drink.place) &&
-                Objects.equals(size, drink.size) &&
-                Objects.equals(category, drink.category);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, name, temperatureCelsius, temperatureFahrenheit, isAlcoholic, color, description, style, place, size, category);
-    }
-
-    public int getTemperatureFahrenheit() {
-        return temperatureFahrenheit;
-    }
-
-    public void setTemperatureFahrenheit(int temperatureFahrenheit) {
-        this.temperatureFahrenheit = temperatureFahrenheit;
-    }
-
-    @Override
-    public String toString() {
-        return "Drink{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", temperatureCelsius=" + temperatureCelsius +
-                ", isAlcoholic=" + isAlcoholic +
-                ", color='" + color + '\'' +
-                ", description='" + description + '\'' +
-                ", style='" + style + '\'' +
-                ", place=" + place +
-                ", size=" + size +
-                ", category=" + category +
-                ", version=" + version +
-                '}';
+        this.category = category;
+        this.price = price;
+        this.age = age;
+        this.rating = rating;
+        this.location = location;
+        this.version = version;
     }
 
     public Long getId() {
@@ -119,68 +56,44 @@ public class Drink {
         this.name = name;
     }
 
-    public int getTemperatureCelsius() {
-        return temperatureCelsius;
-    }
-
-    public void setTemperatureCelsius(int temperatureCelsius) {
-        this.temperatureCelsius = temperatureCelsius;
-    }
-
-    public boolean isAlcoholic() {
-        return isAlcoholic;
-    }
-
-    public void setAlcoholic(boolean alcoholic) {
-        isAlcoholic = alcoholic;
-    }
-
-    public String getColor() {
-        return color;
-    }
-
-    public void setColor(String color) {
-        this.color = color;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public String getStyle() {
-        return style;
-    }
-
-    public void setStyle(String style) {
-        this.style = style;
-    }
-
-    public Place getPlace() {
-        return place;
-    }
-
-    public void setPlace(Place place) {
-        this.place = place;
-    }
-
-    public Size getSize() {
-        return size;
-    }
-
-    public void setSize(Size size) {
-        this.size = size;
-    }
-
-    public Category getCategory() {
+    public String getCategory() {
         return category;
     }
 
-    public void setCategory(Category category) {
+    public void setCategory(String category) {
         this.category = category;
+    }
+
+    public float getPrice() {
+        return price;
+    }
+
+    public void setPrice(float price) {
+        this.price = price;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+    public float getRating() {
+        return rating;
+    }
+
+    public void setRating(float rating) {
+        this.rating = rating;
+    }
+
+    public Location getLocation() {
+        return location;
+    }
+
+    public void setLocation(Location location) {
+        this.location = location;
     }
 
     public long getVersion() {
@@ -189,5 +102,39 @@ public class Drink {
 
     public void setVersion(long version) {
         this.version = version;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Drink)) return false;
+        Drink drink = (Drink) o;
+        return Float.compare(drink.getPrice(), getPrice()) == 0 &&
+                getAge() == drink.getAge() &&
+                Float.compare(drink.getRating(), getRating()) == 0 &&
+                getVersion() == drink.getVersion() &&
+                getId().equals(drink.getId()) &&
+                getName().equals(drink.getName()) &&
+                getCategory().equals(drink.getCategory()) &&
+                getLocation().equals(drink.getLocation());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId(), getName(), getCategory(), getPrice(), getAge(), getRating(), getLocation(), getVersion());
+    }
+
+    @Override
+    public String toString() {
+        return "Drink{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", category='" + category + '\'' +
+                ", price=" + price +
+                ", age=" + age +
+                ", rating=" + rating +
+                ", location=" + location +
+                ", version=" + version +
+                '}';
     }
 }
