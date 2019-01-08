@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {UserService} from '../services/user.service';
+import {UserService} from '../service/user.service';
 import {Router} from '@angular/router';
 
 @Component({
@@ -11,15 +11,14 @@ export class LoginComponent implements OnInit {
 
   user: any;
 
-  constructor(/*private userService: UserService, private router: Router*/) { }
+  constructor(private userService: UserService, private router: Router) { }
 
   ngOnInit() {
-    /*this.user = {
+    this.user = {
       username: '',
       password: ''
-    };*/
+    };
   }
-/*
   login() {
     this.userService.login(this.user)
       .subscribe((res: any) => {
@@ -27,5 +26,5 @@ export class LoginComponent implements OnInit {
         alert('wrong username or password');
       });
   }
-*/
+
 }

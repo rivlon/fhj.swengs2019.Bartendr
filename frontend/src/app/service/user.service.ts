@@ -39,7 +39,7 @@ export class UserService {
       localStorage.setItem(this.accessTokenLocalStorageKey, token);
       console.log(this.jwtHelperService.decodeToken(token));
       this.loggedInChange.next(true);
-      this.router.navigate(['/actor-list']);
+      this.router.navigate(['/drink-list']);
       return res;
     }));
   }

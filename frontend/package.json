@@ -20,14 +20,14 @@
     "@angular/platform-browser": "~7.2.0",
     "@angular/platform-browser-dynamic": "~7.2.0",
     "@angular/router": "~7.2.0",
-    "core-js": "^2.6.1",
-    "rxjs": "~6.3.3",
-    "zone.js": "~0.8.26",
     "@auth0/angular-jwt": "^2.1.0",
     "@ng-bootstrap/ng-bootstrap": "^4.0.1",
-    "ngx-bootstrap": "^3.1.4",
     "bootstrap": "^4.2.1",
-    "now-ui-kit": "^1.1.0"
+    "core-js": "^2.6.1",
+    "ngx-bootstrap": "^3.1.4",
+    "now-ui-kit": "^1.1.0",
+    "rxjs": "~6.3.3",
+    "zone.js": "~0.8.26"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "^0.11.4",

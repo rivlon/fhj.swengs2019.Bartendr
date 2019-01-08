@@ -11,6 +11,14 @@ import { LocationFormComponent } from './location-form/location-form.component';
 import { CreateDrinkFormComponent } from './create-drink-form/create-drink-form.component';
 import { CreateLocationFormComponent } from './create-location-form/create-location-form.component';
 import { LocationsComponent } from './locations/locations.component';
+import {JwtModule} from '@auth0/angular-jwt';
+import {HttpClientModule} from '@angular/common/http';
+import {FormsModule} from '@angular/forms';
+import { LogoutComponent } from './logout/logout.component';
+
+export function tokenGetter() {
+  return localStorage.getItem('acces_token');
+}
 
 @NgModule({
   declarations: [
@@ -22,11 +30,22 @@ import { LocationsComponent } from './locations/locations.component';
     LocationFormComponent,
     CreateDrinkFormComponent,
     CreateLocationFormComponent,
-    LocationsComponent
+    LocationsComponent,
+    LogoutComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule,
+    FormsModule,
+    JwtModule.forRoot(
+      {
+        config: {
+          tokenGetter: tokenGetter,
+          whitelistedDomains: ['localhost:4200']
+        }
+      }
+    )
   ],
   providers: [],
   bootstrap: [AppComponent]
