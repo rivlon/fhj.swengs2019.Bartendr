@@ -3,18 +3,19 @@ import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { DrinkListComponent } from './drink-list/drink-list.component';
-import { DrinkFormComponent } from './drink-form/drink-form.component';
-import { UserProfileComponent } from './user-profile/user-profile.component';
-import { LoginComponent } from './login/login.component';
-import { LocationFormComponent } from './location-form/location-form.component';
-import { CreateDrinkFormComponent } from './create-drink-form/create-drink-form.component';
-import { CreateLocationFormComponent } from './create-location-form/create-location-form.component';
-import { LocationsComponent } from './locations/locations.component';
+import { DrinkListComponent } from './components/drink-list/drink-list.component';
+import { DrinkFormComponent } from './components/drink-form/drink-form.component';
+import { UserProfileComponent } from './components/user-profile/user-profile.component';
+import { LoginComponent } from './components/login/login.component';
+import { LocationFormComponent } from './components/location-form/location-form.component';
+import { CreateDrinkFormComponent } from './components/create-drink-form/create-drink-form.component';
+import { CreateLocationFormComponent } from './components/create-location-form/create-location-form.component';
+import { LocationsComponent } from './components/locations/locations.component';
 import {JwtModule} from '@auth0/angular-jwt';
 import {HttpClientModule} from '@angular/common/http';
 import {FormsModule} from '@angular/forms';
-import { LogoutComponent } from './logout/logout.component';
+import { LogoutComponent } from './components/logout/logout.component';
+import { NavigationComponent } from './components/navigation/navigation.component';
 
 export function tokenGetter() {
   return localStorage.getItem('acces_token');
@@ -31,7 +32,8 @@ export function tokenGetter() {
     CreateDrinkFormComponent,
     CreateLocationFormComponent,
     LocationsComponent,
-    LogoutComponent
+    LogoutComponent,
+    NavigationComponent
   ],
   imports: [
     BrowserModule,
