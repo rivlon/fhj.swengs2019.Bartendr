@@ -14,11 +14,10 @@ import { LocationsComponent } from './components/locations/locations.component';
 import {JwtModule} from '@auth0/angular-jwt';
 import {HttpClientModule} from '@angular/common/http';
 import {FormsModule} from '@angular/forms';
-import { LogoutComponent } from './components/logout/logout.component';
 import { NavigationComponent } from './components/navigation/navigation.component';
 
 export function tokenGetter() {
-  return localStorage.getItem('acces_token');
+  return localStorage.getItem('access_token');
 }
 
 @NgModule({
@@ -32,7 +31,6 @@ export function tokenGetter() {
     CreateDrinkFormComponent,
     CreateLocationFormComponent,
     LocationsComponent,
-    LogoutComponent,
     NavigationComponent
   ],
   imports: [

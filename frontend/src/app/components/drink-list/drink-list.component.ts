@@ -1,4 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {DrinkService} from '../../service/drink.service';
+import {ActivatedRoute, Router} from '@angular/router';
+import {Drink} from '../../api/drink';
+import {map} from 'rxjs/operators';
 
 @Component({
   selector: 'app-drink-list',
@@ -7,11 +11,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DrinkListComponent implements OnInit {
 
-  drinks;
+  drinks: Array<Drink>;
 
-  constructor() { }
+  constructor(private drinkService: DrinkService, private route: ActivatedRoute, private router: Router) {
+  }
 
   ngOnInit() {
+    return this.drinkService.getAllDrinks().subscribe((res: any) => {
+      this.drinks = res;
+    });
   }
 
 }

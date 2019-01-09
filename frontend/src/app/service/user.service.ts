@@ -69,7 +69,9 @@ export class UserService {
   }
 
   getAll() {
-    return this.http.get('/api/users');
+    return this.http.get('/api/drinks/').pipe(map((res: any) => {
+      return res;
+    }));
   }
 
   getById(id: String) {

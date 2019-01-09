@@ -8,7 +8,6 @@ import {UserProfileComponent} from './components/user-profile/user-profile.compo
 import {CreateDrinkFormComponent} from './components/create-drink-form/create-drink-form.component';
 import {CreateLocationFormComponent} from './components/create-location-form/create-location-form.component';
 import {LocationsComponent} from './components/locations/locations.component';
-import {LogoutComponent} from './components/logout/logout.component';
 import {AuthGuard} from './guard/auth.guard';
 import {AdminGuard} from './guard/admin.guard';
 
@@ -21,8 +20,7 @@ const routes: Routes = [
   {path: 'location-form/:id', component: LocationFormComponent, canActivate: [AuthGuard]},
   {path: 'user-profile/:id', component: UserProfileComponent, canActivate: [AuthGuard]},
   {path: 'create-drink-form', component: CreateDrinkFormComponent, canActivate: [AdminGuard]},
-  {path: 'create-location-form', component: CreateLocationFormComponent, canActivate: [AdminGuard]},
-  {path: 'logout', component: LogoutComponent}
+  {path: 'create-location-form', component: CreateLocationFormComponent, canActivate: [AdminGuard]}
 ];
 
 @NgModule({

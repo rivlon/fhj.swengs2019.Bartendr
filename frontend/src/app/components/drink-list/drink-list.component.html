@@ -1,10 +1,5 @@
 
-<div>
-  <a href="/drink-form/1">Puntigamer</a>
+<div *ngFor="let drink of drinks">
+  {{drink.name}} {{drink.category}} {{drink.price}} {{drink.rating}}
 </div>
 
-<!--
-<div *ngFor="let drink of drinks">
-  <a [routerLink]="'/actor-form/' + drink.id"> {{drink.name}} </a>
-</div>
--->
