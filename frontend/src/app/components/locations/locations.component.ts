@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import {DrinkService} from '../../service/drink.service';
+import {ActivatedRoute, Router} from '@angular/router';
+import {LocationService} from '../../service/location.service';
 
 @Component({
   selector: 'app-locations',
@@ -7,9 +10,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LocationsComponent implements OnInit {
 
-  constructor() { }
+  locations: Array<Location>;
+
+  constructor(private locationService: LocationService, private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit() {
+    return this.locationService.getAllLocations().subscribe((res: any) => {
+      this.locations = res;
+    });
   }
 
 }

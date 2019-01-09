@@ -1,16 +1,18 @@
 <div *ngIf="isLoggedIn">
-<nav>
-  <div >
-    <a [routerLink]="'/drink-list/'">Drinks</a>
-    <a [routerLink]="'/locations/'">Location</a>
-    <a [routerLink]="'/user-profile/:id'">Profile</a>
-    <p>Hello {{username}}</p>
-    <button type="button" (click)="logout()" *ngIf="isLoggedIn">Logout</button>
-  </div>
-  <div *ngIf="isAdmin">
-    <a [routerLink]="'/create-drink-form'">Create Drink</a>
-    <a [routerLink]="'/create-location-form'">Create Location</a>
-    <a [routerLink]="'/create-user-form'">Create User</a>
-  </div>
-</nav>
+  <nav>
+    <div>
+      <div>
+        <a [routerLink]="'/drink-list/'">Drinks</a>
+        <a [routerLink]="'/locations/'">Location</a>
+        <a [routerLink]="'/user-profile'">Profile</a>
+        <p>Hello {{username}}</p>
+        <button type="button" (click)="logout()" *ngIf="isLoggedIn">Logout</button>
+      </div>
+      <div *ngIf="isAdmin">
+        <a [routerLink]="'/drink-form'">Create Drink</a>
+        <a [routerLink]="'/location-form'">Create Location</a>
+        <a [routerLink]="'/user-form'">Create User</a>
+      </div>
+    </div>
+  </nav>
 </div>

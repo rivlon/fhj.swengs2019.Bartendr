@@ -18,54 +18,54 @@ public class LocationController {
     @Autowired
     private LocationRepository locationRepository;
 
-    @RequestMapping(value = "/places", method = RequestMethod.GET)
+    @RequestMapping(value = "/location", method = RequestMethod.GET)
     ResponseEntity<Iterable> getAllLocations() {
-        Iterable<Location> places = locationRepository.findAll();
-        if (places == null || !places.iterator().hasNext()) {
+        Iterable<Location> locations = locationRepository.findAll();
+        if (locations == null || !locations.iterator().hasNext()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         } else {
-            return new ResponseEntity<>(places, HttpStatus.OK);
+            return new ResponseEntity<>(locations, HttpStatus.OK);
         }
     }
 
-    @RequestMapping(value = "/places/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/locations/{id}", method = RequestMethod.GET)
     Location getLocation(@PathVariable Long id) {
-        Optional<Location> placeOptional = locationRepository.findById(id);
-        if (placeOptional.isPresent()) {
-            return placeOptional.get();
+        Optional<Location> locationOptional = locationRepository.findById(id);
+        if (locationOptional.isPresent()) {
+            return locationOptional.get();
         } else {
-            throw new LocationNotFoundException("This place doesn't seem to exist.");
+            throw new LocationNotFoundException("This location doesn't seem to exist.");
         }
     }
 
-    @RequestMapping(value = "/places/{id}", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/locations/{id}", method = RequestMethod.DELETE)
     ResponseEntity<Location> deleteLocation(@PathVariable Long id) {
-        Optional<Location> placeOptional = locationRepository.findById(id);
-        if (!placeOptional.isPresent()) {
+        Optional<Location> locationOptional = locationRepository.findById(id);
+        if (!locationOptional.isPresent()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         } else {
-            Location place = placeOptional.get();
-            locationRepository.delete(place);
+            Location location = locationOptional.get();
+            locationRepository.delete(location);
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
     }
 
-    @RequestMapping(value = "/places", method = RequestMethod.POST)
-    ResponseEntity<Location> createLocation(@RequestBody Location place, UriComponentsBuilder ucBuilder) {
-        locationRepository.save(place);
+    @RequestMapping(value = "/locations", method = RequestMethod.POST)
+    ResponseEntity<Location> createLocation(@RequestBody Location location, UriComponentsBuilder ucBuilder) {
+        locationRepository.save(location);
         HttpHeaders headers = new HttpHeaders();
-        headers.setLocation(ucBuilder.path("/places/{id}").buildAndExpand(place.getId()).toUri());
+        headers.setLocation(ucBuilder.path("/locations/{id}").buildAndExpand(location.getId()).toUri());
         return new ResponseEntity<>(headers, HttpStatus.CREATED);
     }
 
-    @RequestMapping(value = "/places/{id}", method = RequestMethod.PUT)
-    ResponseEntity<Location> updateLocation(@PathVariable Long id, @RequestBody Location placeUpdate) {
-        Optional<Location> placeOptional = locationRepository.findById(id);
-        if (!placeOptional.isPresent()) {
+    @RequestMapping(value = "/locations/{id}", method = RequestMethod.PUT)
+    ResponseEntity<Location> updateLocation(@PathVariable Long id, @RequestBody Location locationUpdate) {
+        Optional<Location> locationOptional = locationRepository.findById(id);
+        if (!locationOptional.isPresent()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         } else {
-            placeUpdate.setId(id);
-            locationRepository.save(placeUpdate);
+            locationUpdate.setId(id);
+            locationRepository.save(locationUpdate);
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
     }

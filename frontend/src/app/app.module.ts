@@ -8,13 +8,12 @@ import { DrinkFormComponent } from './components/drink-form/drink-form.component
 import { UserProfileComponent } from './components/user-profile/user-profile.component';
 import { LoginComponent } from './components/login/login.component';
 import { LocationFormComponent } from './components/location-form/location-form.component';
-import { CreateDrinkFormComponent } from './components/create-drink-form/create-drink-form.component';
-import { CreateLocationFormComponent } from './components/create-location-form/create-location-form.component';
 import { LocationsComponent } from './components/locations/locations.component';
 import {JwtModule} from '@auth0/angular-jwt';
 import {HttpClientModule} from '@angular/common/http';
 import {FormsModule} from '@angular/forms';
 import { NavigationComponent } from './components/navigation/navigation.component';
+import { UserFormComponent } from './components/user-form/user-form.component';
 
 export function tokenGetter() {
   return localStorage.getItem('access_token');
@@ -28,10 +27,9 @@ export function tokenGetter() {
     UserProfileComponent,
     LoginComponent,
     LocationFormComponent,
-    CreateDrinkFormComponent,
-    CreateLocationFormComponent,
     LocationsComponent,
-    NavigationComponent
+    NavigationComponent,
+    UserFormComponent
   ],
   imports: [
     BrowserModule,

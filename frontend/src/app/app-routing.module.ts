@@ -5,11 +5,10 @@ import {DrinkListComponent} from './components/drink-list/drink-list.component';
 import {DrinkFormComponent} from './components/drink-form/drink-form.component';
 import {LocationFormComponent} from './components/location-form/location-form.component';
 import {UserProfileComponent} from './components/user-profile/user-profile.component';
-import {CreateDrinkFormComponent} from './components/create-drink-form/create-drink-form.component';
-import {CreateLocationFormComponent} from './components/create-location-form/create-location-form.component';
 import {LocationsComponent} from './components/locations/locations.component';
 import {AuthGuard} from './guard/auth.guard';
 import {AdminGuard} from './guard/admin.guard';
+import {UserFormComponent} from './components/user-form/user-form.component';
 
 const routes: Routes = [
   {path: '', redirectTo: '/login', pathMatch: 'full'},
@@ -19,8 +18,9 @@ const routes: Routes = [
   {path: 'locations', component: LocationsComponent, canActivate: [AuthGuard]},
   {path: 'location-form/:id', component: LocationFormComponent, canActivate: [AuthGuard]},
   {path: 'user-profile/:id', component: UserProfileComponent, canActivate: [AuthGuard]},
-  {path: 'create-drink-form', component: CreateDrinkFormComponent, canActivate: [AdminGuard]},
-  {path: 'create-location-form', component: CreateLocationFormComponent, canActivate: [AdminGuard]}
+  {path: 'drink-form', component: DrinkFormComponent, canActivate: [AdminGuard]},
+  {path: 'location-form', component: LocationFormComponent, canActivate: [AdminGuard]},
+  {path: 'user-form', component: UserFormComponent, canActivate: [AdminGuard]}
 ];
 
 @NgModule({
