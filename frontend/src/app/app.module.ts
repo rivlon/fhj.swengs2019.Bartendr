@@ -14,6 +14,9 @@ import {HttpClientModule} from '@angular/common/http';
 import {FormsModule} from '@angular/forms';
 import { NavigationComponent } from './components/navigation/navigation.component';
 import { UserFormComponent } from './components/user-form/user-form.component';
+import { RatingModule } from 'ngx-bootstrap/rating';
+import { NgxSelectModule } from 'ngx-select-ex';
+import { ReactiveFormsModule  } from '@angular/forms'
 
 export function tokenGetter() {
   return localStorage.getItem('access_token');
@@ -35,6 +38,9 @@ export function tokenGetter() {
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
+    ReactiveFormsModule,
+    RatingModule.forRoot(),
+    NgxSelectModule,
     FormsModule,
     JwtModule.forRoot(
       {

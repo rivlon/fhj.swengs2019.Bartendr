@@ -11,23 +11,23 @@ export class DrinkService {
   constructor(private http: HttpClient) {
   }
 
-  createDrink(drink: Drink) {
+  create(drink: Drink) {
     return this.http.post('/api/drinks/', drink);
   }
 
-  updateDrink(drink: Drink) {
+  update(drink: Drink) {
     return this.http.put('/api/drinks/', drink);
   }
 
-  deleteDrink(drink: Drink) {
+  delete(drink: Drink) {
     return this.http.delete('/api/drinks/' + drink.id);
   }
 
-  getDrinkById(drink: Drink) {
-    return this.http.get('/api/drinks/' + drink.id);
+  getById(id: string) {
+    return this.http.get('/api/drinks/' + id);
   }
 
-  getAllDrinks() {
+  getAll() {
     return this.http.get('/api/drinks/');
   }
 }

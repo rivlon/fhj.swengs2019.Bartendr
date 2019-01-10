@@ -15,7 +15,7 @@ export class LocationsComponent implements OnInit {
   constructor(private locationService: LocationService, private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit() {
-    return this.locationService.getAllLocations().subscribe((res: any) => {
+    return this.locationService.getAll().subscribe((res: any) => {
       this.locations = res;
     });
   }

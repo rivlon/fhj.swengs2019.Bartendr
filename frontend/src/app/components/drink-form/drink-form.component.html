@@ -1,13 +1,70 @@
-<div>
-  <label>Name:</label><br>
+<form [formGroup]="drinkForm" (ngSubmit)="saveDrink()">
+  <div class="row">
 
-  <label>Category:</label><br>
+    <div class="col">
+      <div class="form-group">
+        <label for="name">First name:</label>
+        <input id="name" type="text" name="name" formControlName="name" class="form-control"/>
+        <div
+          *ngIf="drinkForm.controls.name.invalid && (drinkForm.controls.name.dirty || drinkForm.controls.name.touched)"
+          class="alert alert-danger">
+          <div *ngIf="drinkForm.controls.name.errors.required">
+            Name is required.
+          </div>
+          <div *ngIf="drinkForm.controls.name.errors.minlength">
+            Name must be at least 2 characters long.
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col">
+      <div class="form-group">
+        <label for="category">Category:</label>
+        <input id="category" type="text" name="category" formControlName="category" class="form-control"/>
+        <div
+          *ngIf="drinkForm.controls.category.invalid && (drinkForm.controls.name.dirty || drinkForm.controls.name.touched)"
+          class="alert alert-danger">
+          <div *ngIf="drinkForm.controls.category.errors.required">
+            Category is required.
+          </div>
+          <div *ngIf="drinkForm.controls.category.errors.minlength">
+            Category must be at least 2 characters long.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col">
+    <div class="form-group">
+      <label for="price">Price:</label>
+      <input id="price" type="number" name="price" formControlName="price" class="form-control"/>
+    </div>
+  </div>
+  <div class="col">
+    <div class="form-group">
+      <label for="age">Age:</label>
+      <input id="age" type="number" name="age" formControlName="age" class="form-control"/>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <label for="rating">Rating:</label>
+      <rating id="rating" type="text" name="rating" [max]="5" formControlName="rating"></rating>
+    </div>
+    <div class="col">
+      <label for="locations">Locations:</label>
+      <ngx-select id="locations" [items]="locationOptions" name="locations" [multiple]="true"
+                  formControlName="locations" optionTextField="name"></ngx-select>
+    </div>
+  </div>
 
-  <label>Prize:</label><br>
+  <div class="btn-group">
+    <button type="submit" class="btn btn-primary" [disabled]="drinkForm.invalid">
+      Save
+    </button>
+    <button type="submit" (click)="setShouldNavigateToList()" class="btn btn-primary" [disabled]="drinkForm.invalid">
+      Save and Back
+    </button>
+  </div>
 
-  <label>Age:</label><br>
-
-  <label>Rating:</label><br>
-
-  <label>Location: <a href="/location-form/1">Pucher</a></label><br>
-</div>
+</form>

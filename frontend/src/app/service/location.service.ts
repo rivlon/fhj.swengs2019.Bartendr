@@ -8,7 +8,7 @@ export class LocationService {
 
   constructor(private http: HttpClient) { }
 
-  getAllLocations() {
+  getAll() {
     return this.http.get('/api/location/');
   }
 }

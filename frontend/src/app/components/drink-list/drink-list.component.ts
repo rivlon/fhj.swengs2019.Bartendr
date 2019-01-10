@@ -17,7 +17,7 @@ export class DrinkListComponent implements OnInit {
   }
 
   ngOnInit() {
-    return this.drinkService.getAllDrinks().subscribe((res: any) => {
+    return this.drinkService.getAll().subscribe((res: any) => {
       this.drinks = res;
     });
   }
