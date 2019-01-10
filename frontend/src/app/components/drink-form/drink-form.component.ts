@@ -73,4 +73,8 @@ export class DrinkFormComponent implements OnInit {
     }
   }
 
+  setShouldNavigateToList() {
+    this.shouldNavigateToList = true;
+  }
+
 }
