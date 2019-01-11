@@ -17,7 +17,7 @@ import {LocationsResolver} from './resolver/locations.resolver';
 const routes: Routes = [
   {path: '', redirectTo: '/login', pathMatch: 'full'},
   {path: 'login', component: LoginComponent},
-  {path: 'drink-list', component: DrinkListComponent, resolve: {drinks: DrinksResolver}},
+  {path: 'drink-list', component: DrinkListComponent, canActivate: [AuthGuard], resolve: {drinks: DrinksResolver}},
   {
     path: 'drink-form/:id',
     component: DrinkFormComponent,
