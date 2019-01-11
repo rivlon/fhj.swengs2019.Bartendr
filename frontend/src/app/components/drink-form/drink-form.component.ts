@@ -37,20 +37,19 @@ export class DrinkFormComponent implements OnInit {
     });
 
     const data = this.route.snapshot.data;
-
+/*
     const drink = data.drink;
     if (drink) {
       this.drinkForm.setValue(drink);
       this.drinkExists = true;
       this.id = drink.id;
     }
-/*
+
     this.locationService.getAll()
       .subscribe((locations: any) => {
         this.locationOptions = locations._embedded.locations;
       });
 */
-
     const id = this.route.snapshot.paramMap.get('id');
     if (id) {
       this.drinkService.getById(id)
@@ -58,6 +57,10 @@ export class DrinkFormComponent implements OnInit {
           this.drinkForm.setValue(response);
         });
     }
+    /*
+    this.cat = this.drinkForm.category;
+    this.drinkForm.patchValue({category: this.cat});
+    */
   }
 
   saveDrink() {

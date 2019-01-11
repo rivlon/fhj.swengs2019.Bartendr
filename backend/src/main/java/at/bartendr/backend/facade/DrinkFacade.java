@@ -35,6 +35,7 @@ public class DrinkFacade {
     private void mapEntityToDto(Drink entity, DrinkDTO dto) {
         dto.setId(entity.getId());
         dto.setName(entity.getName());
+        dto.setCategory(entity.getCategory());
         dto.setPrice(entity.getPrice());
         dto.setAge(entity.getAge());
         dto.setRating(entity.getRating());
