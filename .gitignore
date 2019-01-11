@@ -55,5 +55,5 @@ frontend/.DS_Store
 frontend/Thumbs.db
 
 # package-lock
-frontend/package-lock.json
-backend/src/main/resources/application.properties
+**/application.properties
+**/package-lock.json
