@@ -23,7 +23,11 @@ export class UserFormComponent implements OnInit {
       'id': new FormControl(),
       'username': new FormControl([''], [Validators.required, Validators.minLength(2)]),
       'password': new FormControl(),
-      'admin': new FormControl()
+      'admin': new FormControl(),
+      'firstname': new FormControl(),
+      'lastname': new FormControl(),
+      'email': new FormControl(),
+      'active': new FormControl()
     });
 
     this.user = this.route.snapshot.data.user;

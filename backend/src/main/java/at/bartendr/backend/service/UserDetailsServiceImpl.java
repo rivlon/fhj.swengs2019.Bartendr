@@ -62,12 +62,18 @@ public class UserDetailsServiceImpl implements UserDetailsService {
             admin.setUsername("admin");
             admin.setPassword(encoder.encode("admin"));
             admin.setAdmin(true);
+            admin.setFirstname("Hans-Peter");
+            admin.setLastname("Irgendwas");
+            admin.setEmail("Hans-Peter@irgendwas.com");
             userRepository.save(admin);
 
             at.bartendr.backend.model.User tester = new at.bartendr.backend.model.User();
             tester.setUsername("tester");
             tester.setPassword(encoder.encode("tester"));
             tester.setAdmin(false);
+            tester.setFirstname("Peter-Hans");
+            tester.setLastname("wasIrgend");
+            tester.setEmail("was-irgend@peter-hans.com");
             userRepository.save(tester);
         }
         if (locationRepository.count() == 0) {

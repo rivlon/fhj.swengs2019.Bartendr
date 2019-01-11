@@ -7,7 +7,8 @@
         <a [routerLink]="'/user-profile'">Profile</a> |
         <a *ngIf="isAdmin" [routerLink]="'/drink-form'">Create Drink</a> |
         <a *ngIf="isAdmin" [routerLink]="'/location-form'">Create Location</a> |
-        <a *ngIf="isAdmin" [routerLink]="'/user-form'">Create User</a>
+        <a *ngIf="isAdmin" [routerLink]="'/user-form'">Create User</a> |
+        <a *ngIf="isAdmin" [routerLink]="'/user-list'">User List</a>
         <button id="logoutButton" type="button" (click)="logout()" *ngIf="isLoggedIn">Logout</button>
         <label for="logoutButton">Signed in as: {{username}}</label>
       </div>

@@ -18,6 +18,7 @@ import { RatingModule } from 'ngx-bootstrap/rating';
 import { NgxSelectModule } from 'ngx-select-ex';
 import { ReactiveFormsModule  } from '@angular/forms';
 import {BsDropdownModule} from 'ngx-bootstrap';
+import { UserListComponent } from './components/user-list/user-list.component';
 
 export function tokenGetter() {
   return localStorage.getItem('access_token');
@@ -33,7 +34,8 @@ export function tokenGetter() {
     LocationFormComponent,
     LocationsComponent,
     NavigationComponent,
-    UserFormComponent
+    UserFormComponent,
+    UserListComponent
   ],
   imports: [
     BrowserModule,

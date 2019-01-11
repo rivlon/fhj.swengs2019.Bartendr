@@ -1,0 +1,5 @@
+
+<div *ngFor="let user of users">
+  Username: {{user.username}} | First Name: {{user.Firstname}} | Last Name: {{user.lastname}} | eMail: {{user.email}}  <a [routerLink]="'/user-form/' + user.id">Edit</a>
+</div>
+

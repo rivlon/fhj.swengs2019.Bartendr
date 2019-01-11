@@ -14,6 +14,8 @@ import {DrinkResolver} from './resolver/drink.resolver';
 import {LocationResolver} from './resolver/location.resolver';
 import {LocationsResolver} from './resolver/locations.resolver';
 import {UserResolver} from './resolver/user.resolver';
+import {UsersResolver} from './resolver/users.resolver';
+import {UserListComponent} from './components/user-list/user-list.component';
 
 const routes: Routes = [
   {path: '', redirectTo: '/login', pathMatch: 'full'},
@@ -30,7 +32,8 @@ const routes: Routes = [
   {path: 'user-profile', component: UserProfileComponent, canActivate: [AuthGuard]},
   {path: 'drink-form', component: DrinkFormComponent, canActivate: [AdminGuard]},
   {path: 'location-form', component: LocationFormComponent, canActivate: [AdminGuard]},
-  {path: 'user-form', component: UserFormComponent, canActivate: [AdminGuard], resolve: {user: UserResolver}}
+  {path: 'user-form/:id', component: UserFormComponent, canActivate: [AdminGuard], resolve: {user: UserResolver}},
+  {path: 'user-list', component: UserListComponent, canActivate: [AdminGuard], resolve: {users: UsersResolver}}
 ];
 
 @NgModule({
