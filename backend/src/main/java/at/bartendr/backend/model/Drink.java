@@ -21,7 +21,7 @@ public class Drink {
     private String name;
     private String category;
     private float price;
-    private int age;
+    private Age age;
     private float rating;
 
     @ManyToOne
@@ -35,7 +35,7 @@ public class Drink {
     public Drink() {
     }
 
-    public Drink(String name, String category, float price, int age, float rating, Location locations, long version) {
+    public Drink(String name, String category, float price, Age age, float rating, Location locations, long version) {
         this.name = name;
         this.category = category;
         this.price = price;
@@ -77,11 +77,11 @@ public class Drink {
         this.price = price;
     }
 
-    public int getAge() {
+    public Age getAge() {
         return age;
     }
 
-    public void setAge(int age) {
+    public void setAge(Age age) {
         this.age = age;
     }
 

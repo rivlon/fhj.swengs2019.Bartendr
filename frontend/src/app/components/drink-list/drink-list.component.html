@@ -1,5 +1,5 @@
 
 <div *ngFor="let drink of drinks">
-  {{drink.name}} {{drink.category}} {{drink.price}} {{drink.rating}} <a *ngIf="isAdmin" [routerLink]="'/drink-form/' + drink.id">Edit</a>
+  Name: {{drink.name}} | Category: {{drink.category}} | Price: {{drink.price}} | Rating: {{drink.rating}} | Age: {{drink.age}} <a *ngIf="isAdmin" [routerLink]="'/drink-form/' + drink.id">Edit</a>
 </div>
 

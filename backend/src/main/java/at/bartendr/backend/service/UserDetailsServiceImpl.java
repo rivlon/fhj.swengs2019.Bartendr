@@ -1,10 +1,6 @@
 package at.bartendr.backend.service;
 
-import at.bartendr.backend.model.DrinkRepository;
-import at.bartendr.backend.model.LocationRepository;
-import at.bartendr.backend.model.Location;
-import at.bartendr.backend.model.Drink;
-import at.bartendr.backend.model.UserRepository;
+import at.bartendr.backend.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
@@ -112,7 +108,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
             if (locationRepository.findByName("MurStüberl zum Stamperl").isPresent()) {
                 hausBier.setLocations(locationRepository.findByName("MurStüberl zum Stamperl").get());
             }
-            hausBier.setAge(16);
+            hausBier.setAge(Age.atLeast16);
             hausBier.setPrice(3.3f);
             hausBier.setRating(4.4f);
             drinkRepository.save(hausBier);
@@ -123,7 +119,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
             if (locationRepository.findByName("Cafe Pucher").isPresent()) {
                 freitagsBier.setLocations(locationRepository.findByName("Cafe Pucher").get());
             }
-            freitagsBier.setAge(16);
+            freitagsBier.setAge(Age.atLeast16);
             freitagsBier.setPrice(2.9f);
             freitagsBier.setRating(5);
             drinkRepository.save(freitagsBier);
@@ -134,7 +130,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
             if (locationRepository.findByName("TamTam").isPresent()) {
                 berlinerLuft.setLocations(locationRepository.findByName("TamTam").get());
             }
-            berlinerLuft.setAge(18);
+            berlinerLuft.setAge(Age.atLeast18);
             berlinerLuft.setPrice(3.5f);
             berlinerLuft.setRating(5);
             drinkRepository.save(berlinerLuft);
@@ -148,7 +144,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
             if (locationRepository.findByName("TamTam").isPresent()) {
                 tequilla.setLocations(locationRepository.findByName("TamTam").get());
             }
-            tequilla.setAge(18);
+            tequilla.setAge(Age.atLeast18);
             tequilla.setPrice(3);
             tequilla.setRating(3);
             drinkRepository.save(tequilla);

@@ -1,5 +1,6 @@
 package at.bartendr.backend.dto;
 
+import at.bartendr.backend.model.Age;
 import at.bartendr.backend.model.Location;
 
 import java.util.Date;
@@ -11,7 +12,7 @@ public class DrinkDTO {
     private String name;
     private String category;
     private float price;
-    private int age;
+    private Age age;
     private float rating;
     private Location locations;
 
@@ -47,11 +48,11 @@ public class DrinkDTO {
         this.price = price;
     }
 
-    public int getAge() {
+    public Age getAge() {
         return age;
     }
 
-    public void setAge(int age) {
+    public void setAge(Age age) {
         this.age = age;
     }
 
@@ -75,7 +76,7 @@ public class DrinkDTO {
     public DrinkDTO() {
     }
 
-    public DrinkDTO(Long id, String name, String category, float price, int age, float rating, Location location) {
+    public DrinkDTO(Long id, String name, String category, float price, Age age, float rating, Location location) {
         this.id = id;
         this.name = name;
         this.category = category;

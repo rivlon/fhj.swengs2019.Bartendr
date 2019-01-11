@@ -26,7 +26,7 @@ const routes: Routes = [
   },
   {path: 'locations', component: LocationsComponent, canActivate: [AuthGuard], resolve: {location: LocationResolver}},
   {path: 'location-form/:id', component: LocationFormComponent, canActivate: [AuthGuard], resolve: {location: LocationsResolver}},
-  {path: 'user-profile/:id', component: UserProfileComponent, canActivate: [AuthGuard]},
+  {path: 'user-profile', component: UserProfileComponent, canActivate: [AuthGuard]},
   {path: 'drink-form', component: DrinkFormComponent, canActivate: [AdminGuard]},
   {path: 'location-form', component: LocationFormComponent, canActivate: [AdminGuard]},
   {path: 'user-form', component: UserFormComponent, canActivate: [AdminGuard]}

@@ -21,21 +21,21 @@
     <label>Age</label>
     <div>
       <input type="radio" name="age" id="under16" formControlName="age"
-             value="0">
+             value="forAllAges">
       <label for="under16">
         Under 16
       </label>
     </div>
     <div >
       <input type="radio" name="age" id="16" formControlName="age"
-             value="16">
+             value="atLeast16">
       <label  for="16">
         16
       </label>
     </div>
     <div >
       <input type="radio" name="age" id="18+" formControlName="age"
-             value="18">
+             value="atLeast18">
       <label for="18+">
         18+
       </label>
@@ -44,7 +44,7 @@
   <div class="col">
     <div class="form-group">
       <label for="price">Price:</label>
-      <input id="price" type="number" name="price" formControlName="price" class="form-control"/>
+      <input id="price" type="number" step="0.01" name="price" formControlName="price" class="form-control"/>
     </div>
   </div>
   </div>

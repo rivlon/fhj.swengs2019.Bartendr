@@ -2,16 +2,14 @@
   <nav>
     <div>
       <div>
-        <a [routerLink]="'/drink-list/'">Drinks</a>
-        <a [routerLink]="'/locations/'">Location</a>
-        <a [routerLink]="'/user-profile'">Profile</a>
-        <p>Hello {{username}}</p>
+        <a [routerLink]="'/drink-list/'">Drinks</a> |
+        <a [routerLink]="'/locations/'">Location</a> |
+        <a [routerLink]="'/user-profile'">Profile</a> |
+        <a *ngIf="isAdmin" [routerLink]="'/drink-form'">Create Drink</a> |
+        <a *ngIf="isAdmin" [routerLink]="'/location-form'">Create Location</a> |
+        <a *ngIf="isAdmin" [routerLink]="'/user-form'">Create User</a>
         <button type="button" (click)="logout()" *ngIf="isLoggedIn">Logout</button>
-      </div>
-      <div *ngIf="isAdmin">
-        <a [routerLink]="'/drink-form'">Create Drink</a>
-        <a [routerLink]="'/location-form'">Create Location</a>
-        <a [routerLink]="'/user-form'">Create User</a>
+        <p>Hello {{username}}</p>
       </div>
     </div>
   </nav>
