@@ -3,6 +3,7 @@ import {DrinkService} from '../../service/drink.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {Drink} from '../../api/drink';
 import {map} from 'rxjs/operators';
+import {UserService} from '../../service/user.service';
 
 @Component({
   selector: 'app-drink-list',
@@ -12,14 +13,22 @@ import {map} from 'rxjs/operators';
 export class DrinkListComponent implements OnInit {
 
   drinks: Array<Drink>;
+  isLoggedIn: boolean;
+  isAdmin: boolean;
+  username: string;
 
-  constructor(private drinkService: DrinkService, private route: ActivatedRoute, private router: Router) {
+  constructor(private userService: UserService, private drinkService: DrinkService, private route: ActivatedRoute, private router: Router) {
+    this.loadData();
   }
 
   ngOnInit() {
-    return this.drinkService.getAll().subscribe((res: any) => {
-      this.drinks = res;
-    });
+    const data = this.route.snapshot.data;
+    this.drinks = data.drinks;
   }
-
+  private loadData() {
+    this.isLoggedIn = this.userService.isLoggedIn;
+    this.isAdmin = this.userService.isAdmin;
+    this.username = this.userService.userName;
+  }
 }
+

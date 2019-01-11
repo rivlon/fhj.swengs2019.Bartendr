@@ -12,22 +12,26 @@ export class DrinkService {
   }
 
   create(drink: Drink) {
-    return this.http.post('/api/drinks/', drink);
+    return this.http.post('api/dto/drinks/', drink);
   }
 
   update(drink: Drink) {
-    return this.http.put('/api/drinks/', drink);
+    return this.http.put('api/dto/drinks/' + drink.id, drink);
   }
 
-  delete(drink: Drink) {
-    return this.http.delete('/api/drinks/' + drink.id);
+  delete(id: number) {
+    return this.http.delete('api/drinks/' + id);
   }
 
   getById(id: string) {
-    return this.http.get('/api/drinks/' + id);
+    return this.http.get('api/dto/drinks/' + id);
   }
 
   getAll() {
-    return this.http.get('/api/drinks/');
+    return this.http.get('/api/drinks').pipe(
+      map((response: any) => {
+        return response._embedded.drinks;
+      })
+    );
   }
 }

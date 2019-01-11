@@ -5,5 +5,5 @@ export interface Drink {
   price: number;
   age: number;
   rating?: number;
-  location?: Array<any>;
+  locations?: Array<any>;
 }

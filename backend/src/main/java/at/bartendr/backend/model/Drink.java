@@ -1,12 +1,17 @@
 package at.bartendr.backend.model;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
+@JsonIdentityInfo(
+        generator = ObjectIdGenerators.PropertyGenerator.class,
+        property = "id")
 public class Drink {
 
     @Id
@@ -21,22 +26,22 @@ public class Drink {
 
     @ManyToOne
     @JsonIgnoreProperties("drinks")
-    private Location location;
+    private Location locations;
 
-        @Version
+    @Version
     @JsonIgnore
     private long version;
 
     public Drink() {
     }
 
-    public Drink(String name, String category, float price, int age, float rating, Location location, long version) {
+    public Drink(String name, String category, float price, int age, float rating, Location locations, long version) {
         this.name = name;
         this.category = category;
         this.price = price;
         this.age = age;
         this.rating = rating;
-        this.location = location;
+        this.locations = locations;
         this.version = version;
     }
 
@@ -88,12 +93,12 @@ public class Drink {
         this.rating = rating;
     }
 
-    public Location getLocation() {
-        return location;
+    public Location getLocations() {
+        return locations;
     }
 
-    public void setLocation(Location location) {
-        this.location = location;
+    public void setLocations(Location locations) {
+        this.locations = locations;
     }
 
     public long getVersion() {
@@ -116,12 +121,12 @@ public class Drink {
                 getId().equals(drink.getId()) &&
                 getName().equals(drink.getName()) &&
                 getCategory().equals(drink.getCategory()) &&
-                getLocation().equals(drink.getLocation());
+                Objects.equals(getLocations(), drink.getLocations());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getName(), getCategory(), getPrice(), getAge(), getRating(), getLocation(), getVersion());
+        return Objects.hash(getId(), getName(), getCategory(), getPrice(), getAge(), getRating(), getLocations(), getVersion());
     }
 
     @Override
@@ -133,7 +138,7 @@ public class Drink {
                 ", price=" + price +
                 ", age=" + age +
                 ", rating=" + rating +
-                ", location=" + location +
+                ", locations=" + locations +
                 ", version=" + version +
                 '}';
     }

@@ -107,10 +107,10 @@ public class UserDetailsServiceImpl implements UserDetailsService {
             hausBier.setName("Hausbier");
             hausBier.setCategory("Beer");
             if (locationRepository.findByName("Cafe Pucher").isPresent()) {
-                hausBier.setLocation(locationRepository.findByName("Cafe Pucher").get());
+                hausBier.setLocations(locationRepository.findByName("Cafe Pucher").get());
             }
             if (locationRepository.findByName("MurStüberl zum Stamperl").isPresent()) {
-                hausBier.setLocation(locationRepository.findByName("MurStüberl zum Stamperl").get());
+                hausBier.setLocations(locationRepository.findByName("MurStüberl zum Stamperl").get());
             }
             hausBier.setAge(16);
             hausBier.setPrice(3.3f);
@@ -121,7 +121,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
             freitagsBier.setName("Freitags Bier");
             freitagsBier.setCategory("Beer");
             if (locationRepository.findByName("Cafe Pucher").isPresent()) {
-                freitagsBier.setLocation(locationRepository.findByName("Cafe Pucher").get());
+                freitagsBier.setLocations(locationRepository.findByName("Cafe Pucher").get());
             }
             freitagsBier.setAge(16);
             freitagsBier.setPrice(2.9f);
@@ -132,7 +132,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
             berlinerLuft.setName("Berliner Luft");
             berlinerLuft.setCategory("High Percentage!");
             if (locationRepository.findByName("TamTam").isPresent()) {
-                berlinerLuft.setLocation(locationRepository.findByName("TamTam").get());
+                berlinerLuft.setLocations(locationRepository.findByName("TamTam").get());
             }
             berlinerLuft.setAge(18);
             berlinerLuft.setPrice(3.5f);
@@ -143,10 +143,10 @@ public class UserDetailsServiceImpl implements UserDetailsService {
             tequilla.setName("Tequilla");
             tequilla.setCategory("High Percentage!");
             if (locationRepository.findByName("Postgarage").isPresent()) {
-                tequilla.setLocation(locationRepository.findByName("Postgarage").get());
+                tequilla.setLocations(locationRepository.findByName("Postgarage").get());
             }
             if (locationRepository.findByName("TamTam").isPresent()) {
-                tequilla.setLocation(locationRepository.findByName("TamTam").get());
+                tequilla.setLocations(locationRepository.findByName("TamTam").get());
             }
             tequilla.setAge(18);
             tequilla.setPrice(3);

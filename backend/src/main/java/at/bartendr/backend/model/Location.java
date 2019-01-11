@@ -1,12 +1,18 @@
 package at.bartendr.backend.model;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import javax.persistence.*;
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
+@JsonIdentityInfo(
+        generator = ObjectIdGenerators.PropertyGenerator.class,
+        property = "id")
 public class Location {
 
     @Id
@@ -19,8 +25,8 @@ public class Location {
 
     private float rating;
 
-    @OneToMany(mappedBy = "location")
-    private List<Drink> drinks;
+    @OneToMany(mappedBy = "locations")
+    private Set<Drink> drinks;
 
     @Version
     @JsonIgnore
@@ -29,7 +35,7 @@ public class Location {
     public Location() {
     }
 
-    public Location(String name, String plusCode, float rating, List<Drink> drinks, long version) {
+    public Location(String name, String plusCode, float rating, Set<Drink> drinks, long version) {
         this.name = name;
         this.plusCode = plusCode;
         this.rating = rating;
@@ -69,11 +75,11 @@ public class Location {
         this.rating = rating;
     }
 
-    public List<Drink> getDrinks() {
+    public Set<Drink> getDrinks() {
         return drinks;
     }
 
-    public void setDrinks(List<Drink> drinks) {
+    public void setDrinks(Set<Drink> drinks) {
         this.drinks = drinks;
     }
 
@@ -101,5 +107,17 @@ public class Location {
     @Override
     public int hashCode() {
         return Objects.hash(getId(), getName(), getPlusCode(), getRating(), getDrinks(), getVersion());
+    }
+
+    @Override
+    public String toString() {
+        return "Location{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", plusCode='" + plusCode + '\'' +
+                ", rating=" + rating +
+                ", drinks=" + drinks +
+                ", version=" + version +
+                '}';
     }
 }
