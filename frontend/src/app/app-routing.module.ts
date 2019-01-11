@@ -13,6 +13,7 @@ import {DrinksResolver} from './resolver/drinks.resolver';
 import {DrinkResolver} from './resolver/drink.resolver';
 import {LocationResolver} from './resolver/location.resolver';
 import {LocationsResolver} from './resolver/locations.resolver';
+import {UserResolver} from './resolver/user.resolver';
 
 const routes: Routes = [
   {path: '', redirectTo: '/login', pathMatch: 'full'},
@@ -29,7 +30,7 @@ const routes: Routes = [
   {path: 'user-profile', component: UserProfileComponent, canActivate: [AuthGuard]},
   {path: 'drink-form', component: DrinkFormComponent, canActivate: [AdminGuard]},
   {path: 'location-form', component: LocationFormComponent, canActivate: [AdminGuard]},
-  {path: 'user-form', component: UserFormComponent, canActivate: [AdminGuard]}
+  {path: 'user-form', component: UserFormComponent, canActivate: [AdminGuard], resolve: {user: UserResolver}}
 ];
 
 @NgModule({

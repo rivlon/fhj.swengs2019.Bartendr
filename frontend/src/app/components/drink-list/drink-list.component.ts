@@ -2,8 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {DrinkService} from '../../service/drink.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {Drink} from '../../api/drink';
-import {map} from 'rxjs/operators';
-import {UserService} from '../../service/user.service';
+import {AuthService} from '../../service/auth.service';
 
 @Component({
   selector: 'app-drink-list',
@@ -17,7 +16,7 @@ export class DrinkListComponent implements OnInit {
   isAdmin: boolean;
   username: string;
 
-  constructor(private userService: UserService, private drinkService: DrinkService, private route: ActivatedRoute, private router: Router) {
+  constructor(private authService: AuthService, private drinkService: DrinkService, private route: ActivatedRoute, private router: Router) {
     this.loadData();
   }
 
@@ -26,9 +25,9 @@ export class DrinkListComponent implements OnInit {
     this.drinks = data.drinks;
   }
   private loadData() {
-    this.isLoggedIn = this.userService.isLoggedIn;
-    this.isAdmin = this.userService.isAdmin;
-    this.username = this.userService.userName;
+    this.isLoggedIn = this.authService.isLoggedIn;
+    this.isAdmin = this.authService.isAdmin;
+    this.username = this.authService.userName;
   }
 }
 
