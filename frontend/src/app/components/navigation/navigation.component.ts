@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {UserService} from '../../service/user.service';
+import {AuthService} from '../../service/auth.service';
 
 @Component({
   selector: 'app-navigation',
@@ -8,7 +9,7 @@ import {UserService} from '../../service/user.service';
 })
 export class NavigationComponent implements OnInit {
 
-  constructor(private userService: UserService) {
+  constructor(private authService: AuthService) {
     this.loadData();
   }
 
@@ -17,20 +18,20 @@ export class NavigationComponent implements OnInit {
   username: string;
 
   ngOnInit() {
-    this.userService.loggedInChange.subscribe((isLoggedIn) => {
+    this.authService.loggedInChange.subscribe((isLoggedIn) => {
       this.isLoggedIn = isLoggedIn;
       this.loadData();
     });
   }
 
   private loadData() {
-    this.isLoggedIn = this.userService.isLoggedIn;
-    this.isAdmin = this.userService.isAdmin;
-    this.username = this.userService.userName;
+    this.isLoggedIn = this.authService.isLoggedIn;
+    this.isAdmin = this.authService.isAdmin;
+    this.username = this.authService.userName;
   }
 
   logout() {
-    this.userService.logout();
+    this.authService.logout();
   }
 
 }
