@@ -15,10 +15,6 @@ export class LocationService {
 
 
   getAll() {
-    return this.http.get('/api/locations').pipe(
-      map((response: any) => {
-        return response._embedded.locations;
-      })
-    );
+    return this.http.get('/api/locations');
   }
 }

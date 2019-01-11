@@ -3,4 +3,5 @@ export interface Location {
   name: string;
   plusCode: string;
   rating?: number;
+  drinks?: Array<any>;
 }

@@ -9,7 +9,7 @@ public class LocationDTO {
     private String name;
     private String plusCode;
     private float rating;
-    private Set<Drink> drinks;
+    private Set<Long> drinks;
 
     public Long getId() {
         return id;
@@ -43,20 +43,18 @@ public class LocationDTO {
         this.rating = rating;
     }
 
-    public Set<Drink> getDrinks() {
+    public Set<Long> getDrinks() {
         return drinks;
     }
 
-    public void setDrinks(Set<Drink> drinks) {
+    public void setDrinks(Set<Long> drinks) {
         this.drinks = drinks;
     }
-
-
 
     public LocationDTO() {
     }
 
-    public LocationDTO(Long id, String name, String plusCode, float rating, Set<Drink> drinks) {
+    public LocationDTO(Long id, String name, String plusCode, float rating, Set<Long> drinks) {
         this.id = id;
         this.name = name;
         this.plusCode = plusCode;
