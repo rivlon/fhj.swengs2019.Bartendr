@@ -2,12 +2,10 @@ package at.bartendr.backend.service;
 
 import at.bartendr.backend.model.Drink;
 import at.bartendr.backend.model.DrinkRepository;
-import at.bartendr.backend.model.Location;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
-import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
@@ -28,8 +26,8 @@ public class DrinkService {
 
     public Set<Drink> getDrinks(Set<Drink> dtos) {
         Set<Drink> entities = new HashSet<>();
-        if(dtos != null)
-            dtos.forEach((dto)->entities.add(drinkRepository.findById(dto.getId()).get()));
+        if (dtos != null)
+            dtos.forEach((dto) -> entities.add(drinkRepository.findById(dto.getId()).get()));
         return entities;
     }
 

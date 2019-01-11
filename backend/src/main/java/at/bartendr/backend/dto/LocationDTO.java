@@ -1,6 +1,7 @@
 package at.bartendr.backend.dto;
 
 import at.bartendr.backend.model.Drink;
+
 import java.util.Set;
 
 public class LocationDTO {
@@ -50,7 +51,6 @@ public class LocationDTO {
     public void setDrinks(Set<Drink> drinks) {
         this.drinks = drinks;
     }
-
 
 
     public LocationDTO() {
