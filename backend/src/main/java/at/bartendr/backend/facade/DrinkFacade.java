@@ -1,4 +1,5 @@
 package at.bartendr.backend.facade;
+
 import at.bartendr.backend.dto.DrinkDTO;
 import at.bartendr.backend.model.Drink;
 import at.bartendr.backend.service.DrinkService;
@@ -6,11 +7,6 @@ import at.bartendr.backend.service.LocationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service()
 @Transactional
@@ -28,8 +24,11 @@ public class DrinkFacade {
         entity.setPrice(dto.getPrice());
         entity.setAge(dto.getAge());
         entity.setRating(dto.getRating());
-        entity.setLocations(locationService.findById(dto.getLocationID()).get());
+        entity.setLocations(locationService.findById(
+                dto.getLocationID()
+        ).get());
     }
+
 
     private void mapEntityToDto(Drink entity, DrinkDTO dto) {
         dto.setId(entity.getId());
@@ -41,7 +40,7 @@ public class DrinkFacade {
         dto.setLocationID(entity.getLocations().getId());
     }
 
-    public DrinkDTO update(Long id, DrinkDTO dto) {
+    public DrinkDTO update(long id, DrinkDTO dto) {
         Drink entity = drinkService.findById(id).get();
         mapDtoToEntity(dto, entity);
         mapEntityToDto(drinkService.save(entity), dto);
@@ -55,7 +54,7 @@ public class DrinkFacade {
         return dto;
     }
 
-    public DrinkDTO getById(Long id) {
+    public DrinkDTO getById(long id) {
         Drink entity = drinkService.findById(id).get();
         DrinkDTO dto = new DrinkDTO();
         mapEntityToDto(entity, dto);

@@ -16,7 +16,7 @@ public class Drink {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private long id;
 
     private String name;
     private String category;
@@ -44,11 +44,11 @@ public class Drink {
         this.version = version;
     }
 
-    public Long getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -117,7 +117,7 @@ public class Drink {
                 getAge() == drink.getAge() &&
                 Float.compare(drink.getRating(), getRating()) == 0 &&
                 getVersion() == drink.getVersion() &&
-                getId().equals(drink.getId()) &&
+                getId() == drink.getId() &&
                 getName().equals(drink.getName()) &&
                 getCategory().equals(drink.getCategory()) &&
                 Objects.equals(getLocations(), drink.getLocations());

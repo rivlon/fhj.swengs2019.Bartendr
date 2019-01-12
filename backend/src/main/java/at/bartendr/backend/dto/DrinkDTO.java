@@ -8,7 +8,7 @@ import java.util.Set;
 
 public class DrinkDTO {
 
-    private Long id;
+    private long id;
     private String name;
     private String category;
     private float price;
@@ -16,11 +16,11 @@ public class DrinkDTO {
     private float rating;
     private long locationID;
 
-    public Long getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -75,7 +75,7 @@ public class DrinkDTO {
     public DrinkDTO() {
     }
 
-    public DrinkDTO(Long id, String name, String category, float price, Age age, float rating, long locationID) {
+    public DrinkDTO(long id, String name, String category, float price, Age age, float rating, long locationID) {
         this.id = id;
         this.name = name;
         this.category = category;

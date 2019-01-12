@@ -32,7 +32,7 @@ export class DrinkFormComponent implements OnInit {
       'price': new FormControl(),
       'age': new FormControl(),
       'rating': new FormControl(),
-      'locations': new FormControl()
+      'locationID': new FormControl()
     });
 
     this.locationService.getAll()
