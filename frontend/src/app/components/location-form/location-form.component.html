@@ -1,7 +1,52 @@
-<div>
-  <label>Name: Pucher</label><br>
+<form [formGroup]="locationForm" (ngSubmit)="saveLocation()">
+  <div class="row">
 
-  <label>PlusCode:</label><br>
+    <div class="col">
+      <div class="form-group">
+        <label for="name">Location name:</label>
+        <input id="name" type="text" name="name" formControlName="name" class="form-control"/>
+        <div
+          *ngIf="locationForm.controls.name.invalid && (locationForm.controls.name.dirty || locationForm.controls.name.touched)"
+          class="alert alert-danger">
+          <div *ngIf="locationForm.controls.name.errors.required">
+            Name is required.
+          </div>
+          <div *ngIf="locationForm.controls.name.errors.minlength">
+            Name must be at least 2 characters long.
+          </div>
+        </div>
+      </div>
+    </div>
 
-  <label>Rating: 5/5</label><br>
-</div>
+    <div class="col">
+      <div class="form-group">
+        <label for="plusCode">PlusCode:</label>
+        <input id="plusCode" type="text" name="plusCode" formControlName="plusCode" class="form-control"/>
+      </div>
+    </div>
+
+    <div class="col">
+      <div class="row">
+        <div class="col">
+          <label for="rating">Rating:</label>
+          <rating id="rating" type="text" name="rating" [max]="5" formControlName="rating"></rating>
+        </div>
+        <div class="col">
+          <label for="drinks">Drinks:</label>
+          <ngx-select id="drinks" [items]="drinkOptions" name="drinks" [multiple]="true"
+                      formControlName="drinks" optionTextField="name"></ngx-select>
+        </div>
+      </div>
+    </div>
+
+    <div class="btn-group">
+      <button type="submit" class="btn btn-primary" [disabled]="locationForm.invalid">
+        Save
+      </button>
+      <button type="submit" (click)="setShouldNavigateToList()" class="btn btn-primary"
+              [disabled]="locationForm.invalid">
+        Save and Back
+      </button>
+    </div>
+  </div>
+</form>

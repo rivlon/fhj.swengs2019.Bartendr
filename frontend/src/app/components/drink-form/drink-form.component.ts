@@ -3,7 +3,6 @@ import {DrinkService} from '../../service/drink.service';
 import {LocationService} from '../../service/location.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {map} from 'rxjs/operators';
 
 @Component({
   selector: 'app-drink-form',
@@ -45,7 +44,6 @@ export class DrinkFormComponent implements OnInit {
   }
 
   saveDrink() {
-
     const drinkToBeSafe = this.drinkForm.value;
     if (drinkToBeSafe.id) {
       this.drinkService.update(drinkToBeSafe)

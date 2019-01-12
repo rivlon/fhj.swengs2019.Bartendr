@@ -145,7 +145,7 @@ public class Drink {
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getName(), getCategory(), getPrice(), getAge(), getRating(), getLocations(), getPicture(), getVersion());
+        return Objects.hash(getId(), getName(), getCategory(), getPrice(), getAge(), getRating(), getPicture(), getVersion());
     }
 
     @Override

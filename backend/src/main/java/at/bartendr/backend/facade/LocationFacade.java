@@ -38,7 +38,7 @@ public class LocationFacade {
         dto.setDrinks(entity.getDrinks().stream().map((m) -> m.getId()).collect(Collectors.toSet()));
     }
 
-    public LocationDTO update(Long id, LocationDTO dto) {
+    public LocationDTO update(long id, LocationDTO dto) {
         Location entity = locationService.findById(id).get();
         mapDtoToEntity(dto, entity);
         mapEntityToDto(locationService.save(entity), dto);
@@ -52,7 +52,7 @@ public class LocationFacade {
         return dto;
     }
 
-    public LocationDTO getById(Long id) {
+    public LocationDTO getById(long id) {
         Location entity = locationService.findById(id).get();
         LocationDTO dto = new LocationDTO();
         mapEntityToDto(entity, dto);

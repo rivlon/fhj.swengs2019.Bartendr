@@ -8,4 +8,5 @@
       <agm-marker [latitude]="lat" [longitude]="lng"></agm-marker>
     </agm-map>
   </div>
+  Name: {{location.name}} | PlusCode: {{location.plusCode}} <a *ngIf="isAdmin" [routerLink]="'/location-form/' + location.id">Edit</a>
 </div>

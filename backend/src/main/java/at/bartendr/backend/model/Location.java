@@ -107,7 +107,7 @@ public class Location {
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getName(), getPlusCode(), getRating(), getDrinks(), getVersion());
+        return Objects.hash(getId(), getName(), getPlusCode(), getRating(), getVersion());
     }
 
     @Override

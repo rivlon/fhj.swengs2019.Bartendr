@@ -22,7 +22,9 @@ export class LocationsComponent implements OnInit {
   isAdmin: boolean;
   username: string;
 
-  constructor(private authService: AuthService, private locationService: LocationService, private route: ActivatedRoute, private router: Router, private locationFormComponent: LocationFormComponent) {
+
+  constructor(private authService: AuthService, private locationService: LocationService, private route: ActivatedRoute,
+              private router: Router, private locationFormComponent: LocationFormComponent) {
     this.loadData();
   }
 
@@ -42,5 +44,4 @@ export class LocationsComponent implements OnInit {
     this.isAdmin = this.authService.isAdmin;
     this.username = this.authService.userName;
   }
-
 }
