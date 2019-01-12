@@ -2,3 +2,7 @@
 <div *ngFor="let location of locations">
   Name: | {{location.name}} PlusCode: | {{location.plusCode}} Edit: | <button *ngIf="isAdmin" (click)="navigateToLocationForm(location.id)">Edit</button>
 </div>
+
+<agm-map [latitude]="lat" [longitude]="lng">
+  <agm-marker [latitude]="lat" [longitude]="lng"></agm-marker>
+</agm-map>

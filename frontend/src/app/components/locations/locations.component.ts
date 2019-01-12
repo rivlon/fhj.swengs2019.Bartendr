@@ -2,9 +2,10 @@ import {Component, OnInit} from '@angular/core';
 import {DrinkService} from '../../service/drink.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {LocationService} from '../../service/location.service';
-import {DrinkFormComponent} from '../drink-form/drink-form.component';
 import {LocationFormComponent} from '../location-form/location-form.component';
 import {AuthService} from '../../service/auth.service';
+import { MapsAPILoader, AgmMap } from '@agm/core';
+import { GoogleMapsAPIWrapper } from '@agm/core/services';
 
 @Component({
   selector: 'app-locations',
@@ -12,6 +13,9 @@ import {AuthService} from '../../service/auth.service';
   styleUrls: ['./locations.component.scss']
 })
 export class LocationsComponent implements OnInit {
+
+  lat = 51.678418;
+  lng = 7.809007;
 
   locations: Array<Location>;
   isLoggedIn: boolean;

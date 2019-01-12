@@ -23,6 +23,7 @@ import {MediainputComponent} from './components/mediainput/mediainput.component'
 import {SafeUrlPipe} from './components/safe-pipe/safe-pipe.component';
 import {SafePipeModule} from 'safe-pipe';
 import {FileUploadModule} from 'ng2-file-upload';
+import {AgmCoreModule, GoogleMapsAPIWrapper} from '@agm/core';
 
 
 export function tokenGetter() {
@@ -46,6 +47,7 @@ export function tokenGetter() {
   ],
   imports: [
     BrowserModule,
+    AgmCoreModule.forRoot({apiKey: 'OUR_API_KEY_HERE:https://swengsbartendr.slack.com/archives/CF830N2N4/p1547311358000300'}),
     AppRoutingModule,
     HttpClientModule,
     FileUploadModule,
@@ -66,7 +68,8 @@ export function tokenGetter() {
   ],
   providers: [DrinkFormComponent,
     LocationFormComponent,
-    UserFormComponent],
+    UserFormComponent,
+    GoogleMapsAPIWrapper],
   bootstrap: [AppComponent]
 })
 export class AppModule {
