@@ -1,13 +1,34 @@
-<form (ngSubmit)="login()">
-  <label>
-    Username:
-    <input type="text" name="username" [(ngModel)]="user.username"/>
-  </label>
-  <label>
-    Password:
-    <input type="password" name="password" [(ngModel)]="user.password"/>
-  </label>
-  <button type="submit">
-    Login
-  </button>
-</form>
+<div class="page-header" filter-color="orange">
+  <div class="page-header-image" style="background-image:url(assets/img/login.jpg)"></div>
+  <div class="container">
+    <div class="col-md-4 content-center">
+      <div class="card card-login card-plain">
+        <form class="form" (ngSubmit)="login()">
+          <div class="header header-primary text-center">
+            <div class="logo-container">
+              <h1>Bartendr</h1>
+            </div>
+          </div>
+          <div class="content">
+            <div class="input-group form-group-no-border input-lg" [ngClass]="{'input-group-focus':focus===true}">
+              <input type="text" name="username" class="form-control" placeholder="Username" (focus)="focus=true" (blur)="focus=false" [(ngModel)]="user.username">
+            </div>
+            <div class="input-group form-group-no-border input-lg" [ngClass]="{'input-group-focus':focus1===true}">
+              <input type="password" name="password" placeholder="Password" class="form-control" (focus)="focus1=true" (blur)="focus1=false" [(ngModel)]="user.password"/>
+            </div>
+          </div>
+          <button class="btn btn-default" type="submit">
+            Login
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+  <footer class="footer">
+    <div class="container">
+      <div class="copyright">
+        &copy; {{today | date: 'yyyy'}} Bartendr-Team
+      </div>
+    </div>
+  </footer>
+</div>

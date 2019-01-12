@@ -10,6 +10,7 @@ import {AuthService} from '../../service/auth.service';
 })
 export class LoginComponent implements OnInit {
 
+  today: number = Date.now();
   user: any;
 
   constructor(private authService: AuthService, private router: Router) { }
