@@ -7,6 +7,7 @@ import {map} from 'rxjs/operators';
 
 @Component({
   selector: 'app-drink-form',
+  providers: [DrinkFormComponent],
   templateUrl: './drink-form.component.html',
   styleUrls: ['./drink-form.component.scss']
 })
@@ -15,7 +16,7 @@ export class DrinkFormComponent implements OnInit {
   drinkForm;
   shouldNavigateToList: boolean;
   locationOptions;
-  id;
+  drinkId;
   cat: string;
   text: string;
 
@@ -37,7 +38,9 @@ export class DrinkFormComponent implements OnInit {
     });
 
     const data = this.route.snapshot.data;
-    this.drinkForm.setValue(data.drink);
+    if (data.drink) {
+      this.drinkForm.setValue(data.drink);
+    }
     this.locationOptions = data.locations;
   }
 
@@ -59,8 +62,8 @@ export class DrinkFormComponent implements OnInit {
     }
   }
 
-  deleteDrink(id: number) {
-    this.drinkService.delete(id).subscribe(() => {
+  deleteDrink(drinkId: number) {
+    this.drinkService.delete(drinkId).subscribe(() => {
       alert('Deleted successfuly!');
       this.setShouldNavigateToList();
       this.navigateToList();

@@ -69,5 +69,4 @@ export class AuthService {
     this.loggedInChange.next(false);
     this.router.navigate(['/login']);
   }
-
 }

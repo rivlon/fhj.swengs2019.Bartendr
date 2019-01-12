@@ -3,6 +3,7 @@ import {DrinkService} from '../../service/drink.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {Drink} from '../../api/drink';
 import {AuthService} from '../../service/auth.service';
+import {DrinkFormComponent} from '../drink-form/drink-form.component';
 
 @Component({
   selector: 'app-drink-list',
@@ -16,7 +17,7 @@ export class DrinkListComponent implements OnInit {
   isAdmin: boolean;
   username: string;
 
-  constructor(private authService: AuthService, private drinkService: DrinkService, private route: ActivatedRoute, private router: Router) {
+  constructor(private drinkFormComponent: DrinkFormComponent, private authService: AuthService, private drinkService: DrinkService, private route: ActivatedRoute, private router: Router) {
     this.loadData();
   }
 
@@ -28,6 +29,11 @@ export class DrinkListComponent implements OnInit {
     this.isLoggedIn = this.authService.isLoggedIn;
     this.isAdmin = this.authService.isAdmin;
     this.username = this.authService.userName;
+  }
+
+  navigateToDrinkForm(id: number) {
+    this.drinkFormComponent.drinkId = id;
+    this.router.navigate(['/drink-form']);
   }
 }
 
