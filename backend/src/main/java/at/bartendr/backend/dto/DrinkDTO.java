@@ -1,28 +1,25 @@
 package at.bartendr.backend.dto;
 
 import at.bartendr.backend.model.Age;
-import at.bartendr.backend.model.Location;
 import at.bartendr.backend.model.Media;
 
-import java.util.Date;
-import java.util.Set;
 
 public class DrinkDTO {
 
-    private Long id;
+    private long id;
     private String name;
     private String category;
     private float price;
     private Age age;
     private float rating;
-    private Location locations;
     private Media picture;
+    private long locationID;
 
-    public Long getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -66,13 +63,14 @@ public class DrinkDTO {
         this.rating = rating;
     }
 
-    public Location getLocations() {
-        return locations;
+    public long getLocationID() {
+        return locationID;
     }
 
-    public void setLocations(Location gender) {
-        this.locations = locations;
+    public void setLocationID(long locationID) {
+        this.locationID = locationID;
     }
+
 
     public Media getPicture() { return picture;}
 
@@ -82,14 +80,16 @@ public class DrinkDTO {
     public DrinkDTO() {
     }
 
-    public DrinkDTO(Long id, String name, String category, float price, Age age, float rating, Location location, Media picture) {
+
+    public DrinkDTO(long id, String name, String category, float price, Age age, float rating, long locationID) {
         this.id = id;
         this.name = name;
         this.category = category;
         this.price = price;
         this.age = age;
         this.rating = rating;
-        this.locations = location;
         this.picture = picture;
+        this.locationID = locationID;
+
     }
 }

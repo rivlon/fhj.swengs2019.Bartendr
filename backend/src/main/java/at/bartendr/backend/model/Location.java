@@ -18,7 +18,7 @@ public class Location {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private long id;
 
     private String name;
 
@@ -44,11 +44,11 @@ public class Location {
         this.version = version;
     }
 
-    public Long getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -99,7 +99,7 @@ public class Location {
         Location location = (Location) o;
         return Float.compare(location.getRating(), getRating()) == 0 &&
                 getVersion() == location.getVersion() &&
-                getId().equals(location.getId()) &&
+                getId() == location.getId() &&
                 getName().equals(location.getName()) &&
                 getPlusCode().equals(location.getPlusCode()) &&
                 Objects.equals(getDrinks(), location.getDrinks());

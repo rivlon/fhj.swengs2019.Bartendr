@@ -111,9 +111,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
             if (locationRepository.findByName("Cafe Pucher").isPresent()) {
                 hausBier.setLocations(locationRepository.findByName("Cafe Pucher").get());
             }
-            if (locationRepository.findByName("MurStüberl zum Stamperl").isPresent()) {
-                hausBier.setLocations(locationRepository.findByName("MurStüberl zum Stamperl").get());
-            }
             hausBier.setAge(Age.atLeast16);
             hausBier.setPrice(3.3f);
             hausBier.setRating(4.4f);
@@ -146,9 +143,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
             tequilla.setCategory("High Percentage!");
             if (locationRepository.findByName("Postgarage").isPresent()) {
                 tequilla.setLocations(locationRepository.findByName("Postgarage").get());
-            }
-            if (locationRepository.findByName("TamTam").isPresent()) {
-                tequilla.setLocations(locationRepository.findByName("TamTam").get());
             }
             tequilla.setAge(Age.atLeast18);
             tequilla.setPrice(3);

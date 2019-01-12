@@ -18,7 +18,7 @@ public class Drink {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private long id;
 
     @Column(name = "name", nullable = false, length = 25)
     private String name;
@@ -32,7 +32,6 @@ public class Drink {
     private float rating;
 
     @ManyToOne
-    @JsonIgnoreProperties("drinks")
     private Location locations;
 
     @Column(name = "picture")
@@ -56,11 +55,11 @@ public class Drink {
         this.version = version;
     }
 
-    public Long getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -136,7 +135,7 @@ public class Drink {
         return Float.compare(drink.getPrice(), getPrice()) == 0 &&
                 Float.compare(drink.getRating(), getRating()) == 0 &&
                 getVersion() == drink.getVersion() &&
-                getId().equals(drink.getId()) &&
+                getId() == drink.getId() &&
                 getName().equals(drink.getName()) &&
                 Objects.equals(getCategory(), drink.getCategory()) &&
                 getAge() == drink.getAge() &&

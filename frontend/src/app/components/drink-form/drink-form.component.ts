@@ -21,10 +21,10 @@ export class DrinkFormComponent implements OnInit {
 
   constructor(private drinkService: DrinkService, private route: ActivatedRoute, private router: Router,
               private locationService: LocationService) {
+
   }
 
   ngOnInit() {
-
     this.drinkForm = new FormGroup({
       'id': new FormControl(),
       'name': new FormControl([''], [Validators.required, Validators.minLength(2)]),
@@ -32,29 +32,13 @@ export class DrinkFormComponent implements OnInit {
       'price': new FormControl(),
       'age': new FormControl(),
       'rating': new FormControl(),
-      'locations': new FormControl(),
+      'locationID': new FormControl(),
       'picture': new FormControl()
     });
 
     const data = this.route.snapshot.data;
     this.drinkForm.setValue(data.drink);
     this.locationOptions = data.locations;
-
-    /*
-
-    this.locationService.getAll()
-      .subscribe((locations: any) => {
-        this.locationOptions = locations._embedded.locations;
-      });
-
-
-    const id = this.route.snapshot.paramMap.get('id');
-    if (id) {
-      this.drinkService.getById(id)
-        .subscribe((response) => {
-          this.drinkForm.setValue(response);
-        });
-    }*/
   }
 
   saveDrink() {
