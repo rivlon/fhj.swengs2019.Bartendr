@@ -24,10 +24,11 @@ public class DrinkService {
         return drinkRepository.save(entity);
     }
 
-    public Set<Drink> getDrinks(Set<Drink> dtos) {
+    public Set<Drink> getDrinks(Set<Long> dtos) {
         Set<Drink> entities = new HashSet<>();
-        if (dtos != null)
-            dtos.forEach((dto) -> entities.add(drinkRepository.findById(dto.getId()).get()));
+
+        if(dtos != null)
+            dtos.forEach((dto)->entities.add(drinkRepository.findById(dto).get()));
         return entities;
     }
 

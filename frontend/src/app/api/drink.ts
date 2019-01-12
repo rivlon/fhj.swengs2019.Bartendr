@@ -1,3 +1,5 @@
+import {Location} from '../api/location';
+
 export interface Drink {
   id?: number;
   name: string;
@@ -5,5 +7,5 @@ export interface Drink {
   price: number;
   age: number;
   rating?: number;
-  locations?: Array<any>;
+  locations?: any;
 }

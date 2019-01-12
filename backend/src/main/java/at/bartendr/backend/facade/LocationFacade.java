@@ -28,7 +28,6 @@ public class LocationFacade {
         entity.setPlusCode(dto.getPlusCode());
         entity.setRating(dto.getRating());
         entity.setDrinks(drinkService.getDrinks(dto.getDrinks()));
-
     }
 
     private void mapEntityToDto(Location entity, LocationDTO dto) {
@@ -36,7 +35,7 @@ public class LocationFacade {
         dto.setName(entity.getName());
         dto.setPlusCode(entity.getPlusCode());
         dto.setRating(entity.getRating());
-        dto.setDrinks(entity.getDrinks());
+        dto.setDrinks(entity.getDrinks().stream().map((m) -> m.getId()).collect(Collectors.toSet()));
     }
 
     public LocationDTO update(Long id, LocationDTO dto) {
