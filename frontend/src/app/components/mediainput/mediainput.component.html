@@ -1,0 +1,22 @@
+<div>
+<div *ngIf="medium">
+    <div><strong>{{ medium.originalFileName }}</strong></div>
+  <div><strong>{{ medium.size / 1024 / 1024 | number }}&nbsp;MB</strong></div>
+  <div>
+    <span *ngIf="!pictureId">Wird hochgeladen...</span>
+    <span *ngIf="pictureId">Hochgeladen</span>
+  </div>
+  <div class="btn-group">
+    <button type="button" class="btn btn-primary" (click)="downloadMedia(medium)">
+      Download
+    </button>
+    <button type="button" class="btn btn-danger" (click)="deleteMedium(medium.id)">
+      Entfernen
+    </button>
+  </div>
+  <div>
+    <img [src]="preview | safeUrl" *ngIf="preview" class="img-fluid">
+  </div>
+</div>
+  <input [id]="'field_' + name" type="file" ng2FileSelect [uploader]="uploader" [multiple]="false"/>
+</div>

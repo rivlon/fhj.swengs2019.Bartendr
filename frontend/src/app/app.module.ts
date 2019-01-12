@@ -19,6 +19,11 @@ import { NgxSelectModule } from 'ngx-select-ex';
 import { ReactiveFormsModule  } from '@angular/forms';
 import {BsDropdownModule} from 'ngx-bootstrap';
 import { UserListComponent } from './components/user-list/user-list.component';
+import {MediainputComponent} from './components/mediainput/mediainput.component';
+import {SafeUrlPipe} from './components/safe-pipe/safe-pipe.component';
+import { SafePipeModule } from 'safe-pipe';
+import { FileUploadModule } from 'ng2-file-upload';
+
 
 export function tokenGetter() {
   return localStorage.getItem('access_token');
@@ -27,7 +32,9 @@ export function tokenGetter() {
 @NgModule({
   declarations: [
     AppComponent,
+    MediainputComponent,
     DrinkListComponent,
+    SafeUrlPipe,
     DrinkFormComponent,
     UserProfileComponent,
     LoginComponent,
@@ -41,6 +48,8 @@ export function tokenGetter() {
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
+    FileUploadModule,
+    SafePipeModule,
     ReactiveFormsModule,
     RatingModule.forRoot(),
     BsDropdownModule.forRoot(),

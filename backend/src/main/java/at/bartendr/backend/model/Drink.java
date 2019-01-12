@@ -6,7 +6,9 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @JsonIdentityInfo(
@@ -18,15 +20,23 @@ public class Drink {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "name", nullable = false, length = 25)
     private String name;
+    @Column(name = "category")
     private String category;
+    @Column(name = "price")
     private float price;
+    @Column(name = "age")
     private Age age;
+    @Column(name = "rating")
     private float rating;
 
     @ManyToOne
     @JsonIgnoreProperties("drinks")
     private Location locations;
+
+    @Column(name = "picture")
+    private Media picture;
 
     @Version
     @JsonIgnore
@@ -35,13 +45,14 @@ public class Drink {
     public Drink() {
     }
 
-    public Drink(String name, String category, float price, Age age, float rating, Location locations, long version) {
+    public Drink(String name, String category, float price, Age age, float rating, Location locations, Media picture, long version) {
         this.name = name;
         this.category = category;
         this.price = price;
         this.age = age;
         this.rating = rating;
         this.locations = locations;
+        this.picture = picture;
         this.version = version;
     }
 
@@ -101,6 +112,14 @@ public class Drink {
         this.locations = locations;
     }
 
+    public Media getPicture() {
+        return picture;
+    }
+
+    public void setPicture(Media picture) {
+        this.picture = picture;
+    }
+
     public long getVersion() {
         return version;
     }
@@ -115,18 +134,19 @@ public class Drink {
         if (!(o instanceof Drink)) return false;
         Drink drink = (Drink) o;
         return Float.compare(drink.getPrice(), getPrice()) == 0 &&
-                getAge() == drink.getAge() &&
                 Float.compare(drink.getRating(), getRating()) == 0 &&
                 getVersion() == drink.getVersion() &&
                 getId().equals(drink.getId()) &&
                 getName().equals(drink.getName()) &&
-                getCategory().equals(drink.getCategory()) &&
-                Objects.equals(getLocations(), drink.getLocations());
+                Objects.equals(getCategory(), drink.getCategory()) &&
+                getAge() == drink.getAge() &&
+                Objects.equals(getLocations(), drink.getLocations()) &&
+                Objects.equals(getPicture(), drink.getPicture());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getName(), getCategory(), getPrice(), getAge(), getRating(), getLocations(), getVersion());
+        return Objects.hash(getId(), getName(), getCategory(), getPrice(), getAge(), getRating(), getLocations(), getPicture(), getVersion());
     }
 
     @Override
@@ -139,6 +159,7 @@ public class Drink {
                 ", age=" + age +
                 ", rating=" + rating +
                 ", locations=" + locations +
+                ", picture=" + picture +
                 ", version=" + version +
                 '}';
     }

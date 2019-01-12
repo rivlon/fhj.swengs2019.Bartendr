@@ -32,7 +32,8 @@ export class DrinkFormComponent implements OnInit {
       'price': new FormControl(),
       'age': new FormControl(),
       'rating': new FormControl(),
-      'locations': new FormControl()
+      'locations': new FormControl(),
+      'picture': new FormControl()
     });
 
     const data = this.route.snapshot.data;

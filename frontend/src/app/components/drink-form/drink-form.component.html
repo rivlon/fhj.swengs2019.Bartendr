@@ -68,6 +68,8 @@
       </div>
     </div>
   </div>
+
+
   <div class="row">
     <div class="col">
       <label for="rating">Rating:</label>
@@ -79,6 +81,14 @@
                   formControlName="locations" optionTextField="name"></ngx-select>
     </div>
   </div>
+
+
+  <div class="row">
+    <div class="col">
+      <app-mediainput name="picture" formControlName="picture"></app-mediainput>
+    </div>
+  </div>
+
 
   <div class="btn-group">
     <button type="submit" class="btn btn-primary" [disabled]="drinkForm.invalid">

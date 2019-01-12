@@ -8,4 +8,5 @@ export interface Drink {
   age: number;
   rating?: number;
   locations?: any;
+  picture?;
 }
