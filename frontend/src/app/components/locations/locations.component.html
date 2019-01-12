@@ -1,12 +1,8 @@
 <div *ngFor="let location of locations">
-  Name: | {{location.name}} PlusCode: | {{location.plusCode}} Edit: | <button *ngIf="isAdmin" (click)="navigateToLocationForm(location.id)">Edit</button>
-</div>
-
-<div class="card">
   <div class="map">
     <agm-map [latitude]="lat" [longitude]="lng">
       <agm-marker [latitude]="lat" [longitude]="lng"></agm-marker>
     </agm-map>
   </div>
-  Name: {{location.name}} | PlusCode: {{location.plusCode}} <a *ngIf="isAdmin" [routerLink]="'/location-form/' + location.id">Edit</a>
+  Name: | {{location.name}} PlusCode: | {{location.plusCode}} Edit: | <button *ngIf="isAdmin" (click)="navigateToLocationForm(location.id)">Edit</button>
 </div>

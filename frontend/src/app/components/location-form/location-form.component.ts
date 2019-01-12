@@ -12,7 +12,6 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
 })
 export class LocationFormComponent implements OnInit {
 
-  locationId: number;
   locationForm;
   shouldNavigateToList: boolean;
   drinkOptions;
