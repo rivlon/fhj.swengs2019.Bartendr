@@ -37,11 +37,16 @@ export class DrinkFormComponent implements OnInit {
     });
 
     const data = this.route.snapshot.data;
+    this.drinkForm.setValue(data.drink);
+    this.locationOptions = data.locations;
+
+    /*
 
     this.locationService.getAll()
       .subscribe((locations: any) => {
         this.locationOptions = locations._embedded.locations;
       });
+
 
     const id = this.route.snapshot.paramMap.get('id');
     if (id) {
@@ -49,7 +54,7 @@ export class DrinkFormComponent implements OnInit {
         .subscribe((response) => {
           this.drinkForm.setValue(response);
         });
-    }
+    }*/
   }
 
   saveDrink() {
