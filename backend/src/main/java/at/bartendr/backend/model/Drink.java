@@ -25,7 +25,6 @@ public class Drink {
     private float rating;
 
     @ManyToOne
-    @JsonIgnoreProperties("drinks")
     private Location locations;
 
     @Version

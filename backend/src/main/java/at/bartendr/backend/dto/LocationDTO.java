@@ -1,5 +1,7 @@
 package at.bartendr.backend.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import java.util.Set;
 
 public class LocationDTO {

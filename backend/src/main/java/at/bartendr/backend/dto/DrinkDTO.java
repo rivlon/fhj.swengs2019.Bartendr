@@ -14,7 +14,7 @@ public class DrinkDTO {
     private float price;
     private Age age;
     private float rating;
-    private Location locations;
+    private long locationID;
 
     public Long getId() {
         return id;
@@ -64,25 +64,24 @@ public class DrinkDTO {
         this.rating = rating;
     }
 
-    public Location getLocations() {
-        return locations;
+    public long getLocationID() {
+        return locationID;
     }
 
-    public void setLocations(Location gender) {
-        this.locations = locations;
+    public void setLocationID(long locationID) {
+        this.locationID = locationID;
     }
-
 
     public DrinkDTO() {
     }
 
-    public DrinkDTO(Long id, String name, String category, float price, Age age, float rating, Location location) {
+    public DrinkDTO(Long id, String name, String category, float price, Age age, float rating, long locationID) {
         this.id = id;
         this.name = name;
         this.category = category;
         this.price = price;
         this.age = age;
         this.rating = rating;
-        this.locations = location;
+        this.locationID = locationID;
     }
 }

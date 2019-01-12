@@ -28,7 +28,7 @@ public class DrinkFacade {
         entity.setPrice(dto.getPrice());
         entity.setAge(dto.getAge());
         entity.setRating(dto.getRating());
-        entity.setLocations(dto.getLocations());
+        entity.setLocations(locationService.findById(dto.getLocationID()).get());
     }
 
     private void mapEntityToDto(Drink entity, DrinkDTO dto) {
@@ -38,7 +38,7 @@ public class DrinkFacade {
         dto.setPrice(entity.getPrice());
         dto.setAge(entity.getAge());
         dto.setRating(entity.getRating());
-        dto.setLocations(entity.getLocations());
+        dto.setLocationID(entity.getLocations().getId());
     }
 
     public DrinkDTO update(Long id, DrinkDTO dto) {

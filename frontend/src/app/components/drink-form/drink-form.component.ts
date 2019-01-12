@@ -21,10 +21,10 @@ export class DrinkFormComponent implements OnInit {
 
   constructor(private drinkService: DrinkService, private route: ActivatedRoute, private router: Router,
               private locationService: LocationService) {
+
   }
 
   ngOnInit() {
-
     this.drinkForm = new FormGroup({
       'id': new FormControl(),
       'name': new FormControl([''], [Validators.required, Validators.minLength(2)]),
@@ -34,8 +34,6 @@ export class DrinkFormComponent implements OnInit {
       'rating': new FormControl(),
       'locations': new FormControl()
     });
-
-    const data = this.route.snapshot.data;
 
     this.locationService.getAll()
       .subscribe((locations: any) => {
