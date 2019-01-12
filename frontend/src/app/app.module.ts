@@ -27,7 +27,7 @@ import {AgmCoreModule, GoogleMapsAPIWrapper} from '@agm/core';
 
 
 export function tokenGetter() {
-  return localStorage.getItem('AIzaSyB8d4_zfbw1kp0hYV18zvi60JSmqXw25Qw');
+  return localStorage.getItem('access_token');
 }
 
 @NgModule({
@@ -47,7 +47,7 @@ export function tokenGetter() {
   ],
   imports: [
     BrowserModule,
-    AgmCoreModule.forRoot({apiKey: 'OUR_API_KEY_HERE:https://swengsbartendr.slack.com/archives/CF830N2N4/p1547311358000300'}),
+    AgmCoreModule.forRoot({apiKey: 'AIzaSyB8d4_zfbw1kp0hYV18zvi60JSmqXw25Qw'}),
     AppRoutingModule,
     HttpClientModule,
     FileUploadModule,
