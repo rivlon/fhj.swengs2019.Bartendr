@@ -8,6 +8,8 @@ import {map} from 'rxjs/operators';
 })
 export class DrinkService {
 
+  drinkId: number;
+
   constructor(private http: HttpClient) {
   }
 

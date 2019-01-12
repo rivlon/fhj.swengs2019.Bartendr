@@ -21,18 +21,16 @@ const routes: Routes = [
   {path: '', redirectTo: '/login', pathMatch: 'full'},
   {path: 'login', component: LoginComponent},
   {path: 'drink-list', component: DrinkListComponent, canActivate: [AuthGuard], resolve: {drinks: DrinksResolver}},
+  {path: 'locations', component: LocationsComponent, canActivate: [AuthGuard], resolve: {location: LocationResolver}},
+  {path: 'user-profile', component: UserProfileComponent, canActivate: [AuthGuard]},
   {
-    path: 'drink-form/:id',
+    path: 'drink-form',
     component: DrinkFormComponent,
     canActivate: [AuthGuard],
     resolve: {drink: DrinkResolver, locations: LocationsResolver}
   },
-  {path: 'locations', component: LocationsComponent, canActivate: [AuthGuard], resolve: {location: LocationResolver}},
-  {path: 'location-form/:id', component: LocationFormComponent, canActivate: [AuthGuard], resolve: {location: LocationsResolver}},
-  {path: 'user-profile', component: UserProfileComponent, canActivate: [AuthGuard]},
-  {path: 'drink-form', component: DrinkFormComponent, canActivate: [AdminGuard]},
-  {path: 'location-form', component: LocationFormComponent, canActivate: [AdminGuard]},
-  {path: 'user-form/:id', component: UserFormComponent, canActivate: [AdminGuard], resolve: {user: UserResolver}},
+  {path: 'location-form', component: LocationFormComponent, canActivate: [AuthGuard], resolve: {location: LocationsResolver}},
+  {path: 'user-form', component: UserFormComponent, canActivate: [AdminGuard], resolve: {user: UserResolver}},
   {path: 'user-list', component: UserListComponent, canActivate: [AdminGuard], resolve: {users: UsersResolver}}
 ];
 

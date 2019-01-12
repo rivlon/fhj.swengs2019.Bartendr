@@ -11,6 +11,7 @@
   },
   "private": true,
   "dependencies": {
+    "@agm/core": "^1.0.0-beta.5",
     "@angular/animations": "~7.2.0",
     "@angular/common": "~7.2.0",
     "@angular/compiler": "~7.2.0",
@@ -30,8 +31,7 @@
     "now-ui-kit": "^1.1.0",
     "rxjs": "~6.3.3",
     "safe-pipe": "^0.3.0",
-    "zone.js": "~0.8.27",
-    "@agm/core": "^1.0.0-beta.5"
+    "zone.js": "~0.8.27"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "^0.12.1",

@@ -19,7 +19,7 @@ export class UserService {
     return this.http.post('/api/dto/users/', user);
   }
 
-  getById(id: String) {
+  getById(id: number) {
     return this.http.get('/api/dto/users/' + id);
   }
 

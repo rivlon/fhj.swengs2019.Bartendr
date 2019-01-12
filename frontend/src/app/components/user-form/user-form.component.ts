@@ -6,10 +6,12 @@ import {User} from '../../api/user';
 
 @Component({
   selector: 'app-user-form',
+  providers: [UserFormComponent],
   templateUrl: './user-form.component.html',
   styleUrls: ['./user-form.component.scss']
 })
 export class UserFormComponent implements OnInit {
+  userId: number;
   userForm;
   shouldNavigateToList: boolean;
   user: User;

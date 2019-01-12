@@ -1,5 +1,5 @@
 <div *ngFor="let location of locations">
-  {{location.name}} {{location.plusCode}}
+  Name: | {{location.name}} PlusCode: | {{location.plusCode}} Edit: | <button *ngIf="isAdmin" (click)="navigateToLocationForm(location.id)">Edit</button>
 </div>
 
 <div class="card">
