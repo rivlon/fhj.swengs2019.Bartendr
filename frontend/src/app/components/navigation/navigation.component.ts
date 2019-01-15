@@ -27,6 +27,7 @@ export class NavigationComponent implements OnInit {
       this.isLoggedIn = isLoggedIn;
       this.loadData();
     });
+    this.userFormComponent.userName = this.username;
   }
 
   private loadData() {

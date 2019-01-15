@@ -24,6 +24,7 @@ import {SafeUrlPipe} from './components/safe-pipe/safe-pipe.component';
 import {SafePipeModule} from 'safe-pipe';
 import {FileUploadModule} from 'ng2-file-upload';
 import {AgmCoreModule, GoogleMapsAPIWrapper} from '@agm/core';
+import {EqualValidator} from './components/shared/equal-validator.directive';
 
 
 export function tokenGetter() {
@@ -32,6 +33,7 @@ export function tokenGetter() {
 
 @NgModule({
   declarations: [
+    EqualValidator,
     AppComponent,
     MediainputComponent,
     DrinkListComponent,

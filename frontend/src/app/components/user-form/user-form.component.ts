@@ -3,6 +3,7 @@ import {UserService} from '../../service/user.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {User} from '../../api/user';
+import {AuthService} from '../../service/auth.service';
 
 @Component({
   selector: 'app-user-form',
@@ -11,13 +12,12 @@ import {User} from '../../api/user';
   styleUrls: ['./user-form.component.scss']
 })
 export class UserFormComponent implements OnInit {
-  userId: number;
   userName: string;
   userForm;
   shouldNavigateToList: boolean;
-  user: User;
+  isAdmin: boolean;
 
-  constructor(private userService: UserService, private route: ActivatedRoute, private router: Router) {
+  constructor(private userService: UserService, private route: ActivatedRoute, private router: Router, private authService: AuthService) {
   }
 
   ngOnInit() {
@@ -25,7 +25,8 @@ export class UserFormComponent implements OnInit {
     this.userForm = new FormGroup({
       'id': new FormControl(),
       'username': new FormControl([''], [Validators.required, Validators.minLength(2)]),
-      'password': new FormControl(),
+      'password': new FormControl([''], [Validators.required, Validators.minLength(5), Validators.maxLength(10), Validators.]),
+      'confirmPassword': new FormControl([''], [Validators.required, Validators.minLength(5), Validators.maxLength(10)]),
       'admin': new FormControl(),
       'firstname': new FormControl(),
       'lastname': new FormControl(),
@@ -37,18 +38,27 @@ export class UserFormComponent implements OnInit {
     if (data.user) {
       this.userForm.setValue(data.user);
     }
+    this.isAdmin = this.authService.isAdmin;
   }
 
+  updateUser() {
+    const userToBeSafed = this.userForm.value;
+    this.userService.update(userToBeSafed)
+      .subscribe(() => {
+        alert('updated successfully');
+      });
+  }
 
   saveUser() {
     const userToBeSafed = this.userForm.value;
+
     if (userToBeSafed.id) {
       this.userService.update(userToBeSafed)
         .subscribe(() => {
           alert('updated successfully');
           this.navigateToList();
         });
-    } else {
+    } else if (this.isAdmin) {
       this.userService.create(userToBeSafed)
         .subscribe(() => {
           alert('created successfully');
@@ -76,6 +86,10 @@ export class UserFormComponent implements OnInit {
 
   setShouldNavigateToList() {
     this.shouldNavigateToList = true;
+  }
+
+  changePassword() {
+
   }
 
 }
