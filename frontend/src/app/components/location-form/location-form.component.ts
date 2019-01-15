@@ -15,7 +15,7 @@ export class LocationFormComponent implements OnInit {
   locationForm;
   shouldNavigateToList: boolean;
   drinkOptions;
-  id;
+  locationId;
 
   constructor(private drinkService: DrinkService, private route: ActivatedRoute, private router: Router,
               private locationService: LocationService) { }
@@ -30,7 +30,9 @@ export class LocationFormComponent implements OnInit {
     });
 
     const data = this.route.snapshot.data;
-    this.locationForm.setValue(data.location);
+    if (data.location) {
+      this.locationForm.setValue(data.location);
+    }
     this.drinkOptions = data.drinks;
   }
 

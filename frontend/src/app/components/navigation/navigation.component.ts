@@ -3,6 +3,8 @@ import {UserService} from '../../service/user.service';
 import {AuthService} from '../../service/auth.service';
 import {DrinkFormComponent} from '../drink-form/drink-form.component';
 import {Router} from '@angular/router';
+import {LocationFormComponent} from '../location-form/location-form.component';
+import {UserFormComponent} from '../user-form/user-form.component';
 
 @Component({
   selector: 'app-navigation',
@@ -11,7 +13,7 @@ import {Router} from '@angular/router';
 })
 export class NavigationComponent implements OnInit {
 
-  constructor(private authService: AuthService, private drinkFormComponent: DrinkFormComponent, private router: Router) {
+  constructor(private authService: AuthService, private userFormComponent: UserFormComponent, private drinkFormComponent: DrinkFormComponent, private locationFormComponent: LocationFormComponent, private router: Router) {
     this.loadData();
   }
 
@@ -42,12 +44,12 @@ export class NavigationComponent implements OnInit {
   }
 
   navigateCreateLocation() {
-    this.drinkFormComponent.drinkId = null;
+    this.locationFormComponent.locationId = null;
     this.router.navigate(['/location-form']);
   }
 
   navigateCreateUser() {
-    this.drinkFormComponent.drinkId = null;
+    this.userFormComponent.userId = null;
     this.router.navigate(['/user-form']);
   }
 
