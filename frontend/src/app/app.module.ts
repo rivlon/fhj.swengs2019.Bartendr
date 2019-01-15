@@ -5,7 +5,6 @@ import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {DrinkListComponent} from './components/drink-list/drink-list.component';
 import {DrinkFormComponent} from './components/drink-form/drink-form.component';
-import {UserProfileComponent} from './components/user-profile/user-profile.component';
 import {LoginComponent} from './components/login/login.component';
 import {LocationFormComponent} from './components/location-form/location-form.component';
 import {LocationsComponent} from './components/locations/locations.component';
@@ -49,7 +48,6 @@ export const httpInterceptorProviders = [
     DrinkListComponent,
     SafeUrlPipe,
     DrinkFormComponent,
-    UserProfileComponent,
     LoginComponent,
     LocationFormComponent,
     LocationsComponent,

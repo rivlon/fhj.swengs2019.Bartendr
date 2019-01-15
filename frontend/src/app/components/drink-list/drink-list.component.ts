@@ -38,9 +38,9 @@ export class DrinkListComponent implements OnInit {
     });
   }
 
-  navigateToDrinkForm(id: number) {
+  navigateToDrinkForm(id: number, name: String) {
     this.drinkFormComponent.drinkId = id;
-    this.router.navigate(['/drink-form']);
+    this.router.navigate(['/drink-form/' + name]);
   }
 
   deleteDrink(drink: Drink) {
