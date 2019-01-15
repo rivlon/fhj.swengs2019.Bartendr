@@ -32,7 +32,7 @@ public class UserFacade {
             entity.setPassword(encodedPW);
         }
         entity.setAdmin(dto.isAdmin());
-        entity.setFirstname(dto.getFirstName());
+        entity.setFirstname(dto.getFirstname());
         entity.setLastname(dto.getLastname());
         entity.setEmail(dto.getEmail());
         entity.setActive(true);
@@ -40,6 +40,7 @@ public class UserFacade {
 
     private void mapEntityToDto(User entity, UserDTO dto) {
 
+        dto.setId(entity.getId());
         dto.setUsername(entity.getUsername());
 
         //Don't set Password & active flag since they won't get to the frontend!
@@ -76,6 +77,16 @@ public class UserFacade {
 
     public UserDTO getById(Long id) {
         Optional<User> entity = userService.findActiveUserById(id);
+        if (entity.isPresent()) {
+            UserDTO dto = new UserDTO();
+            mapEntityToDto(entity.get(), dto);
+            return dto;
+        }
+        return null;
+    }
+
+    public UserDTO getByUsername(String username) {
+        Optional<User> entity = userService.findActiveUserByUsername(username);
         if (entity.isPresent()) {
             UserDTO dto = new UserDTO();
             mapEntityToDto(entity.get(), dto);

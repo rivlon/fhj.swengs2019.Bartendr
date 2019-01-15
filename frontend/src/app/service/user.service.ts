@@ -23,6 +23,10 @@ export class UserService {
     return this.http.get('/api/dto/users/' + id);
   }
 
+  getByUsername(username: string) {
+    return this.http.get('/api/dto/users:' + username);
+  }
+
   update(user: User) {
     return this.http.put('/api/dto/users/' + user.id, user);
   }

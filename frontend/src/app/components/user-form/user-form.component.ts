@@ -12,6 +12,7 @@ import {User} from '../../api/user';
 })
 export class UserFormComponent implements OnInit {
   userId: number;
+  userName: string;
   userForm;
   shouldNavigateToList: boolean;
   user: User;
@@ -32,9 +33,9 @@ export class UserFormComponent implements OnInit {
       'active': new FormControl()
     });
 
-    this.user = this.route.snapshot.data.user;
-    if (this.user) {
-      this.userForm.setValue(this.user);
+    const data = this.route.snapshot.data;
+    if (data.user) {
+      this.userForm.setValue(data.user);
     }
   }
 

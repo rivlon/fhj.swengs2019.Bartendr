@@ -20,6 +20,10 @@ public class UserService {
         return userRepository.findByIdAndActiveTrue(id);
     }
 
+    public Optional<User> findActiveUserByUsername(String username) {
+        return userRepository.findByUsernameAndActiveTrue(username);
+    }
+
     public List<User> getUsers() {
         return userRepository.findAllByActiveTrue();
     }

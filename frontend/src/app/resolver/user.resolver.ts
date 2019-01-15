@@ -14,9 +14,9 @@ export class UserResolver implements Resolve<Observable<any>> {
 
   resolve(route: ActivatedRouteSnapshot,
           state: RouterStateSnapshot): Observable<Observable<any>> | Promise<Observable<any>> | Observable<any> {
-    const id = this.userFormComponent.userId;
-    if (id) {
-      return this.userService.getById(id);
+    const userName = this.userFormComponent.userName;
+    if (userName) {
+      return this.userService.getByUsername(userName);
     }
     return null;
   }

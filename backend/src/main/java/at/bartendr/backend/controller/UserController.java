@@ -25,6 +25,11 @@ public class UserController {
         return userFacade.getById(id);
     }
 
+    @GetMapping("/dto/users:{username}")
+    UserDTO getById(@PathVariable String username) {
+        return userFacade.getByUsername(username);
+    }
+
 
     @PostMapping("/dto/users/")
     UserDTO create(@RequestBody @Valid UserDTO dto) {

@@ -5,6 +5,7 @@ import {DrinkFormComponent} from '../drink-form/drink-form.component';
 import {Router} from '@angular/router';
 import {LocationFormComponent} from '../location-form/location-form.component';
 import {UserFormComponent} from '../user-form/user-form.component';
+import {User} from '../../api/user';
 
 @Component({
   selector: 'app-navigation',
@@ -13,7 +14,7 @@ import {UserFormComponent} from '../user-form/user-form.component';
 })
 export class NavigationComponent implements OnInit {
 
-  constructor(private authService: AuthService, private userFormComponent: UserFormComponent, private drinkFormComponent: DrinkFormComponent, private locationFormComponent: LocationFormComponent, private router: Router) {
+  constructor(private authService: AuthService, private userService: UserService, private userFormComponent: UserFormComponent, private drinkFormComponent: DrinkFormComponent, private locationFormComponent: LocationFormComponent, private router: Router) {
     this.loadData();
   }
 
@@ -32,7 +33,7 @@ export class NavigationComponent implements OnInit {
     this.isLoggedIn = this.authService.isLoggedIn;
     this.isAdmin = this.authService.isAdmin;
     this.username = this.authService.userName;
-  }
+    }
 
   logout() {
     this.authService.logout();
@@ -49,7 +50,12 @@ export class NavigationComponent implements OnInit {
   }
 
   navigateCreateUser() {
-    this.userFormComponent.userId = null;
+    this.userFormComponent.userName = null;
+    this.router.navigate(['/user-form']);
+  }
+
+  navigateToProfile() {
+    this.userFormComponent.userName = this.username;
     this.router.navigate(['/user-form']);
   }
 

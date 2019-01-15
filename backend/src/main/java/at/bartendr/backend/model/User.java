@@ -3,6 +3,7 @@ package at.bartendr.backend.model;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import net.bytebuddy.implementation.bind.annotation.Default;
 import org.springframework.data.annotation.Version;
 
 import javax.persistence.*;

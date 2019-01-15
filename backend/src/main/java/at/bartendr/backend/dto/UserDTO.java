@@ -44,7 +44,7 @@ public class UserDTO {
         this.admin = admin;
     }
 
-    public String getFirstName() {
+    public String getFirstname() {
         return firstname;
     }
 
@@ -64,7 +64,7 @@ public class UserDTO {
         return email;
     }
 
-    public void setEmail(String lastname) {
+    public void setEmail(String email) {
         this.email = email;
     }
 
