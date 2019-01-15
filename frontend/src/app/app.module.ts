@@ -28,6 +28,8 @@ import {ToastrModule} from 'ngx-toastr';
 import {CommonModule} from '@angular/common';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {ErrorInterceptor} from './httpinterceptor/error.interceptor';
+import {JwBootstrapSwitchNg2Module} from 'jw-bootstrap-switch-ng2';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 
 export function tokenGetter() {
@@ -68,6 +70,8 @@ export const httpInterceptorProviders = [
     CommonModule,
     BrowserAnimationsModule,
     FormsModule,
+    JwBootstrapSwitchNg2Module,
+    NgbModule,
     JwtModule.forRoot(
       {
         config: {

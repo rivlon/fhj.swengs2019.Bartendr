@@ -32,7 +32,10 @@
     "now-ui-kit": "^1.1.0",
     "rxjs": "~6.3.3",
     "safe-pipe": "^0.3.0",
-    "zone.js": "~0.8.27"
+    "zone.js": "~0.8.27",
+    "jquery": "^3.3.1",
+    "popper.js": "^1.14.6",
+    "jw-bootstrap-switch-ng2": "^2.0.2"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "^0.12.1",
