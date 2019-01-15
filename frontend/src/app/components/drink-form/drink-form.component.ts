@@ -60,14 +60,6 @@ export class DrinkFormComponent implements OnInit {
     }
   }
 
-  deleteDrink(drinkId: number) {
-    this.drinkService.delete(drinkId).subscribe(() => {
-      alert('Deleted successfuly!');
-      this.setShouldNavigateToList();
-      this.navigateToList();
-    });
-  }
-
   setCategory(cat: string) {
     this.cat = cat;
     this.drinkForm.patchValue({category: cat});

@@ -6,6 +6,9 @@ import {LocationFormComponent} from '../location-form/location-form.component';
 import {AuthService} from '../../service/auth.service';
 import { MapsAPILoader, AgmMap } from '@agm/core';
 import { GoogleMapsAPIWrapper } from '@agm/core/services';
+import {Drink} from '../../api/drink';
+import {HttpClient} from '@angular/common/http';
+import {Location} from '../../api/location';
 
 @Component({
   selector: 'app-locations',
@@ -24,14 +27,12 @@ export class LocationsComponent implements OnInit {
 
 
   constructor(private authService: AuthService, private locationService: LocationService, private route: ActivatedRoute,
-              private router: Router, private locationFormComponent: LocationFormComponent) {
+              private router: Router, private locationFormComponent: LocationFormComponent, private http: HttpClient) {
     this.loadData();
   }
 
   ngOnInit() {
-    return this.locationService.getAll().subscribe((res: any) => {
-      this.locations = res;
-    });
+    this.fetchData();
   }
 
   navigateToLocationForm(id: number) {
@@ -43,5 +44,18 @@ export class LocationsComponent implements OnInit {
     this.isLoggedIn = this.authService.isLoggedIn;
     this.isAdmin = this.authService.isAdmin;
     this.username = this.authService.userName;
+  }
+
+  deleteLocation(location: Location) {
+    this.locationService.delete(location)
+      .subscribe(() => {
+        this.fetchData();
+      });
+  }
+
+  fetchData() {
+    this.http.get('/api/locations').subscribe((response: any) => {
+      this.locations = response._embedded.locations;
+    });
   }
 }

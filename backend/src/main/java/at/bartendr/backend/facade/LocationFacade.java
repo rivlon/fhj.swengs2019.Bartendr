@@ -59,4 +59,9 @@ public class LocationFacade {
         return dto;
     }
 
+    public void delete(long id) {
+        Location entity = locationService.findById(id).get();
+        locationService.delete(entity);
+    }
+
 }

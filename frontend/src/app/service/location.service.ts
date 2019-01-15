@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {map} from 'rxjs/operators';
 import {Location} from '../api/location';
+import {Drink} from '../api/drink';
 
 @Injectable({
   providedIn: 'root'
@@ -18,8 +19,8 @@ export class LocationService {
     return this.http.put('api/dto/locations/' + location.id, location);
   }
 
-  delete(id: number) {
-    return this.http.delete('api/locations/' + id);
+  delete(location: Location) {
+    return this.http.delete('api/dto/locations/' + location.id);
   }
 
   getById(id: string) {

@@ -71,7 +71,6 @@ public class DrinkDTO {
         this.locationID = locationID;
     }
 
-
     public Media getPicture() { return picture;}
 
     public void setPicture(Media picture) { this.picture = picture;}

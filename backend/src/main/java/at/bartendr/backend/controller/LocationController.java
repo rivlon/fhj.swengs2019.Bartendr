@@ -38,4 +38,10 @@ public class LocationController {
     @PutMapping("/dto/locations/{id}")
     LocationDTO update(@RequestBody @Valid LocationDTO dto, @PathVariable Long id) {
         return locationFacade.update(id, dto);
-}}
+    }
+
+    @DeleteMapping("/dto/locations/{id}")
+    void delete(@PathVariable long id) {
+        this.locationFacade.delete(id);
+    }
+}
