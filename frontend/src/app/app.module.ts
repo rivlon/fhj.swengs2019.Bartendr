@@ -10,7 +10,7 @@ import {LoginComponent} from './components/login/login.component';
 import {LocationFormComponent} from './components/location-form/location-form.component';
 import {LocationsComponent} from './components/locations/locations.component';
 import {JwtModule} from '@auth0/angular-jwt';
-import {HttpClientModule} from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {FormsModule} from '@angular/forms';
 import {NavigationComponent} from './components/navigation/navigation.component';
 import {UserFormComponent} from './components/user-form/user-form.component';
@@ -25,11 +25,21 @@ import {SafePipeModule} from 'safe-pipe';
 import {FileUploadModule} from 'ng2-file-upload';
 import {AgmCoreModule, GoogleMapsAPIWrapper} from '@agm/core';
 import {EqualValidator} from './components/shared/equal-validator.directive';
+import {ToastrModule} from 'ngx-toastr';
+import {CommonModule} from '@angular/common';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {ErrorInterceptor} from './httpinterceptor/error.interceptor';
+import {JwBootstrapSwitchNg2Module} from 'jw-bootstrap-switch-ng2';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 
 export function tokenGetter() {
   return localStorage.getItem('access_token');
 }
+
+export const httpInterceptorProviders = [
+  {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true},
+];
 
 @NgModule({
   declarations: [
@@ -58,7 +68,12 @@ export function tokenGetter() {
     RatingModule.forRoot(),
     BsDropdownModule.forRoot(),
     NgxSelectModule,
+    ToastrModule.forRoot(),
+    CommonModule,
+    BrowserAnimationsModule,
     FormsModule,
+    JwBootstrapSwitchNg2Module,
+    NgbModule,
     JwtModule.forRoot(
       {
         config: {

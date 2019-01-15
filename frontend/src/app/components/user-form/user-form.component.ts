@@ -25,7 +25,7 @@ export class UserFormComponent implements OnInit {
     this.userForm = new FormGroup({
       'id': new FormControl(),
       'username': new FormControl([''], [Validators.required, Validators.minLength(2)]),
-      'password': new FormControl([''], [Validators.required, Validators.minLength(5), Validators.maxLength(10), Validators.]),
+      'password': new FormControl([''], [Validators.required, Validators.minLength(5), Validators.maxLength(10)]),
       'confirmPassword': new FormControl([''], [Validators.required, Validators.minLength(5), Validators.maxLength(10)]),
       'admin': new FormControl(),
       'firstname': new FormControl(),

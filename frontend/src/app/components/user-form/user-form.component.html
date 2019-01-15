@@ -25,28 +25,28 @@
   <div class="col">
     <div class="form-group">
       <label for="firstname">First Name:</label>
-      <input id="firstname" type="text" name="firstname" formControlName="firstname" class="form-control"/>
+      <input class="form-control" formControlName="firstname" id="firstname" name="firstname" type="text"/>
     </div>
   </div>
 
   <div class="col">
     <div class="form-group">
       <label for="lastname">Last Name:</label>
-      <input id="lastname" type="text" name="lastname" formControlName="lastname" class="form-control"/>
+      <input class="form-control" formControlName="lastname" id="lastname" name="lastname" type="text"/>
     </div>
   </div>
   <div class="col">
     <div class="form-group">
       <label for="email">eMail:</label>
-      <input id="email" type="text" name="email" formControlName="email" class="form-control"/>
+      <input class="form-control" formControlName="email" id="email" name="email" type="text"/>
     </div>
   </div>
-
   <div id="PasswordChange" class="col">
     <div class="col">
       <div class="form-group">
         <label for="password">Password:</label>
-        <input [readonly]=true id="password" type="text" name="password" formControlName="password" validateEqual="confirmPassword" class="form-control"/>
+        <input [readonly]=true id="password" type="text" name="password" formControlName="password"
+               validateEqual="confirmPassword" class="form-control"/>
         <div
           *ngIf="userForm.controls.password.invalid && (userForm.controls.password.dirty || userForm.controls.password.touched)"
           class="alert alert-danger">
@@ -64,7 +64,8 @@
     </div>
     <div class="form-group">
       <label for="password">Password:</label>
-      <input [readonly]=true id="passwordConfirm" type="text" name="passwordConfirm" formControlName="passwordConfirm" validateEqual="password"  class="form-control"/>
+      <input [readonly]=true id="passwordConfirm" type="text" name="passwordConfirm" formControlName="passwordConfirm"
+             validateEqual="password" class="form-control"/>
       <div
         *ngIf="userForm.controls.confirmPassword.invalid && (userForm.controls.confirmPassword.dirty || userForm.controls.confirmPassword.touched)"
         class="alert alert-danger">
@@ -81,32 +82,26 @@
     </div>
   </div>
 
-  <div *ngIf="isAdmin" class="col">
-    <div class="form-check">
-      <input class="form-check-input" type="checkbox" name="admin" id="admin" formControlName="admin"
-             [value]="false">
-      <label class="form-check-label" for="admin">
-        Administrator?
-      </label>
-    </div>
+  <div class="col">
+    <bSwitch
+      [switch-off-color]="'danger'" [switch-on-color]="'success'" formControlName="admin" id="admin" name="admin">
+    </bSwitch>
+    <label for="admin">Admin?</label>
   </div>
 
   <div *ngIf="isAdmin" class="col">
-    <div class="form-check">
-      <input class="form-check-input" type="checkbox" name="active" id="active" formControlName="active"
-             [value]="true">
-      <label class="form-check-label" for="active">
-        Active?
-      </label>
-    </div>
+    <bSwitch
+      [switch-off-color]="'danger'" [switch-on-color]="'success'" formControlName="active" id="active" name="active">
+    </bSwitch>
+    <label for="active">Active?</label>
   </div>
 
 
   <div class="btn-group">
-    <button type="submit" class="btn btn-primary" [disabled]="userForm.invalid">
+    <button [disabled]="userForm.invalid" class="btn btn-primary" type="submit">
       Save
     </button>
-    <button type="submit" (click)="setShouldNavigateToList()" class="btn btn-primary" [disabled]="userForm.invalid">
+    <button (click)="setShouldNavigateToList()" [disabled]="userForm.invalid" class="btn btn-primary" type="submit">
       Save and Back
     </button>
     <button (click)="changePassword()" class="btn btn-primary">
