@@ -4,5 +4,5 @@
       <agm-marker [latitude]="lat" [longitude]="lng"></agm-marker>
     </agm-map>
   </div>
-  Name: | {{location.name}} PlusCode: | {{location.plusCode}} Edit: | <button *ngIf="isAdmin" (click)="navigateToLocationForm(location.id)">Edit</button>
+  Name: | {{location.name}} PlusCode: | {{location.plusCode}} Edit: | <button *ngIf="isAdmin" (click)="navigateToLocationForm(location.id)">Edit</button> <button *ngIf="isAdmin" (click)="deleteLocation(location)">Delete</button>
 </div>

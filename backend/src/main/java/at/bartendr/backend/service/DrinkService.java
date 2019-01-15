@@ -17,18 +17,19 @@ public class DrinkService {
         return drinkRepository.findById(id);
     }
 
-
     public Drink save(Drink entity) {
         return drinkRepository.save(entity);
     }
 
     public Set<Drink> getDrinks(Set<Long> dtos) {
         Set<Drink> entities = new HashSet<>();
-
         if(dtos != null)
             dtos.forEach((dto)->entities.add(drinkRepository.findById(dto).get()));
         return entities;
     }
 
+    public void delete(Drink entity) {
+        this.drinkRepository.delete(entity);
+    }
 }
 

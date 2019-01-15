@@ -19,8 +19,11 @@ public class LocationService {
         return locationRepository.findById(id);
     }
 
-
     public Location save(Location entity) {
         return locationRepository.save(entity);
+    }
+
+    public void delete(Location entity) {
+        this.locationRepository.delete(entity);
     }
 }

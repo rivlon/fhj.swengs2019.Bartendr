@@ -26,7 +26,7 @@ public class DrinkController {
     private DrinkFacade drinkFacade;
 
     @GetMapping("/dto/drinks/{id}")
-    DrinkDTO getById(@PathVariable Long id) {
+    DrinkDTO getById(@PathVariable long id) {
         return drinkFacade.getById(id);
     }
 
@@ -37,11 +37,14 @@ public class DrinkController {
     }
 
     @PutMapping("/dto/drinks/{id}")
-    DrinkDTO update(@RequestBody @Valid DrinkDTO dto, @PathVariable Long id) {
+    DrinkDTO update(@RequestBody @Valid DrinkDTO dto, @PathVariable long id) {
         return drinkFacade.update(id, dto);
     }
 
-
+    @DeleteMapping("/dto/drinks/{id}")
+    void delete(@PathVariable long id) {
+        this.drinkFacade.delete(id);
+    }
 }
 
 

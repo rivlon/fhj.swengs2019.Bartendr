@@ -63,4 +63,9 @@ public class DrinkFacade {
         return dto;
     }
 
+    public void delete(long id) {
+        Drink entity = drinkService.findById(id).get();
+        drinkService.delete(entity);
+    }
+
 }

@@ -21,8 +21,8 @@ export class DrinkService {
     return this.http.put('api/dto/drinks/' + drink.id, drink);
   }
 
-  delete(id: number) {
-    return this.http.delete('api/drinks/' + id);
+  delete(drink: Drink) {
+    return this.http.delete('api/dto/drinks/' + drink.id);
   }
 
   getById(id: string) {

@@ -4,6 +4,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {Drink} from '../../api/drink';
 import {AuthService} from '../../service/auth.service';
 import {DrinkFormComponent} from '../drink-form/drink-form.component';
+import {HttpClient} from '@angular/common/http';
 
 @Component({
   selector: 'app-drink-list',
@@ -17,13 +18,13 @@ export class DrinkListComponent implements OnInit {
   isAdmin: boolean;
   username: string;
 
-  constructor(private drinkFormComponent: DrinkFormComponent, private authService: AuthService, private drinkService: DrinkService, private route: ActivatedRoute, private router: Router) {
+  constructor(private drinkFormComponent: DrinkFormComponent, private authService: AuthService, private drinkService: DrinkService,
+              private route: ActivatedRoute, private router: Router, private http: HttpClient) {
     this.loadData();
   }
 
   ngOnInit() {
-    const data = this.route.snapshot.data;
-    this.drinks = data.drinks;
+    this.fetchData();
   }
   private loadData() {
     this.isLoggedIn = this.authService.isLoggedIn;
@@ -31,9 +32,22 @@ export class DrinkListComponent implements OnInit {
     this.username = this.authService.userName;
   }
 
+  fetchData() {
+    this.http.get('/api/drinks').subscribe((response: any) => {
+      this.drinks = response._embedded.drinks;
+    });
+  }
+
   navigateToDrinkForm(id: number) {
     this.drinkFormComponent.drinkId = id;
     this.router.navigate(['/drink-form']);
+  }
+
+  deleteDrink(drink: Drink) {
+    this.drinkService.delete(drink)
+      .subscribe(() => {
+        this.fetchData();
+      });
   }
 }
 
