@@ -2,22 +2,22 @@
 
   <div *ngIf="isAdmin" class="col">
     <div class="form-group">
-      <label for="username">User name:</label>
+      <label for="username">ID:</label>
       <input [readonly]=true id="id" type="number" name="id" formControlName="id" class="form-control"/>
     </div>
   </div>
   <div class="col">
     <div class="form-group">
       <label for="username">User name:</label>
-      <input [readonly]=true id="username" type="text" name="username" formControlName="username" class="form-control"/>
+      <input [readonly]=rOnly id="username" type="text" name="username" formControlName="username" class="form-control"/>
       <div
         *ngIf="userForm.controls.username.invalid && (userForm.controls.username.dirty || userForm.controls.username.touched)"
         class="alert alert-danger">
         <div *ngIf="userForm.controls.username.errors.required">
-          Name is required.
+          User Name is required.
         </div>
         <div *ngIf="userForm.controls.username.errors.minlength">
-          Name must be at least 2 characters long.
+          User Name must be at least 2 characters long.
         </div>
       </div>
     </div>
@@ -26,6 +26,16 @@
     <div class="form-group">
       <label for="firstname">First Name:</label>
       <input class="form-control" formControlName="firstname" id="firstname" name="firstname" type="text"/>
+      <div
+        *ngIf="userForm.controls.firstname.invalid && (userForm.controls.firstname.dirty || userForm.controls.firstname.touched)"
+        class="alert alert-danger">
+        <div *ngIf="userForm.controls.firstname.errors.required">
+         First Name is required.
+        </div>
+        <div *ngIf="userForm.controls.firstname.errors.minlength">
+          First Name must be at least 2 characters long.
+        </div>
+      </div>
     </div>
   </div>
 
@@ -33,55 +43,34 @@
     <div class="form-group">
       <label for="lastname">Last Name:</label>
       <input class="form-control" formControlName="lastname" id="lastname" name="lastname" type="text"/>
+      <div
+        *ngIf="userForm.controls.lastname.invalid && (userForm.controls.lastname.dirty || userForm.controls.lastname.touched)"
+        class="alert alert-danger">
+        <div *ngIf="userForm.controls.lastname.errors.required">
+          Lastname is required.
+        </div>
+        <div *ngIf="userForm.controls.lastname.errors.minlength">
+          Lastname must be at least 2 characters long.
+        </div>
+      </div>
     </div>
   </div>
   <div class="col">
     <div class="form-group">
       <label for="email">eMail:</label>
       <input class="form-control" formControlName="email" id="email" name="email" type="text"/>
-    </div>
-  </div>
-  <div id="PasswordChange" class="col">
-    <div class="col">
-      <div class="form-group">
-        <label for="password">Password:</label>
-        <input [readonly]=true id="password" type="text" name="password" formControlName="password"
-               validateEqual="confirmPassword" class="form-control"/>
-        <div
-          *ngIf="userForm.controls.password.invalid && (userForm.controls.password.dirty || userForm.controls.password.touched)"
-          class="alert alert-danger">
-          <div *ngIf="userForm.controls.password.errors.required">
-            Password is required.
-          </div>
-          <div *ngIf="userForm.controls.password.errors.minlength">
-            Password must be at least 5 characters long.
-          </div>
-          <div *ngIf="userForm.controls.password.errors.maxLength">
-            Password must not exceed 10 characters.
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="form-group">
-      <label for="password">Password:</label>
-      <input [readonly]=true id="passwordConfirm" type="text" name="passwordConfirm" formControlName="passwordConfirm"
-             validateEqual="password" class="form-control"/>
       <div
-        *ngIf="userForm.controls.confirmPassword.invalid && (userForm.controls.confirmPassword.dirty || userForm.controls.confirmPassword.touched)"
+        *ngIf="userForm.controls.email.invalid && (userForm.controls.email.dirty || userForm.controls.email.touched)"
         class="alert alert-danger">
-        <div *ngIf="userForm.controls.confirmPassword.errors.required">
-          Password is required.
+        <div *ngIf="userForm.controls.email.errors.required">
+          eMail is required.
         </div>
-        <div *ngIf="userForm.controls.confirmPassword.errors.minlength">
-          Password must be at least 5 characters long.
-        </div>
-        <div *ngIf="userForm.controls.confirmPassword.errors.maxLength">
-          Password must not exceed 10 characters.
+        <div *ngIf="userForm.controls.email.errors.minlength">
+          eMail must be at least 2 characters long.
         </div>
       </div>
     </div>
   </div>
-
   <div class="col">
     <bSwitch
       [switch-off-color]="'danger'" [switch-on-color]="'success'" formControlName="admin" id="admin" name="admin">
@@ -95,17 +84,77 @@
     </bSwitch>
     <label for="active">Active?</label>
   </div>
+  <button type="button"  id="activatePasswordInsert" name="activatePasswordInsert"
+           (click)="activatePasswordInsert()">Activate Password Insert</button>
 
-
+  <div id="PasswordChange" class="col">
+    <label for="PasswordChange"><STRONG>Change Password:</STRONG>
+      <li>At least 8 characters in length</li>
+      <li>Lowercase letters</li>
+      <li>Uppercase letters</li>
+      <li>Numbers</li>
+      <li>Special characters</li></label>
+    <div class="col">
+      <div class="form-group">
+        <label for="password">Password:</label>
+        <input [readOnly]="activatePasswordInsertComponent" id="password" type="text" name="password" formControlName="password"
+               class="form-control"/>
+        <div
+          *ngIf="userForm.controls.password.invalid && (userForm.controls.password.dirty || userForm.controls.password.touched)"
+          class="alert alert-danger">
+          <div *ngIf="userForm.controls.password.errors.required">
+            Password is required.
+          </div>
+          <div *ngIf="userForm.controls.password.errors.minlength">
+            Password must be at least 5 characters long.
+          </div>
+          <div *ngIf="userForm.controls.password.errors.maxLength">
+            Password must not exceed 10 characters.
+          </div>
+          <div *ngIf="userForm.controls.password.errors.pattern">
+            Password does not meed the requirements.
+        </div>
+      </div>
+    </div>
+    <div class="col">
+      <div class="form-group">
+        <label for="confirm_password">Password:</label>
+        <input [readOnly]=activatePasswordInsertComponent id="confirm_password" type="text" name="confirm_password" formControlName="confirm_password"
+               class="form-control"/>
+        <div
+          *ngIf="userForm.controls.confirm_password.invalid && (userForm.controls.confirm_password.dirty || userForm.controls.confirm_password.touched)"
+          class="alert alert-danger">
+          <div *ngIf="userForm.controls.confirm_password.errors.required">
+            Password is required.
+          </div>
+          <div *ngIf="userForm.controls.confirm_password.errors.minlength">
+            Password must be at least 5 characters long.
+          </div>
+          <div *ngIf="userForm.controls.confirm_password.errors.maxLength">
+            Password must not exceed 10 characters.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
   <div class="btn-group">
-    <button [disabled]="userForm.invalid" class="btn btn-primary" type="submit">
-      Save
+    <button *ngIf="isAdmin" [disabled]="userForm.controls.username.invalid && userForm.controls.firstname.invalid &&
+    userForm.controls.lastname.invalid && userForm.controls.email.invalid"
+            class="btn btn-primary" type="submit">
+      Save [ADMIN]
     </button>
+    <button *ngIf="!isAdmin" [disabled]="userForm.controls.firstname.invalid &&
+    userForm.controls.lastname.invalid && userForm.controls.email.invalid" class="btn btn-primary" type="submit">
+      Save [USER]
+    </button>
+    <!--
     <button (click)="setShouldNavigateToList()" [disabled]="userForm.invalid" class="btn btn-primary" type="submit">
-      Save and Back
-    </button>
-    <button (click)="changePassword()" class="btn btn-primary">
+      Save and Back [ADMIN]
+    </button> -->
+    <button type="button" id="chPW" (click)="changePassword()" [disabled]="userForm.errors.passwordsMatch === false" class="btn btn-primary">
       Change Password
     </button>
+    <label for="chPW" *ngIf="userForm.errors.passwordsMatch === false && activatePasswordInsertComponent === false ">Passwords do not match!</label>
+  </div>
   </div>
 </form>

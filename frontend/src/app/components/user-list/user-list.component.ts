@@ -34,6 +34,7 @@ export class UserListComponent implements OnInit {
 
   navigateToUserForm(username: string) {
     this.userFormComponent.userName = username;
+    this.userFormComponent.rOnly = false;
     this.router.navigate(['/user-form']);
   }
 }

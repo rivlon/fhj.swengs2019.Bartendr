@@ -17,8 +17,9 @@ export class UserResolver implements Resolve<Observable<any>> {
     const userName = this.userFormComponent.userName;
     if (userName) {
       return this.userService.getByUsername(userName);
+    } else {
+      return null;
     }
-    return null;
-  }
 
+  }
 }

@@ -24,7 +24,6 @@ import {SafeUrlPipe} from './components/safe-pipe/safe-pipe.component';
 import {SafePipeModule} from 'safe-pipe';
 import {FileUploadModule} from 'ng2-file-upload';
 import {AgmCoreModule, GoogleMapsAPIWrapper} from '@agm/core';
-import {EqualValidator} from './components/shared/equal-validator.directive';
 import {ToastrModule} from 'ngx-toastr';
 import {CommonModule} from '@angular/common';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
@@ -43,7 +42,6 @@ export const httpInterceptorProviders = [
 
 @NgModule({
   declarations: [
-    EqualValidator,
     AppComponent,
     MediainputComponent,
     DrinkListComponent,

@@ -52,6 +52,7 @@ export class NavigationComponent implements OnInit {
 
   navigateCreateUser() {
     this.userFormComponent.userName = null;
+    this.userFormComponent.rOnly = true;
     this.router.navigate(['/user-form']);
   }
 
