@@ -13,6 +13,8 @@ import {Location} from '../../api/location';
 })
 export class LocationsComponent implements OnInit {
 
+  zoom: number = 17;
+
   locations: Array<Location>;
   isLoggedIn: boolean;
   isAdmin: boolean;
