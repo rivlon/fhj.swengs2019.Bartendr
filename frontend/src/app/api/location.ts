@@ -3,4 +3,7 @@ export interface Location {
   name: string;
   plusCode: string;
   rating?: number;
+  address?: string;
+  lat?: number;
+  lng?: number;
 }
