@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {DrinkService} from '../../service/drink.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {LocationService} from '../../service/location.service';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {Drink} from '../../api/drink';
 
 @Component({
   selector: 'app-location-form',
@@ -18,7 +19,8 @@ export class LocationFormComponent implements OnInit {
   locationId;
 
   constructor(private drinkService: DrinkService, private route: ActivatedRoute, private router: Router,
-              private locationService: LocationService) { }
+              private locationService: LocationService) {
+  }
 
   ngOnInit() {
     this.locationForm = new FormGroup({

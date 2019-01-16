@@ -1,4 +1,5 @@
 <form [formGroup]="locationForm" (ngSubmit)="saveLocation()">
+
   <div class="row">
 
     <div class="col">
@@ -31,22 +32,25 @@
           <label for="rating">Rating:</label>
           <rating id="rating" type="text" name="rating" [max]="5" formControlName="rating"></rating>
         </div>
-        <div class="col">
-          <label for="drinks">Drinks:</label>
-          <ngx-select id="drinks" [items]="drinkOptions" name="drinks" [multiple]="true"
-                      formControlName="drinks" optionTextField="name"></ngx-select>
-        </div>
       </div>
     </div>
+  </div>
 
-    <div class="btn-group">
-      <button type="submit" class="btn btn-primary" [disabled]="locationForm.invalid">
-        Save
-      </button>
-      <button type="submit" (click)="setShouldNavigateToList()" class="btn btn-primary"
-              [disabled]="locationForm.invalid">
-        Save and Back
-      </button>
+  <div class="col">
+    <div class="row">
+      <label for="drinks">Drinks:</label>
+      <ngx-select [disabled]="true" [items]="drinkOptions" id="drinks" name="drinks" [multiple]="true"
+                  formControlName="drinks" optionTextField="name"></ngx-select>
     </div>
+  </div>
+
+  <div class="btn-group" class="row">
+    <button type="submit" class="btn btn-primary" [disabled]="locationForm.invalid">
+      Save
+    </button>
+    <button type="submit" (click)="setShouldNavigateToList()" class="btn btn-primary"
+            [disabled]="locationForm.invalid">
+      Save and Back
+    </button>
   </div>
 </form>
