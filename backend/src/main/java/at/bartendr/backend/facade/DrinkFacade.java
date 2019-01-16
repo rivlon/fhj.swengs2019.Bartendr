@@ -42,7 +42,7 @@ public class DrinkFacade {
         dto.setLocationID(entity.getLocations().getId());
     }
 
-    public DrinkDTO update(long id, DrinkDTO dto) {
+    public DrinkDTO update(Long id, DrinkDTO dto) {
         Drink entity = drinkService.findById(id).get();
         mapDtoToEntity(dto, entity);
         mapEntityToDto(drinkService.save(entity), dto);
@@ -56,14 +56,14 @@ public class DrinkFacade {
         return dto;
     }
 
-    public DrinkDTO getById(long id) {
+    public DrinkDTO getById(Long id) {
         Drink entity = drinkService.findById(id).get();
         DrinkDTO dto = new DrinkDTO();
         mapEntityToDto(entity, dto);
         return dto;
     }
 
-    public void delete(long id) {
+    public void delete(Long id) {
         Drink entity = drinkService.findById(id).get();
         drinkService.delete(entity);
     }

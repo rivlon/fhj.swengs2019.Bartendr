@@ -15,7 +15,9 @@ export class LocationFormComponent implements OnInit {
 
   locationForm;
   shouldNavigateToList: boolean;
-  drinkOptions;
+  drinkArray: Array<Drink>;
+  drinkOptions: Array<Drink>;
+  drinkIDs;
 
   constructor(private drinkService: DrinkService, private route: ActivatedRoute, private router: Router,
               private locationService: LocationService) {
@@ -35,6 +37,10 @@ export class LocationFormComponent implements OnInit {
       this.locationForm.setValue(data.location);
     }
     this.drinkOptions = data.drinks;
+    this.drinkIDs = data.location.drinks;
+    this.drinkArray = this.drinkOptions.filter(drink => {
+      return this.drinkIDs.includes(drink.id);
+    });
   }
 
   saveLocation() {
@@ -64,5 +70,8 @@ export class LocationFormComponent implements OnInit {
     this.shouldNavigateToList = true;
   }
 
+  navigateToDrink(id) {
+    this.router.navigate(['/drink-form/' + id]);
+  }
 
 }

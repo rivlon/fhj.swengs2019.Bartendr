@@ -18,7 +18,7 @@ public class Location {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
 
     private String name;
 
@@ -31,12 +31,12 @@ public class Location {
 
     @Version
     @JsonIgnore
-    private long version;
+    private Long version;
 
     public Location() {
     }
 
-    public Location(String name, String plusCode, float rating, Set<Drink> drinks, long version) {
+    public Location(String name, String plusCode, float rating, Set<Drink> drinks, Long version) {
         this.name = name;
         this.plusCode = plusCode;
         this.rating = rating;
@@ -44,11 +44,11 @@ public class Location {
         this.version = version;
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -84,11 +84,11 @@ public class Location {
         this.drinks = drinks;
     }
 
-    public long getVersion() {
+    public Long getVersion() {
         return version;
     }
 
-    public void setVersion(long version) {
+    public void setVersion(Long version) {
         this.version = version;
     }
 

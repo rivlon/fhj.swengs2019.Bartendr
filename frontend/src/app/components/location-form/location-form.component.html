@@ -36,12 +36,8 @@
     </div>
   </div>
 
-  <div class="col">
-    <div class="row">
-      <label for="drinks">Drinks:</label>
-      <ngx-select [disabled]="true" [items]="drinkOptions" id="drinks" name="drinks" [multiple]="true"
-                  formControlName="drinks" optionTextField="name"></ngx-select>
-    </div>
+  <div *ngFor="let drinks of drinkArray">
+    Name: <a (click)="navigateToDrink(drinks.id)">{{drinks.name}}</a>
   </div>
 
   <div class="btn-group" class="row">
