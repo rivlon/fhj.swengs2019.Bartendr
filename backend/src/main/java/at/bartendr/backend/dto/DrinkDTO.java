@@ -6,20 +6,20 @@ import at.bartendr.backend.model.Media;
 
 public class DrinkDTO {
 
-    private long id;
+    private Long id;
     private String name;
     private String category;
     private float price;
     private Age age;
     private float rating;
     private Media picture;
-    private long locationID;
+    private Long locationID;
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -63,11 +63,11 @@ public class DrinkDTO {
         this.rating = rating;
     }
 
-    public long getLocationID() {
+    public Long getLocationID() {
         return locationID;
     }
 
-    public void setLocationID(long locationID) {
+    public void setLocationID(Long locationID) {
         this.locationID = locationID;
     }
 
@@ -80,7 +80,7 @@ public class DrinkDTO {
     }
 
 
-    public DrinkDTO(long id, String name, String category, float price, Age age, float rating, long locationID) {
+    public DrinkDTO(Long id, String name, String category, float price, Age age, float rating, Long locationID) {
         this.id = id;
         this.name = name;
         this.category = category;

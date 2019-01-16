@@ -6,17 +6,17 @@ import java.util.Set;
 
 public class LocationDTO {
 
-    private long id;
+    private Long id;
     private String name;
     private String plusCode;
     private float rating;
     private Set<Long> drinks;
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -55,7 +55,7 @@ public class LocationDTO {
     public LocationDTO() {
     }
 
-    public LocationDTO(long id, String name, String plusCode, float rating, Set<Long> drinks) {
+    public LocationDTO(Long id, String name, String plusCode, float rating, Set<Long> drinks) {
         this.id = id;
         this.name = name;
         this.plusCode = plusCode;

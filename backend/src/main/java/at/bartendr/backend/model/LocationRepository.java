@@ -10,5 +10,5 @@ import java.util.Optional;
 public interface LocationRepository extends PagingAndSortingRepository<Location, Long> {
 
     public Optional<Location> findByName(@Param("name") String name);
-    public Optional<Location> findById(@Param("locationId") long id);
+    public Optional<Location> findById(@Param("locationId") Long id);
 }

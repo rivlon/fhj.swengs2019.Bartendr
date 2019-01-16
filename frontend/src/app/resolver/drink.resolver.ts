@@ -14,7 +14,7 @@ export class DrinkResolver implements Resolve<Observable<any>> {
 
   resolve(route: ActivatedRouteSnapshot,
           state: RouterStateSnapshot): Observable<Observable<any>> | Promise<Observable<any>> | Observable<any> {
-    const id = this.drinkFormComponent.drinkId;
+    const id = route.paramMap.get('id');
     if (id) {
       return this.drinkService.getById(id);
     }

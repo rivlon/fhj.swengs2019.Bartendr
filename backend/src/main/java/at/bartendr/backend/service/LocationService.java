@@ -15,7 +15,7 @@ public class LocationService {
     @Autowired
     private LocationRepository locationRepository;
 
-    public Optional<Location> findById(long id) {
+    public Optional<Location> findById(Long id) {
         return locationRepository.findById(id);
     }
 

@@ -14,7 +14,7 @@ export class LocationResolver implements Resolve<Observable<Array<any>>> {
 
   resolve(route: ActivatedRouteSnapshot,
           state: RouterStateSnapshot): Observable<Observable<any>> | Promise<Observable<any>> | Observable<any> {
-    const id = this.locationFormComponent.locationId;
+    const id = route.paramMap.get('id');
     if (id) {
       return this.locationService.getById(id);
     }

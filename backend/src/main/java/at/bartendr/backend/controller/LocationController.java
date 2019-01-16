@@ -41,7 +41,7 @@ public class LocationController {
     }
 
     @DeleteMapping("/dto/locations/{id}")
-    void delete(@PathVariable long id) {
+    void delete(@PathVariable Long id) {
         this.locationFacade.delete(id);
     }
 }

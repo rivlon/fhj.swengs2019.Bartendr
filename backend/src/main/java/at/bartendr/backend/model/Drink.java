@@ -18,7 +18,7 @@ public class Drink {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
 
     @Column(name = "name", nullable = false, length = 25)
     private String name;
@@ -39,12 +39,12 @@ public class Drink {
 
     @Version
     @JsonIgnore
-    private long version;
+    private Long version;
 
     public Drink() {
     }
 
-    public Drink(String name, String category, float price, Age age, float rating, Location locations, Media picture, long version) {
+    public Drink(String name, String category, float price, Age age, float rating, Location locations, Media picture, Long version) {
         this.name = name;
         this.category = category;
         this.price = price;
@@ -55,11 +55,11 @@ public class Drink {
         this.version = version;
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -119,11 +119,11 @@ public class Drink {
         this.picture = picture;
     }
 
-    public long getVersion() {
+    public Long getVersion() {
         return version;
     }
 
-    public void setVersion(long version) {
+    public void setVersion(Long version) {
         this.version = version;
     }
 

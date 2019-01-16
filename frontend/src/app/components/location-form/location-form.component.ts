@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {DrinkService} from '../../service/drink.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {LocationService} from '../../service/location.service';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {Drink} from '../../api/drink';
 
 @Component({
   selector: 'app-location-form',
@@ -14,11 +15,13 @@ export class LocationFormComponent implements OnInit {
 
   locationForm;
   shouldNavigateToList: boolean;
-  drinkOptions;
-  locationId;
+  drinkArray: Array<Drink>;
+  drinkOptions: Array<Drink>;
+  drinkIDs;
 
   constructor(private drinkService: DrinkService, private route: ActivatedRoute, private router: Router,
-              private locationService: LocationService) { }
+              private locationService: LocationService) {
+  }
 
   ngOnInit() {
     this.locationForm = new FormGroup({
@@ -34,6 +37,10 @@ export class LocationFormComponent implements OnInit {
       this.locationForm.setValue(data.location);
     }
     this.drinkOptions = data.drinks;
+    this.drinkIDs = data.location.drinks;
+    this.drinkArray = this.drinkOptions.filter(drink => {
+      return this.drinkIDs.includes(drink.id);
+    });
   }
 
   saveLocation() {
@@ -63,5 +70,8 @@ export class LocationFormComponent implements OnInit {
     this.shouldNavigateToList = true;
   }
 
+  navigateToDrink(id) {
+    this.router.navigate(['/drink-form/' + id]);
+  }
 
 }

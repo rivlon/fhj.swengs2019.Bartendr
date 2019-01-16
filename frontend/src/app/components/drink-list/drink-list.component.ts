@@ -39,8 +39,7 @@ export class DrinkListComponent implements OnInit {
   }
 
   navigateToDrinkForm(id: number) {
-    this.drinkFormComponent.drinkId = id;
-    this.router.navigate(['/drink-form']);
+    this.router.navigate(['/drink-form/' + id]);
   }
 
   deleteDrink(drink: Drink) {

@@ -3,7 +3,7 @@
     <div>
       <div>
         <button [routerLink]="'/drink-list/'">Drinks</button> |
-        <button [routerLink]="'/locations/'">Location</button> |
+        <button [routerLink]="'/locations/'">Locations</button> |
         <button (click)="navigateToProfile()">Profile</button> |
         <button *ngIf="isAdmin" (click)="navigateCreateDrink()">Create Drink</button> |
         <button *ngIf="isAdmin" (click)="navigateCreateLocation()">Create Location</button> |
