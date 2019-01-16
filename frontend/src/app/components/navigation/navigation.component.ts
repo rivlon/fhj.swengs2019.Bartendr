@@ -43,12 +43,10 @@ export class NavigationComponent implements OnInit {
   }
 
   navigateCreateDrink() {
-    this.drinkFormComponent.drinkId = null;
     this.router.navigate(['/drink-form']);
   }
 
   navigateCreateLocation() {
-    this.locationFormComponent.locationId = null;
     this.router.navigate(['/location-form']);
   }
 

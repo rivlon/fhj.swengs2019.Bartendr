@@ -1,5 +1,5 @@
 
 <div *ngFor="let drink of drinks">
-  Name: {{drink.name}} | Category: {{drink.category}} | Price: {{drink.price}} | Rating: {{drink.rating}} | Age: {{drink.age}} <button *ngIf="isAdmin" (click)="navigateToDrinkForm(drink.id, drink.name)">Edit</button> <button *ngIf="isAdmin" (click)="deleteDrink(drink)">Delete</button>
+  Name: {{drink.name}} | Category: {{drink.category}} | Price: {{drink.price}} | Rating: {{drink.rating}} | Age: {{drink.age}} <button *ngIf="isAdmin" (click)="navigateToDrinkForm(drink.id)">Edit</button> <button *ngIf="isAdmin" (click)="deleteDrink(drink)">Delete</button>
 </div>
 

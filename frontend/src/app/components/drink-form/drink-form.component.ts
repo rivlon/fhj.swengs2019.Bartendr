@@ -15,7 +15,6 @@ export class DrinkFormComponent implements OnInit {
   drinkForm;
   shouldNavigateToList: boolean;
   locationOptions;
-  drinkId;
   cat: string;
   text: string;
 

@@ -16,7 +16,6 @@ export class LocationFormComponent implements OnInit {
   locationForm;
   shouldNavigateToList: boolean;
   drinkOptions;
-  locationId;
 
   constructor(private drinkService: DrinkService, private route: ActivatedRoute, private router: Router,
               private locationService: LocationService) {

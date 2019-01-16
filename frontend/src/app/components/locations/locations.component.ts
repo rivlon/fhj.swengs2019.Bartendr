@@ -35,9 +35,8 @@ export class LocationsComponent implements OnInit {
     this.fetchData();
   }
 
-  navigateToLocationForm(id: number, name: String) {
-    this.locationFormComponent.locationId = id;
-    this.router.navigate(['/location-form/' + name]);
+  navigateToLocationForm(id: number) {
+    this.router.navigate(['/location-form/' + id]);
   }
 
   private loadData() {
