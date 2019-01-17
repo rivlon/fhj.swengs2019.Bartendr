@@ -138,13 +138,13 @@
     </div>
   </div>
   <div class="btn-group">
-    <button *ngIf="isAdmin" [disabled]="userForm.controls.username.invalid && userForm.controls.firstname.invalid &&
-    userForm.controls.lastname.invalid && userForm.controls.email.invalid"
+    <button *ngIf="isAdmin" [disabled]="userForm.controls.username.invalid || userForm.controls.firstname.invalid ||
+    userForm.controls.lastname.invalid || userForm.controls.email.invalid || userForm.controls.password.invalid"
             class="btn btn-primary" type="submit">
       Save [ADMIN]
     </button>
-    <button *ngIf="!isAdmin" [disabled]="userForm.controls.firstname.invalid &&
-    userForm.controls.lastname.invalid && userForm.controls.email.invalid" class="btn btn-primary" type="submit">
+    <button *ngIf="!isAdmin" [disabled]="userForm.controls.firstname.invalid ||
+    userForm.controls.lastname.invalid || userForm.controls.email.invalid" class="btn btn-primary" type="submit">
       Save [USER]
     </button>
     <!--
