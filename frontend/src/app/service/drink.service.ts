@@ -8,8 +8,6 @@ import {map} from 'rxjs/operators';
 })
 export class DrinkService {
 
-  drinkId: number;
-
   constructor(private http: HttpClient) {
   }
 
@@ -30,10 +28,6 @@ export class DrinkService {
   }
 
   getAll() {
-    return this.http.get('/api/drinks').pipe(
-      map((response: any) => {
-        return response._embedded.drinks;
-      })
-    );
+    return this.http.get('/api/dto/drinks');
   }
 }

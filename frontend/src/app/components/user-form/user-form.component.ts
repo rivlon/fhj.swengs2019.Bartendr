@@ -47,7 +47,7 @@ export class UserFormComponent implements OnInit {
       'lastname': new FormControl([''], [Validators.required, Validators.minLength(2),
         Validators.maxLength(35)]),
       'email': new FormControl([''], [Validators.required, Validators.minLength(2),
-        Validators.maxLength(50)]),
+        Validators.maxLength(50), Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$')]),
       'admin': new FormControl(),
       'active': new FormControl(),
       'password': new FormControl([''], [Validators.required, Validators.minLength(5),

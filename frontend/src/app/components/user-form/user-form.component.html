@@ -2,13 +2,13 @@
 
   <div *ngIf="isAdmin" class="col">
     <div class="form-group">
-      <label for="username">ID:</label>
+      <label for="username"><strong>ID:</strong></label>
       <input [readOnly]="true" id="id" type="number" name="id" formControlName="id" class="form-control"/>
     </div>
   </div>
   <div class="col">
     <div class="form-group">
-      <label for="username">User name:</label>
+      <label for="username"><strong>User Name:</strong></label>
       <input [readOnly]="readOnly" id="username" type="text" name="username" formControlName="username"
              class="form-control"/>
       <div *ngIf="readOnly === false">
@@ -34,7 +34,7 @@
   </div>
   <div class="col">
     <div class="form-group">
-      <label for="firstname">First Name:</label>
+      <label for="firstname"><strong>First Name:</strong></label>
       <input class="form-control" formControlName="firstname" id="firstname" name="firstname" type="text"/>
       <div
         *ngIf="userForm.controls.firstname.invalid && (userForm.controls.firstname.dirty || userForm.controls.firstname.touched)"
@@ -54,7 +54,7 @@
 
   <div class="col">
     <div class="form-group">
-      <label for="lastname">Last Name:</label>
+      <label for="lastname"><strong>Last Name:</strong></label>
       <input class="form-control" formControlName="lastname" id="lastname" name="lastname" type="text"/>
       <div
         *ngIf="userForm.controls.lastname.invalid && (userForm.controls.lastname.dirty || userForm.controls.lastname.touched)"
@@ -73,7 +73,9 @@
   </div>
   <div class="col">
     <div class="form-group">
-      <label for="email">eMail:</label>
+      <label for="email"><strong>eMail:</strong>
+        <li>Only lowercase letters</li>
+      </label>
       <input class="form-control" formControlName="email" id="email" name="email" type="text"/>
       <div
         *ngIf="userForm.controls.email.invalid && (userForm.controls.email.dirty || userForm.controls.email.touched)"
@@ -86,6 +88,9 @@
         </div>
         <div *ngIf="userForm.controls.email.errors.maxlength">
           eMail must not exceed 50 characters.
+        </div>
+        <div *ngIf="userForm.controls.email.errors.pattern">
+          eMail does not meet the requirements. Example max.mustermann@mustermail.at
         </div>
       </div>
     </div>
@@ -108,7 +113,14 @@
   </button>
 
   <div id="PasswordChange" class="col">
-    <label for="PasswordChange"><STRONG>Change Password:</STRONG>
+    <label *ngIf="readOnly" for="PasswordChange"><STRONG>Change Password:</STRONG>
+      <li>At least 5 and maximum 15 characters in length.</li>
+      <li>One lowercase letter.</li>
+      <li>One uppercase letter.</li>
+      <li>One number.</li>
+      <li>One special character.</li>
+    </label>
+    <label *ngIf="!readOnly" for="PasswordChange"><STRONG>Enter Password:</STRONG>
       <li>At least 5 and maximum 15 characters in length.</li>
       <li>One lowercase letter.</li>
       <li>One uppercase letter.</li>

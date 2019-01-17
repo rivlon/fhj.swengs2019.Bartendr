@@ -5,6 +5,7 @@ import {Drink} from '../../api/drink';
 import {AuthService} from '../../service/auth.service';
 import {DrinkFormComponent} from '../drink-form/drink-form.component';
 import {HttpClient} from '@angular/common/http';
+import {map} from 'rxjs/operators';
 
 @Component({
   selector: 'app-drink-list',
@@ -24,18 +25,15 @@ export class DrinkListComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.fetchData();
+    const data = this.route.snapshot.data;
+    if (data.drinks) {
+      this.drinks = data.drinks;
+    }
   }
   private loadData() {
     this.isLoggedIn = this.authService.isLoggedIn;
     this.isAdmin = this.authService.isAdmin;
     this.username = this.authService.userName;
-  }
-
-  fetchData() {
-    this.http.get('/api/drinks').subscribe((response: any) => {
-      this.drinks = response._embedded.drinks;
-    });
   }
 
   navigateToDrinkForm(id: number) {
@@ -45,8 +43,15 @@ export class DrinkListComponent implements OnInit {
   deleteDrink(drink: Drink) {
     this.drinkService.delete(drink)
       .subscribe(() => {
-        this.fetchData();
+        alert('Drink ' + drink.name + ' has been deleted!')
+        this.refetchData();
       });
+  }
+
+  refetchData() {
+   this.drinkService.getAll().subscribe((response: any) => {
+      this.drinks = response;
+    });
   }
 }
 

@@ -1,5 +1,6 @@
 
 <div *ngFor="let user of users">
   Username: {{user.username}} | First Name: {{user.Firstname}} | Last Name: {{user.lastname}} | eMail: {{user.email}}  <button *ngIf="isAdmin" (click)="navigateToUserForm(user.username)">Edit</button>
+  <button *ngIf="isAdmin" (click)="deleteUser(user.id)">Delete</button>
 </div>
 

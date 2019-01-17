@@ -12,7 +12,7 @@ export class UserService {
   }
 
   getAll() {
-    return this.http.get('/api/dto/users/');
+    return this.http.get('/api/dto/users');
   }
 
   create(user: User) {
@@ -29,6 +29,10 @@ export class UserService {
 
   update(user: User) {
     return this.http.put('/api/dto/users/' + user.id, user);
+  }
+
+  deleteById(userId: number) {
+    return this.http.delete('/api/dto/users/' + userId);
   }
 
 }

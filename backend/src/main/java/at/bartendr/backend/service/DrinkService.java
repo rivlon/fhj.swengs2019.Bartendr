@@ -31,5 +31,7 @@ public class DrinkService {
     public void delete(Drink entity) {
         this.drinkRepository.delete(entity);
     }
+
+    public List<Drink> getDrinks(){ return drinkRepository.findAll();}
 }
 

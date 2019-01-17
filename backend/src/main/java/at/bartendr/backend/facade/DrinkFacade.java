@@ -8,6 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Service()
 @Transactional
 public class DrinkFacade {
@@ -66,6 +69,18 @@ public class DrinkFacade {
     public void delete(Long id) {
         Drink entity = drinkService.findById(id).get();
         drinkService.delete(entity);
+    }
+
+    public List<DrinkDTO> getAllDrinks() {
+        List<DrinkDTO> drinks = new ArrayList<>();
+
+        drinkService.getDrinks().forEach(entity -> {
+            DrinkDTO dto = new DrinkDTO();
+            mapEntityToDto(entity, dto);
+            drinks.add(dto);
+        });
+
+        return drinks;
     }
 
 }

@@ -64,4 +64,15 @@ public class LocationFacade {
         locationService.delete(entity);
     }
 
+    public List<LocationDTO> getAllLocations() {
+        List<LocationDTO> locations = new ArrayList<>();
+
+        locationService.getLocations().forEach(entity -> {
+            LocationDTO dto = new LocationDTO();
+            mapEntityToDto(entity, dto);
+            locations.add(dto);
+        });
+
+        return locations;
+    }
 }

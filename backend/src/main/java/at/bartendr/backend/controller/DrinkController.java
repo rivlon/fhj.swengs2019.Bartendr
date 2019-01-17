@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +25,11 @@ public class DrinkController {
 
     @Autowired
     private DrinkFacade drinkFacade;
+
+    @GetMapping("/dto/drinks")
+    List<DrinkDTO> getAllDrinks() {
+        return drinkFacade.getAllDrinks();
+    }
 
     @GetMapping("/dto/drinks/{id}")
     DrinkDTO getById(@PathVariable Long id) {

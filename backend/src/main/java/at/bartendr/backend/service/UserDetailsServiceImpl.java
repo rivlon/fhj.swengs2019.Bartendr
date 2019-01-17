@@ -64,7 +64,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
             admin.setAdmin(true);
             admin.setFirstname("Hans-Peter");
             admin.setLastname("Irgendwas");
-            admin.setEmail("Hans-Peter@irgendwas.com");
+            admin.setEmail("hans-peter@irgendwas.com");
             userRepository.save(admin);
 
             at.bartendr.backend.model.User tester = new at.bartendr.backend.model.User();

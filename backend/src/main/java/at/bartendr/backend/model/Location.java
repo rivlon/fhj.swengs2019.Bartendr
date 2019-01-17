@@ -20,10 +20,13 @@ public class Location {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "name", nullable = false, length = 25)
     private String name;
 
+    @Column(name = "plusCode")
     private String plusCode;
 
+    @Column(name = "rating")
     private float rating;
 
     @OneToMany(mappedBy = "locations")

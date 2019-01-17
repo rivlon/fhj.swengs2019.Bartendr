@@ -13,6 +13,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.validation.Valid;
 import javax.xml.ws.Response;
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -23,6 +24,11 @@ public class LocationController {
 
     @Autowired
     private LocationFacade locationFacade;
+
+    @GetMapping("/dto/locations")
+    List<LocationDTO> getAllLocations() {
+        return locationFacade.getAllLocations();
+    }
 
     @GetMapping("/dto/locations/{id}")
     LocationDTO getById(@PathVariable Long id) {

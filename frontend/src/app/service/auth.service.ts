@@ -4,9 +4,6 @@ import {JwtHelperService} from '@auth0/angular-jwt';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {map} from 'rxjs/operators';
 import {Router} from '@angular/router';
-import {User} from '../api/user';
-import {UserService} from './user.service';
-import {NavigationComponent} from '../components/navigation/navigation.component';
 
 @Injectable({
   providedIn: 'root'
@@ -18,9 +15,6 @@ export class AuthService {
   jwtHelperService: JwtHelperService;
   isAdmin: boolean;
   userName: string;
-
-  diretiveGoingTo: string;
-  directiveComingFrom: string;
 
   accessTokenLocalStorageKey = 'access_token';
 

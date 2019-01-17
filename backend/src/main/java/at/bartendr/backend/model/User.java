@@ -19,14 +19,25 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Column(length = 50)
+    @Column(name = "username", nullable = false, length = 35, unique = true)
     private String username;
+
+    @Column(name = "password", nullable = false)
     private String password;
+
+    @Column(name = "admin")
     private boolean admin;
 
+    @Column(name = "firstname", length = 35)
     private String firstname;
+
+    @Column(name = "lastname", length = 35)
     private String lastname;
+
+    @Column(name = "email", length = 50)
     private String email;
+
+    @Column(name = "active", nullable = false)
     private boolean active = true;
 
     @Version
