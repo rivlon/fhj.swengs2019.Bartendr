@@ -1,11 +1,11 @@
-<form [formGroup]="locationForm" (ngSubmit)="saveLocation()">
+<form (ngSubmit)="saveLocation()" [formGroup]="locationForm">
 
   <div class="row">
 
     <div class="col">
       <div class="form-group">
         <label for="name">Location name:</label>
-        <input id="name" type="text" name="name" formControlName="name" class="form-control"/>
+        <input class="form-control" formControlName="name" id="name" name="name" type="text"/>
         <div
           *ngIf="locationForm.controls.name.invalid && (locationForm.controls.name.dirty || locationForm.controls.name.touched)"
           class="alert alert-danger">
@@ -22,30 +22,45 @@
     <div class="col">
       <div class="form-group">
         <label for="plusCode">PlusCode:</label>
-        <input id="plusCode" type="text" name="plusCode" formControlName="plusCode" class="form-control"/>
+        <input [value]="code ? (code | async) : locationForm.value.plusCode" class="form-control" formControlName="plusCode" id="plusCode" name="plusCode"
+               type="text"/>
       </div>
+    </div>
+    <div class="col">
+      <div class="form-group">
+        <label for="address">Address:</label>
+        <input [value]="adrs ? (adrs | async) : locationForm.value.address" class="form-control" formControlName="address" id="address" name="address"
+               type="text"/>
+      </div>
+    </div>
+
+    <div class="col">
+      <button (click)="generatePlusCode()" [disabled]="clicked"
+              [hidden]="clicked"
+              class="btn btn-default btn-tooltip" ngbTooltip="Convert PlusCode to address (or vice versa if no PlusCode is given). This button will self-destruct!" placement="bottom" type="button">Convert
+      </button>
     </div>
 
     <div class="col">
       <div class="row">
         <div class="col">
           <label for="rating">Rating:</label>
-          <rating id="rating" type="text" name="rating" [max]="5" formControlName="rating"></rating>
+          <rating [max]="5" formControlName="rating" id="rating" name="rating" type="text"></rating>
         </div>
       </div>
     </div>
   </div>
 
   <div *ngFor="let drinks of drinkArray">
-    Name: <a (click)="navigateToDrink(drinks.id)">{{drinks.name}}</a>
+    <button (click)="navigateToDrink(drinks.id)" class="btn btn-default">{{drinks.name}}</button>
   </div>
 
   <div class="btn-group" class="row">
-    <button type="submit" class="btn btn-primary" [disabled]="locationForm.invalid">
+    <button [disabled]="locationForm.invalid" class="btn btn-primary" type="submit">
       Save
     </button>
-    <button type="submit" (click)="setShouldNavigateToList()" class="btn btn-primary"
-            [disabled]="locationForm.invalid">
+    <button (click)="setShouldNavigateToList()" [disabled]="locationForm.invalid" class="btn btn-primary"
+            type="submit">
       Save and Back
     </button>
   </div>
