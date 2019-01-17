@@ -48,28 +48,16 @@
       </div>
     </div>
   </div>
-  <div class="row">
-    <div class="col-xs-12 col-12 mb-3">
-      <input class="card card-block card-header" disabled formControlName="category" name="category" type="text">
-    </div>
-      <div class="dropdown" ngbDropdown placement="bottom-right">
-        <button class="btn btn-primary dropdown-toggle" ngbDropdownToggle type="button">
-          Category <span class="caret"></span>
-        </button>
-        <div ngbDropdownMenu>
-          <a (click)="setCategory('Beer')" class="dropdown-item">Beer</a>
-          <a (click)="setCategory('Wine')" class="dropdown-item">Wine</a>
-          <a (click)="setCategory('Vodka')" class="dropdown-item">Vodka</a>
-          <a (click)="setCategory('Gin')" class="dropdown-item">Gin</a>
-        </div>
-      </div>
-    </div>
-
 
   <div class="row">
     <div class="col">
       <label for="rating">Rating:</label>
       <rating [max]="5" formControlName="rating" id="rating" name="rating" type="text"></rating>
+    </div>
+    <div class="col">
+      <label for="category">Category:</label>
+      <ngx-select [items]="categories" [multiple]="false" formControlName="category" id="category"
+                  name="category"></ngx-select>
     </div>
     <div class="col">
       <label for="locations">Locations:</label>
@@ -78,13 +66,11 @@
     </div>
   </div>
 
-
   <div class="row">
     <div class="col">
       <app-mediainput formControlName="picture" name="picture"></app-mediainput>
     </div>
   </div>
-
 
   <div class="btn-group">
     <button [disabled]="drinkForm.invalid" class="btn btn-primary" type="submit">
