@@ -19,6 +19,9 @@ export class AuthService {
   isAdmin: boolean;
   userName: string;
 
+  diretiveGoingTo: string;
+  directiveComingFrom: string;
+
   accessTokenLocalStorageKey = 'access_token';
 
   constructor(private http: HttpClient, private router: Router) {

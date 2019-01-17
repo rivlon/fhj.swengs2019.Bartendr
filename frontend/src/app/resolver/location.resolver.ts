@@ -2,14 +2,13 @@ import {Injectable} from '@angular/core';
 import {ActivatedRouteSnapshot, Resolve, RouterStateSnapshot} from '@angular/router';
 import {Observable} from 'rxjs';
 import {LocationService} from '../service/location.service';
-import {LocationFormComponent} from '../components/location-form/location-form.component';
 
 @Injectable({
   providedIn: 'root'
 })
 export class LocationResolver implements Resolve<Observable<Array<any>>> {
 
-  constructor(private locationService: LocationService, private locationFormComponent: LocationFormComponent) {
+  constructor(private locationService: LocationService) {
   }
 
   resolve(route: ActivatedRouteSnapshot,

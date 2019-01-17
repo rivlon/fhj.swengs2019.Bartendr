@@ -33,7 +33,10 @@ const routes: Routes = [
     resolve: {location: LocationResolver, drinks: DrinksResolver}},
 
   {path: 'user-list', component: UserListComponent, canActivate: [AdminGuard], resolve: {users: UsersResolver}},
-  {path: 'user-form', component: UserFormComponent, canActivate: [AuthGuard], resolve: {user: UserResolver}},
+  {path: 'user-form', component: UserFormComponent, canActivate: [AdminGuard], resolve: {user: UserResolver}},
+  {path: 'user-form/:username', component: UserFormComponent, canActivate: [AuthGuard],
+    resolve: {user: UserResolver}}
+
 
 ];
 

@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import {Drink} from '../../api/drink';
 import {AuthService} from '../../service/auth.service';
 import {DrinkService} from '../../service/drink.service';
 import {ActivatedRoute, Router} from '@angular/router';
@@ -18,7 +17,8 @@ export class UserListComponent implements OnInit {
   isAdmin: boolean;
   username: string;
 
-  constructor(private authService: AuthService, private userFormComponent: UserFormComponent, private drinkService: DrinkService, private route: ActivatedRoute, private router: Router) {
+  constructor(private authService: AuthService, private userFormComponent: UserFormComponent, private drinkService: DrinkService,
+              private route: ActivatedRoute, private router: Router) {
     this.loadData();
   }
 
@@ -33,9 +33,7 @@ export class UserListComponent implements OnInit {
   }
 
   navigateToUserForm(username: string) {
-    this.userFormComponent.userName = username;
-    this.userFormComponent.rOnly = false;
-    this.router.navigate(['/user-form']);
+    this.router.navigate(['/user-form/' + username]);
   }
 }
 
