@@ -1,6 +1,5 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {map} from 'rxjs/operators';
 import {Location} from '../api/location';
 
 @Injectable({
@@ -29,5 +28,11 @@ export class LocationService {
 
   getAll() {
     return this.http.get('/api/dto/locations');
+  }
+
+  makeRequest(param: string) {
+    return this.http.get(
+      'https://plus.codes/api?ekey=B5Ssb0e4WP0KVL9mDeGRPfCtC6EDoGhQUjmPh2CIFQb2HA5L%2Fo%2B4VFJR8pgd8DLfo9WSAjk%2FFFGQvNJCzFNN43APfTc%3D&address='
+      + encodeURIComponent(param));
   }
 }
