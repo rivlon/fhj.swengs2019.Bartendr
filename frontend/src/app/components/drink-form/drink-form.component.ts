@@ -4,6 +4,7 @@ import {LocationService} from '../../service/location.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {ToastrService} from 'ngx-toastr';
+import {Location} from '../../api/location';
 
 @Component({
   selector: 'app-drink-form',
@@ -15,10 +16,11 @@ export class DrinkFormComponent implements OnInit {
 
   drinkForm;
   shouldNavigateToList: boolean;
-  locationOptions;
+  locationOptions: Array<Location>;
+  loc: Location;
   cat: string;
   text: string;
-  categories: Array<String> = ['Beer', 'Wine', 'Vodka', 'Gin'];
+  categories: Array<string> = ['Beer', 'Wine', 'Vodka', 'Gin'];
   message;
 
   constructor(private drinkService: DrinkService, private route: ActivatedRoute, private router: Router,
@@ -41,6 +43,10 @@ export class DrinkFormComponent implements OnInit {
     const data = this.route.snapshot.data;
     if (data.drink) {
       this.drinkForm.setValue(data.drink);
+      this.locationService.getById(this.drinkForm.value.locationID).subscribe((val: any) => {
+        this.loc = val;
+      });
+      this.cat = this.drinkForm.value.category;
     }
     this.locationOptions = data.locations;
   }
@@ -67,6 +73,11 @@ export class DrinkFormComponent implements OnInit {
   setCategory(cat: string) {
     this.cat = cat;
     this.drinkForm.patchValue({category: cat});
+  }
+
+  setLocation(loc: Location) {
+    this.loc.name = loc.name;
+    this.drinkForm.patchValue({locationID: loc.id});
   }
 
   onOpenChange() {

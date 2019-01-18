@@ -1,4 +1,4 @@
-<form (ngSubmit)="saveLocation()" [formGroup]="locationForm">
+<form (ngSubmit)="getPlusCode()" [formGroup]="locationForm">
 
   <div class="row">
 
@@ -21,24 +21,9 @@
 
     <div class="col">
       <div class="form-group">
-        <label for="plusCode">PlusCode:</label>
-        <input [value]="code ? (code | async) : locationForm.value.plusCode" class="form-control" formControlName="plusCode" id="plusCode" name="plusCode"
-               type="text"/>
-      </div>
-    </div>
-    <div class="col">
-      <div class="form-group">
         <label for="address">Address:</label>
-        <input [value]="adrs ? (adrs | async) : locationForm.value.address" class="form-control" formControlName="address" id="address" name="address"
-               type="text"/>
+        <input [value]="adrs" class="form-control" formControlName="address" id="address" name="address" type="text"/>
       </div>
-    </div>
-
-    <div class="col">
-      <button (click)="generatePlusCode()" [disabled]="clicked"
-              [hidden]="clicked"
-              class="btn btn-default btn-tooltip" ngbTooltip="Convert PlusCode to address (or vice versa if no PlusCode is given). This button will self-destruct!" placement="bottom" type="button">Convert
-      </button>
     </div>
 
     <div class="col">

@@ -9,12 +9,10 @@ import {LoginComponent} from './components/login/login.component';
 import {LocationFormComponent} from './components/location-form/location-form.component';
 import {LocationsComponent} from './components/locations/locations.component';
 import {JwtModule} from '@auth0/angular-jwt';
-import {FormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {NavigationComponent} from './components/navigation/navigation.component';
 import {UserFormComponent} from './components/user-form/user-form.component';
 import {RatingModule} from 'ngx-bootstrap/rating';
-import {NgxSelectModule} from 'ngx-select-ex';
-import {ReactiveFormsModule} from '@angular/forms';
 import {BsDropdownModule} from 'ngx-bootstrap';
 import {UserListComponent} from './components/user-list/user-list.component';
 import {MediainputComponent} from './components/mediainput/mediainput.component';
@@ -66,7 +64,6 @@ export const httpInterceptorProviders = [
     ReactiveFormsModule,
     RatingModule.forRoot(),
     BsDropdownModule.forRoot(),
-    NgxSelectModule,
     CommonModule,
     BrowserAnimationsModule,
     ToastrModule.forRoot(),

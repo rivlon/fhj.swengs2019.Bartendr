@@ -55,8 +55,7 @@ export class LocationsComponent implements OnInit {
 
   fetchCoords(inp: Array<Location>) {
     inp.forEach((value) => {
-      this.http.get('https://plus.codes/api?ekey=B5Ssb0e4WP0KVL9mDeGRPfCtC6EDoGhQUjmPh2CIFQb2HA5L%2Fo%2B4VFJR8pgd8DLfo9WSAjk%2FFFGQvNJCzFNN43APfTc%3D&address='
-        + encodeURIComponent(value.plusCode)).subscribe((response: any) => {
+      this.locationService.makeRequest(value.plusCode).subscribe((response: any) => {
         value.lat = response.plus_code.geometry.location.lat;
         value.lng = response.plus_code.geometry.location.lng;
         value.address = response.plus_code.best_street_address;
