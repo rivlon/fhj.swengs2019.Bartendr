@@ -21,7 +21,9 @@ public interface UserRepository extends PagingAndSortingRepository<User, Long>, 
 
     public Optional<User> findByIdAndActiveFalse(@Param("id") Long id);
 
-    public Optional<User> findByUsernameAndActiveTrue(@Param("id") String username);
+    public User findByUsernameAndActiveTrue(@Param("id") String username);
+
+    public Optional<User> findAllByUsernameAndActiveTrue(@Param("id") String username);
 
     public List<User> findAllByActiveTrue();
 

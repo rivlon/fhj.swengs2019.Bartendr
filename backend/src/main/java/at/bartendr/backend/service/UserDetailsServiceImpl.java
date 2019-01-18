@@ -36,7 +36,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         try {
-            at.bartendr.backend.model.User user = userRepository.findByUsername(username);
+            at.bartendr.backend.model.User user = userRepository.findByUsernameAndActiveTrue(username);
             if (user.getUsername().equals(username)) {
 
                 // Remember that Spring needs roles to be in this format: "ROLE_" + userRole (i.e. "ROLE_ADMIN")
@@ -66,6 +66,16 @@ public class UserDetailsServiceImpl implements UserDetailsService {
             admin.setLastname("Irgendwas");
             admin.setEmail("hans-peter@irgendwas.com");
             userRepository.save(admin);
+
+            at.bartendr.backend.model.User sysAdmin = new at.bartendr.backend.model.User();
+            sysAdmin.setUsername("sysAdmin");
+            sysAdmin.setPassword(encoder.encode("sysAdmin"));
+            sysAdmin.setAdmin(true);
+            sysAdmin.setFirstname("System");
+            sysAdmin.setLastname("Administrator");
+            sysAdmin.setEmail("administrator@bartender.at");
+            userRepository.save(sysAdmin);
+
 
             at.bartendr.backend.model.User tester = new at.bartendr.backend.model.User();
             tester.setUsername("tester");

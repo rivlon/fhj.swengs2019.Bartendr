@@ -29,7 +29,7 @@ export class LoginComponent implements OnInit {
     this.authService.login(this.user)
       .subscribe((res: any) => {
       }, (error) => {
-        this.toastr.error('Wrong Username or Password!', 'Message:');
+        this.toastr.error('Wrong Username or Password!', 'Error:');
       });
   }
 

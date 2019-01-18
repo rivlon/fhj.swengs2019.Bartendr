@@ -20,18 +20,18 @@
           <li
             [className]="router.url.includes('/drink-form') && !router.url.includes('/drink-form/') ? 'nav-item active' : 'nav-item'">
             <a
-              (click)="navigateCreateDrink()" *ngIf="isAdmin" class="nav-link"
+              [routerLink]="'/drink-form/'" *ngIf="isAdmin" class="nav-link"
               style="cursor: pointer">Create Drink</a></li>
           <li
             [className]="router.url.includes('/location-form') && !router.url.includes('/location-form/') ? 'nav-item active' : 'nav-item'">
             <a
-              (click)="navigateCreateLocation()" *ngIf="isAdmin" class="nav-link"
+              [routerLink]="'/location-form/'" *ngIf="isAdmin" class="nav-link"
               style="cursor: pointer">Create
               Location</a></li>
           <li
             [className]="router.url.includes('/user-form') && !router.url.includes('/user-form/') ? 'nav-item active' : 'nav-item'">
             <a
-              (click)="navigateCreateUser()" *ngIf="isAdmin" class="nav-link"
+              [routerLink]="'/user-form/'" *ngIf="isAdmin" class="nav-link"
               style="cursor: pointer">Create User</a></li>
           <li [className]="router.url.includes('/user-list') ? 'nav-item active' : 'nav-item'"><a *ngIf="isAdmin"
                                                                                                   [routerLink]="'/user-list'"

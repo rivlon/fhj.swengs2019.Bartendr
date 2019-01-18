@@ -25,7 +25,7 @@ public class UserService {
     }
 
     public Optional<User> findActiveUserByUsername(String username) {
-        return userRepository.findByUsernameAndActiveTrue(username);
+        return userRepository.findAllByUsernameAndActiveTrue(username);
     }
 
     public List<User> getActiveUsers() {

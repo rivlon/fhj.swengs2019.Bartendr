@@ -1,15 +1,3 @@
-<!--
-<div *ngFor="let user of activeUsers">
-  Username: {{user.username}} | First Name: {{user.Firstname}} | Last Name: {{user.lastname}} | eMail: {{user.email}}  <button *ngIf="isAdmin" (click)="navigateToUserForm(user.username)">Edit</button>
-  <button *ngIf="isAdmin" (click)="deleteUser(user.id)">Delete</button>
-</div>
-
-<div *ngFor="let user of inActiveUsers">
-  Username: {{user.username}} | First Name: {{user.Firstname}} | Last Name: {{user.lastname}} | eMail: {{user.email}}  <button *ngIf="isAdmin" (click)="navigateToUserForm(user.username)">Edit</button>
-  <button *ngIf="isAdmin" (click)="deleteUser(user.id)">Activate</button>
-</div>
--->
-
 <table id="datatable" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="row-border hover">
   <thead>
   <tr>
@@ -32,7 +20,7 @@
     <td>{{ user.admin }}</td>
     <td >{{ user.active }}</td>
     <button [routerLink]="'/user-form/' + user.username">EDIT</button>
-    <button *ngIf="user.active" (click)="deleteUser(user.id)">DELETE</button>
+    <button *ngIf="user.active" (click)="deleteUser(user)">DELETE</button>
     <button *ngIf="!user.active" (click)="activateUser(user)">ACTIVATE</button>
   </tr>
   </tbody>

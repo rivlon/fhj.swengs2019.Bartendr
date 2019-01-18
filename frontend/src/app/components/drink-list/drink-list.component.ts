@@ -43,10 +43,9 @@ export class DrinkListComponent implements OnInit {
   }
 
   deleteDrink(drink: Drink) {
-    this.drinkService.delete(drink)
+    this.drinkService.delete(drink.id)
       .subscribe(() => {
-        this.message = 'Successfully deleted ' + drink.name + '!';
-        this.toastr.success(this.message, 'Message:');
+        this.toastr.success('Drink: ' + drink.name + ' has been successfully deleted!', 'Sucess!:');
         this.refetchData();
       });
   }

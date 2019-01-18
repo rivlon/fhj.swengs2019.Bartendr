@@ -1,5 +1,25 @@
-
-<div *ngFor="let drink of drinks">
-  Name: {{drink.name}} | Category: {{drink.category}} | Price: {{drink.price}} | Rating: {{drink.rating}} | Age: {{drink.age}} <button *ngIf="isAdmin" (click)="navigateToDrinkForm(drink.id)">Edit</button> <button *ngIf="isAdmin" (click)="deleteDrink(drink)">Delete</button>
-</div>
+<table id="datatable" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="row-border hover">
+  <thead>
+  <tr>
+    <th>ID</th>
+    <th>Drink Name</th>
+    <th>Category</th>
+    <th>Price</th>
+    <th>Rating</th>
+    <th>Required Age</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let drink of drinks ">
+    <td>{{ drink.id }}</td>
+    <td>{{ drink.name }}</td>
+    <td>{{ drink.category }}</td>
+    <td>{{ drink.price }}</td>
+    <td>{{ drink.rating }}</td>
+    <td>{{ drink.age }}</td>
+    <button [routerLink]="'/drink-form/' + drink.id">EDIT</button>
+    <button *ngIf="isAdmin" (click)="deleteDrink(drink)">DELETE</button>
+  </tr>
+  </tbody>
+</table>
 

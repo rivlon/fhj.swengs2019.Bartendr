@@ -91,5 +91,8 @@
     <button (click)="setShouldNavigateToList()" [disabled]="drinkForm.invalid" class="btn btn-primary" type="submit">
       Save and Back
     </button>
+    <button type="button" class="btn btn-primary" [routerLink]="'/drink-list/'">
+      CANCEL
+    </button>
   </div>
 </form>

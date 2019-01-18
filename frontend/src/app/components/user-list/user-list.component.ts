@@ -18,6 +18,9 @@ import {map} from 'rxjs/operators';
 })
 export class UserListComponent implements OnInit, OnDestroy {
 
+  @ViewChild(DataTableDirective)
+  private datatableElement: DataTableDirective;
+
   users: Array<User>;
   isLoggedIn: boolean;
   isAdmin: boolean;
@@ -26,42 +29,28 @@ export class UserListComponent implements OnInit, OnDestroy {
   dtTrigger: Subject<any> = new Subject();
   dtOptions: DataTables.Settings = {};
 
-  /*
-  @ViewChild(DataTableDirective)
-  dtElement: DataTableDirective;
-  */
-
   constructor(private authService: AuthService, private userFormComponent: UserFormComponent, private drinkService: DrinkService,
               private route: ActivatedRoute, private router: Router, private userService: UserService, private toastr: ToastrService) {
     this.loadData();
   }
 
   ngOnInit() {
-    this.dtOptions = {
-      pagingType: 'full_numbers',
-      pageLength: 10
-    };
-    this.fetchData();
+    const data = this.route.snapshot.data;
+    if (data.users) {
+      this.users = data.users;
+      this.dtTrigger.next();
+      this.dtOptions = {
+        pagingType: 'full_numbers',
+        pageLength: 10
+      };
+      this.fetchData();
+    }
   }
 
   ngOnDestroy(): void {
     // Do not forget to unsubscribe the event
     this.dtTrigger.unsubscribe();
   }
-/*
-  ngAfterViewInit(): void {
-    this.dtTrigger.next();
-  }
-
-  rerender(): void {
-    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
-      // Destroy the table first
-      dtInstance.destroy();
-      // Call the dtTrigger to rerender again
-      this.dtTrigger.next();
-    });
-  }
-  */
 
   private loadData() {
     this.isLoggedIn = this.authService.isLoggedIn;
@@ -69,10 +58,16 @@ export class UserListComponent implements OnInit, OnDestroy {
     this.username = this.authService.userName;
   }
 
-  deleteUser(id: number) {
-    if (this.isAdmin) {
-      this.userService.deleteById(id);
-      this.fetchData();
+  deleteUser(user: User) {
+    if (user.username === 'sysAdmin') {
+      this.toastr.error('System Administrator cannot be deleted!', 'Not authorized!:');
+    } else if (user.username === this.username) {
+      this.toastr.error('You cannot delete yourself!', 'Not authorized!:');
+    } else if (this.isAdmin ) {
+      this.userService.deleteById(user.id).subscribe(() => {
+        this.fetchData();
+        this.toastr.success('User with username: ' + user.username + ' has been successfully deleted!', 'Success!:');
+      });
     } else {
       this.toastr.error('Only Admins can delete Users!', 'Not authorized!:');
     }
@@ -80,8 +75,9 @@ export class UserListComponent implements OnInit, OnDestroy {
 
   activateUser(user: User) {
     if (this.isAdmin) {
-      this.userService.activateUser(user).subscribe((response: any) => {
+      this.userService.activateUser(user).subscribe(() => {
         this.fetchData();
+        this.toastr.success('User with username: ' + user.username + ' has been successfully reactivated!', 'Success!:');
       });
     } else {
       this.toastr.error('Only Admins can reactivate Users!', 'Not authorized!:');
@@ -90,10 +86,24 @@ export class UserListComponent implements OnInit, OnDestroy {
 
 
   fetchData() {
-    this.userService.getAllUsers().subscribe((re: any) => {
-      this.users = re;
+    this.userService.getAllUsers().subscribe((response: any) => {
+      this.users = response;
+      this.rerender();
+    });
+  }
+
+  rerender(): void {
+    this.datatableElement.dtInstance.then((dtInstance: DataTables.Api) => {
+      // Destroy the table first
+      dtInstance.destroy();
+      // Call the dtTrigger to rerender again
       this.dtTrigger.next();
     });
   }
+
+  ngAfterViewInit(): void {
+    this.dtTrigger.next();
+  }
+
 }
 
