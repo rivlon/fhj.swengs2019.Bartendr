@@ -20,6 +20,10 @@ public class UserService {
         return userRepository.findByIdAndActiveTrue(id);
     }
 
+    public Optional<User> findInactiveUserById(Long id) {
+        return userRepository.findByIdAndActiveFalse(id);
+    }
+
     public Optional<User> findActiveUserByUsername(String username) {
         return userRepository.findByUsernameAndActiveTrue(username);
     }
@@ -46,6 +50,15 @@ public class UserService {
         if (optEntity.isPresent()) {
             User entity = optEntity.get();
             entity.setActive(false);
+            save(entity);
+        }
+    }
+
+    public void reactivate(Long id) {
+        Optional<User> optEntity = findInactiveUserById(id);
+        if (optEntity.isPresent()) {
+            User entity = optEntity.get();
+            entity.setActive(true);
             save(entity);
         }
     }

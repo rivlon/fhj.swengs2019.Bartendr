@@ -43,4 +43,8 @@ export class UserService {
     return this.http.delete('/api/dto/users/' + userId);
   }
 
+  activateUser(user: User) {
+    return this.http.put('/api/dto/users/activate/' + user.id, user);
+  }
+
 }

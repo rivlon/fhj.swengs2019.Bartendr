@@ -5,6 +5,7 @@ import {LocationFormComponent} from '../location-form/location-form.component';
 import {AuthService} from '../../service/auth.service';
 import {HttpClient} from '@angular/common/http';
 import {Location} from '../../api/location';
+import {ToastrService} from 'ngx-toastr';
 
 @Component({
   selector: 'app-locations',
@@ -13,16 +14,18 @@ import {Location} from '../../api/location';
 })
 export class LocationsComponent implements OnInit {
 
-  zoom: number = 17;
+  zoom = 17;
 
   locations: Array<Location>;
   isLoggedIn: boolean;
   isAdmin: boolean;
   username: string;
+  message;
 
 
   constructor(private authService: AuthService, private locationService: LocationService, private route: ActivatedRoute,
-              private router: Router, private locationFormComponent: LocationFormComponent, private http: HttpClient) {
+              private router: Router, private locationFormComponent: LocationFormComponent, private http: HttpClient,
+              private toastr: ToastrService) {
     this.loadData();
   }
 
@@ -37,6 +40,8 @@ export class LocationsComponent implements OnInit {
   deleteLocation(location: Location) {
     this.locationService.delete(location)
       .subscribe(() => {
+        this.message = 'Successfully deleted ' + location.name + '!';
+        this.toastr.success(this.message, 'Message:');
         this.fetchData();
       });
   }

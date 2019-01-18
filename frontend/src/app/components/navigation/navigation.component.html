@@ -1,16 +1,46 @@
 <div *ngIf="isLoggedIn">
-  <nav>
-    <div>
-      <div>
-        <button [routerLink]="'/drink-list/'">Drinks</button> |
-        <button [routerLink]="'/locations/'">Locations</button> |
-        <button (click)="navigateToProfile()">Profile</button> |
-        <button *ngIf="isAdmin" (click)="navigateCreateDrink()">Create Drink</button> |
-        <button *ngIf="isAdmin" (click)="navigateCreateLocation()">Create Location</button> |
-        <button *ngIf="isAdmin" (click)="navigateCreateUser()">Create User</button> |
-        <button *ngIf="isAdmin" [routerLink]="'/user-list'">User List</button>
-        <button id="logoutButton" type="button" (click)="logout()" *ngIf="isLoggedIn">Logout</button>
-        <label for="logoutButton">Signed in as: {{username}}</label>
+  <nav class="navbar navbar-expand-lg bg-primary">
+    <div class="container">
+      <div class="navbar-translate">
+        <a class="navbar-brand" href="/drink-list">Bartendr</a>
+      </div>
+      <div class="collapse navbar-collapse">
+        <ul class="navbar-nav">
+          <li [className]="router.url.includes('/drink-list') ? 'nav-item active' : 'nav-item'"><a
+            [routerLink]="'/drink-list/'" class="nav-link">Drinks</a></li>
+          <li [className]="router.url.includes('/locations') ? 'nav-item active' : 'nav-item'"><a
+            [routerLink]="'/locations/'"
+            class="nav-link">Locations</a>
+          </li>
+          <li
+            [className]="router.url.includes('/user-form/') && router.url.includes(username) ? 'nav-item active' : 'nav-item'">
+            <a
+              (click)="navigateToProfile()" class="nav-link" style="cursor: pointer">Profile</a>
+          </li>
+          <li
+            [className]="router.url.includes('/drink-form') && !router.url.includes('/drink-form/') ? 'nav-item active' : 'nav-item'">
+            <a
+              (click)="navigateCreateDrink()" *ngIf="isAdmin" class="nav-link"
+              style="cursor: pointer">Create Drink</a></li>
+          <li
+            [className]="router.url.includes('/location-form') && !router.url.includes('/location-form/') ? 'nav-item active' : 'nav-item'">
+            <a
+              (click)="navigateCreateLocation()" *ngIf="isAdmin" class="nav-link"
+              style="cursor: pointer">Create
+              Location</a></li>
+          <li
+            [className]="router.url.includes('/user-form') && !router.url.includes('/user-form/') ? 'nav-item active' : 'nav-item'">
+            <a
+              (click)="navigateCreateUser()" *ngIf="isAdmin" class="nav-link"
+              style="cursor: pointer">Create User</a></li>
+          <li [className]="router.url.includes('/user-list') ? 'nav-item active' : 'nav-item'"><a *ngIf="isAdmin"
+                                                                                                  [routerLink]="'/user-list'"
+                                                                                                  class="nav-link">User
+            List</a></li>
+          <li class="nav-item"><a (click)="logout()" *ngIf="isLoggedIn" class="nav-link"
+                                  style="cursor: pointer">Logout</a></li>
+          <li class="nav-item"><a class="nav-link disabled">Signed in as: {{username}}</a></li>
+        </ul>
       </div>
     </div>
   </nav>

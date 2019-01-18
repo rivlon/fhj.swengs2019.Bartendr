@@ -4,6 +4,9 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {LocationService} from '../../service/location.service';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {Drink} from '../../api/drink';
+import {HttpClient} from '@angular/common/http';
+import {map} from 'rxjs/operators';
+import {ToastrService} from 'ngx-toastr';
 
 @Component({
   selector: 'app-location-form',
@@ -18,9 +21,13 @@ export class LocationFormComponent implements OnInit {
   drinkArray: Array<Drink>;
   drinkOptions: Array<Drink>;
   drinkIDs;
+  code;
+  adrs;
+  clicked = false;
+  message;
 
   constructor(private drinkService: DrinkService, private route: ActivatedRoute, private router: Router,
-              private locationService: LocationService) {
+              private locationService: LocationService, private http: HttpClient, private toastr: ToastrService) {
   }
 
   ngOnInit() {
@@ -30,10 +37,12 @@ export class LocationFormComponent implements OnInit {
       'plusCode': new FormControl(),
       'rating': new FormControl(),
       'drinks': new FormControl(),
+      'address': new FormControl()
     });
 
     const data = this.route.snapshot.data;
     if (data.location) {
+      data.location.address = '';
       this.locationForm.setValue(data.location);
     }
     this.drinkOptions = data.drinks;
@@ -43,18 +52,41 @@ export class LocationFormComponent implements OnInit {
     });
   }
 
+  generatePlusCode() {
+    if (this.locationForm.value.plusCode != null) {
+      const plusCode = this.locationForm.value.plusCode;
+      this.adrs = this.http.get('https://plus.codes/api?ekey=B5Ssb0e4WP0KVL9mDeGRPfCtC6EDoGhQUjmPh2CIFQb2HA5L%2Fo%2B4VFJR8pgd8DLfo9WSAjk%2FFFGQvNJCzFNN43APfTc%3D&address='
+        + encodeURIComponent(plusCode)).pipe(map((response: any) => {
+        return response.plus_code.best_street_address;
+      }));
+      this.clicked = true;
+    } else if (this.locationForm.value.address != null) {
+      const address = this.locationForm.value.address;
+      this.code = this.http.get('https://plus.codes/api?ekey=B5Ssb0e4WP0KVL9mDeGRPfCtC6EDoGhQUjmPh2CIFQb2HA5L%2Fo%2B4VFJR8pgd8DLfo9WSAjk%2FFFGQvNJCzFNN43APfTc%3D&address='
+        + encodeURIComponent(address)).pipe(map((response: any) => {
+        return response.plus_code.local_code + ' ' + response.plus_code.locality.local_address;
+      }));
+      this.clicked = true;
+    } else {
+      this.clicked = true;
+      return;
+    }
+  }
+
   saveLocation() {
     const locationToBeSafe = this.locationForm.value;
     if (locationToBeSafe.id) {
       this.locationService.update(locationToBeSafe)
         .subscribe(() => {
-          alert('updated successfully');
+          this.message = 'Successfully updated ' + this.locationForm.value.name + '!'
+          this.toastr.success(this.message, 'Message:');
           this.navigateToList();
         });
     } else {
       this.locationService.create(locationToBeSafe)
         .subscribe(() => {
-          alert('created successfully');
+          this.message = 'Successfully created ' + this.locationForm.value.name + '!'
+          this.toastr.success(this.message, 'Message:');
           this.navigateToList();
         });
     }

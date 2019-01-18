@@ -15,6 +15,11 @@ public class UserController {
     @Autowired
     private UserFacade userFacade;
 
+    @PutMapping("/dto/users/activate/{id}")
+    void reactivateUser(@PathVariable Long id) {
+        userFacade.reactivateUser(id);
+    }
+
     @GetMapping("/dto/users/")
     List<UserDTO> getAllUsers() {
         return userFacade.getAllUsers();

@@ -75,6 +75,8 @@ public class UserFacade {
         userService.delete(id);
     }
 
+    public void reactivateUser(Long id) { userService.reactivate(id); }
+
     public UserDTO getById(Long id) {
         Optional<User> entity = userService.findActiveUserById(id);
         if (entity.isPresent()) {
@@ -130,4 +132,6 @@ public class UserFacade {
 
         return users;
     }
+
+
 }

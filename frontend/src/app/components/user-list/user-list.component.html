@@ -10,7 +10,7 @@
 </div>
 -->
 
-<table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="row-border hover">
+<table id="datatable" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="row-border hover">
   <thead>
   <tr>
     <th>ID</th>
@@ -23,7 +23,7 @@
   </tr>
   </thead>
   <tbody>
-  <tr *ngFor="let user of users">
+  <tr *ngFor="let user of users ">
     <td>{{ user.id }}</td>
     <td>{{ user.username }}</td>
     <td>{{ user.firstname }}</td>
@@ -33,7 +33,7 @@
     <td >{{ user.active }}</td>
     <button [routerLink]="'/user-form/' + user.username">EDIT</button>
     <button *ngIf="user.active" (click)="deleteUser(user.id)">DELETE</button>
-    <button *ngIf="!user.active" (click)="activate(user.id)">ACTIVATE</button>
+    <button *ngIf="!user.active" (click)="activateUser(user)">ACTIVATE</button>
   </tr>
   </tbody>
 </table>

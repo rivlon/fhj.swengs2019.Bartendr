@@ -28,12 +28,18 @@ import {JwBootstrapSwitchNg2Module} from 'jw-bootstrap-switch-ng2';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {HttpClientModule} from '@angular/common/http';
 import { DataTablesModule } from 'angular-datatables';
-
+import {ToastrModule} from 'ngx-toastr';
+import {ErrorInterceptor} from './httpinterceptor/error.interceptor';
+import {HTTP_INTERCEPTORS} from '@angular/common/http';
 
 
 export function tokenGetter() {
   return localStorage.getItem('access_token');
 }
+
+export const httpInterceptorProviders = [
+  {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true},
+];
 
 @NgModule({
   declarations: [
@@ -63,6 +69,7 @@ export function tokenGetter() {
     NgxSelectModule,
     CommonModule,
     BrowserAnimationsModule,
+    ToastrModule.forRoot(),
     FormsModule,
     JwBootstrapSwitchNg2Module,
     NgbModule,
@@ -78,7 +85,8 @@ export function tokenGetter() {
   providers: [DrinkFormComponent,
     LocationFormComponent,
     UserFormComponent,
-    GoogleMapsAPIWrapper],
+    GoogleMapsAPIWrapper,
+    httpInterceptorProviders],
   bootstrap: [AppComponent]
 })
 export class AppModule {
