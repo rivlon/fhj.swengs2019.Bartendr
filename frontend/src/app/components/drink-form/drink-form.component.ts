@@ -3,6 +3,7 @@ import {DrinkService} from '../../service/drink.service';
 import {LocationService} from '../../service/location.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {ToastrService} from 'ngx-toastr';
 
 @Component({
   selector: 'app-drink-form',
@@ -18,9 +19,10 @@ export class DrinkFormComponent implements OnInit {
   cat: string;
   text: string;
   categories: Array<String> = ['Beer', 'Wine', 'Vodka', 'Gin'];
+  message;
 
   constructor(private drinkService: DrinkService, private route: ActivatedRoute, private router: Router,
-              private locationService: LocationService) {
+              private locationService: LocationService, private toastr: ToastrService) {
 
   }
 
@@ -48,13 +50,15 @@ export class DrinkFormComponent implements OnInit {
     if (drinkToBeSafe.id) {
       this.drinkService.update(drinkToBeSafe)
         .subscribe(() => {
-          alert('updated successfully');
+          this.message = 'Successfully updated ' + this.drinkForm.value.name + '!';
+          this.toastr.success(this.message, 'Message:');
           this.navigateToList();
         });
     } else {
       this.drinkService.create(drinkToBeSafe)
         .subscribe(() => {
-          alert('created successfully');
+          this.message = 'Successfully created ' + this.drinkForm.value.name + '!';
+          this.toastr.success(this.message, 'Message:');
           this.navigateToList();
         });
     }

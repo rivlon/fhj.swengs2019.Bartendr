@@ -6,6 +6,7 @@ import {AuthService} from '../../service/auth.service';
 import {DrinkFormComponent} from '../drink-form/drink-form.component';
 import {HttpClient} from '@angular/common/http';
 import {map} from 'rxjs/operators';
+import {ToastrService} from 'ngx-toastr';
 
 @Component({
   selector: 'app-drink-list',
@@ -18,9 +19,10 @@ export class DrinkListComponent implements OnInit {
   isLoggedIn: boolean;
   isAdmin: boolean;
   username: string;
+  message;
 
   constructor(private drinkFormComponent: DrinkFormComponent, private authService: AuthService, private drinkService: DrinkService,
-              private route: ActivatedRoute, private router: Router, private http: HttpClient) {
+              private route: ActivatedRoute, private router: Router, private http: HttpClient, private toastr: ToastrService) {
     this.loadData();
   }
 
@@ -43,7 +45,8 @@ export class DrinkListComponent implements OnInit {
   deleteDrink(drink: Drink) {
     this.drinkService.delete(drink)
       .subscribe(() => {
-        alert('Drink ' + drink.name + ' has been deleted!')
+        this.message = 'Successfully deleted ' + drink.name + '!';
+        this.toastr.success(this.message, 'Message:');
         this.refetchData();
       });
   }

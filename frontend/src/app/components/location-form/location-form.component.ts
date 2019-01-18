@@ -6,6 +6,7 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {Drink} from '../../api/drink';
 import {HttpClient} from '@angular/common/http';
 import {map} from 'rxjs/operators';
+import {ToastrService} from 'ngx-toastr';
 
 @Component({
   selector: 'app-location-form',
@@ -23,9 +24,10 @@ export class LocationFormComponent implements OnInit {
   code;
   adrs;
   clicked = false;
+  message;
 
   constructor(private drinkService: DrinkService, private route: ActivatedRoute, private router: Router,
-              private locationService: LocationService, private http: HttpClient) {
+              private locationService: LocationService, private http: HttpClient, private toastr: ToastrService) {
   }
 
   ngOnInit() {
@@ -76,13 +78,15 @@ export class LocationFormComponent implements OnInit {
     if (locationToBeSafe.id) {
       this.locationService.update(locationToBeSafe)
         .subscribe(() => {
-          alert('updated successfully');
+          this.message = 'Successfully updated ' + this.locationForm.value.name + '!'
+          this.toastr.success(this.message, 'Message:');
           this.navigateToList();
         });
     } else {
       this.locationService.create(locationToBeSafe)
         .subscribe(() => {
-          alert('created successfully');
+          this.message = 'Successfully created ' + this.locationForm.value.name + '!'
+          this.toastr.success(this.message, 'Message:');
           this.navigateToList();
         });
     }
