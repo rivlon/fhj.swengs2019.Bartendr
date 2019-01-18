@@ -45,13 +45,13 @@ export class LocationFormComponent implements OnInit {
       this.locationService.makeRequest(data.location.plusCode).subscribe((response: any) => {
         this.adrs = response.plus_code.best_street_address;
       });
+      this.drinkIDs = data.location.drinks;
+      this.drinkOptions = data.drinks;
+      this.drinkArray = this.drinkOptions.filter(drink => {
+        return this.drinkIDs.includes(drink.id);
+      });
       this.locationForm.setValue(data.location);
     }
-    this.drinkOptions = data.drinks;
-    this.drinkIDs = data.location.drinks;
-    this.drinkArray = this.drinkOptions.filter(drink => {
-      return this.drinkIDs.includes(drink.id);
-    });
   }
 
   generatePlusCode(): Promise<string> {
