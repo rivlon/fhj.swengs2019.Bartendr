@@ -47,7 +47,13 @@ public class LocationController {
     }
 
     @DeleteMapping("/dto/locations/{id}")
-    void delete(@PathVariable Long id) {
-        this.locationFacade.delete(id);
+    ResponseEntity delete(@PathVariable Long id){
+        Location location = this.locationRepository.findById(id).get();
+        if(location.getDrinks().size() == 0) {
+            this.locationFacade.delete(id);
+            return new ResponseEntity<>(HttpStatus.GONE);
+        } else {
+            return new ResponseEntity<>(HttpStatus.CONFLICT);
+        }
     }
 }

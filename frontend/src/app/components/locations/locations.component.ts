@@ -21,6 +21,8 @@ export class LocationsComponent implements OnInit {
   isAdmin: boolean;
   username: string;
   message;
+  beforeDelete: number;
+  afterDelete: number;
 
 
   constructor(private authService: AuthService, private locationService: LocationService, private route: ActivatedRoute,
@@ -40,10 +42,12 @@ export class LocationsComponent implements OnInit {
   deleteLocation(location: Location) {
     this.locationService.delete(location)
       .subscribe(() => {
-        this.message = 'Successfully deleted ' + location.name + '!';
-        this.toastr.success(this.message, 'Message:');
-        this.fetchData();
       });
+    this.fetchData();
+  }
+
+  writeMessage() {
+    this.toastr.success(this.locations.length.toString());
   }
 
   fetchData() {

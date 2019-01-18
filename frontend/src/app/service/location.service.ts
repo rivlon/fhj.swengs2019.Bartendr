@@ -19,7 +19,7 @@ export class LocationService {
   }
 
   delete(location: Location) {
-    return this.http.delete('api/dto/locations/' + location.id);
+      return this.http.delete('api/dto/locations/' + location.id);
   }
 
   getById(id: string) {
