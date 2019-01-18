@@ -15,8 +15,12 @@ export class ErrorInterceptor implements HttpInterceptor {
       catchError((err: HttpErrorResponse) => {
         console.log('error.interceptor');
         if (err instanceof HttpErrorResponse) {
-          if (err.status > 499 && err.status < 600) {
-            this.toastrService.error('The server is currently not available!', 'Message');
+          if (err.status === 409) {
+            this.toastrService.error('Could not be deleted, still Drinks assigned!', 'Message');
+          } else if (err.status === 410) {
+            this.toastrService.success('Successfully deleted', 'Message');
+          } else if (err.status > 499 && err.status < 600) {
+            this.toastrService.error('Some Server Error occurred!', 'Message');
           } else if (err.status === 400) {
             this.toastrService.error('Bad Request!', 'Message');
           } else if (err.status === 401) {

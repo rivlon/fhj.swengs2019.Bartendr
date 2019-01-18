@@ -25,7 +25,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {JwBootstrapSwitchNg2Module} from 'jw-bootstrap-switch-ng2';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {HttpClientModule} from '@angular/common/http';
-import { DataTablesModule } from 'angular-datatables';
+import {DataTablesModule} from 'angular-datatables';
 import {ToastrModule} from 'ngx-toastr';
 import {ErrorInterceptor} from './httpinterceptor/error.interceptor';
 import {HTTP_INTERCEPTORS} from '@angular/common/http';

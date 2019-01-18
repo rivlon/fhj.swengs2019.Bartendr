@@ -28,5 +28,7 @@ public class LocationService {
         this.locationRepository.delete(entity);
     }
 
-    public List<Location> getLocations(){ return locationRepository.findAll();}
+    public List<Location> getLocations() {
+        return locationRepository.findAll();
+    }
 }
