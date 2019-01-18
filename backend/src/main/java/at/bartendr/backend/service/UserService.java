@@ -24,8 +24,16 @@ public class UserService {
         return userRepository.findByUsernameAndActiveTrue(username);
     }
 
-    public List<User> getUsers() {
+    public List<User> getActiveUsers() {
         return userRepository.findAllByActiveTrue();
+    }
+
+    public List<User> getInactiveUsers() {
+        return userRepository.findAllByActiveFalse();
+    }
+
+    public List<User> getUsers() {
+        return userRepository.findAll();
     }
 
     public User save(User entity) {

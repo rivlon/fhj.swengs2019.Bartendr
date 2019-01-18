@@ -27,6 +27,8 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {JwBootstrapSwitchNg2Module} from 'jw-bootstrap-switch-ng2';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {HttpClientModule} from '@angular/common/http';
+import { DataTablesModule } from 'angular-datatables';
+
 
 
 export function tokenGetter() {
@@ -52,6 +54,7 @@ export function tokenGetter() {
     AgmCoreModule.forRoot({apiKey: 'AIzaSyB8d4_zfbw1kp0hYV18zvi60JSmqXw25Qw'}),
     AppRoutingModule,
     HttpClientModule,
+    DataTablesModule,
     FileUploadModule,
     SafePipeModule,
     ReactiveFormsModule,

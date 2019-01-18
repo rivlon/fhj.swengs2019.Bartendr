@@ -14,6 +14,7 @@ export class UsersResolver implements Resolve<Observable<any>> {
 
   resolve(route: ActivatedRouteSnapshot,
           state: RouterStateSnapshot): Observable<Observable<any>> | Promise<Observable<any>> | Observable<any> {
-    return this.userService.getAll();
+    return this.userService.getAllActive();
+    return this.userService.getAllInactive();
   }
 }

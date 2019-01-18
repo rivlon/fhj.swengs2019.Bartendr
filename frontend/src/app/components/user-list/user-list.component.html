@@ -1,6 +1,40 @@
-
-<div *ngFor="let user of users">
+<!--
+<div *ngFor="let user of activeUsers">
   Username: {{user.username}} | First Name: {{user.Firstname}} | Last Name: {{user.lastname}} | eMail: {{user.email}}  <button *ngIf="isAdmin" (click)="navigateToUserForm(user.username)">Edit</button>
   <button *ngIf="isAdmin" (click)="deleteUser(user.id)">Delete</button>
 </div>
+
+<div *ngFor="let user of inActiveUsers">
+  Username: {{user.username}} | First Name: {{user.Firstname}} | Last Name: {{user.lastname}} | eMail: {{user.email}}  <button *ngIf="isAdmin" (click)="navigateToUserForm(user.username)">Edit</button>
+  <button *ngIf="isAdmin" (click)="deleteUser(user.id)">Activate</button>
+</div>
+-->
+
+<table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="row-border hover">
+  <thead>
+  <tr>
+    <th>ID</th>
+    <th>User Name</th>
+    <th>First Name</th>
+    <th>Last Name</th>
+    <th>eMail</th>
+    <th>Admin?</th>
+    <th>Active?</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let user of users">
+    <td>{{ user.id }}</td>
+    <td>{{ user.username }}</td>
+    <td>{{ user.firstname }}</td>
+    <td>{{ user.lastname }}</td>
+    <td>{{ user.email }}</td>
+    <td>{{ user.admin }}</td>
+    <td >{{ user.active }}</td>
+    <button [routerLink]="'/user-form/' + user.username">EDIT</button>
+    <button *ngIf="user.active" (click)="deleteUser(user.id)">DELETE</button>
+    <button *ngIf="!user.active" (click)="activate(user.id)">ACTIVATE</button>
+  </tr>
+  </tbody>
+</table>
 

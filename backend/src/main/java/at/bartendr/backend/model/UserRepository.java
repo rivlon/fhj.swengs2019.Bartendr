@@ -23,4 +23,8 @@ public interface UserRepository extends PagingAndSortingRepository<User, Long>, 
 
     public List<User> findAllByActiveTrue();
 
+    public List<User> findAllByActiveFalse();
+
+    public List<User> findAll();
+
 }

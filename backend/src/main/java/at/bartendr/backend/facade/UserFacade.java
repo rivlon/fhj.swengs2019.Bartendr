@@ -95,6 +95,30 @@ public class UserFacade {
         return null;
     }
 
+    public List<UserDTO> getAllActiveUsers() {
+        List<UserDTO> users = new ArrayList<>();
+
+        userService.getActiveUsers().forEach(entity -> {
+            UserDTO dto = new UserDTO();
+            mapEntityToDto(entity, dto);
+            users.add(dto);
+        });
+
+        return users;
+    }
+
+    public List<UserDTO> getAllInactiveUsers() {
+        List<UserDTO> users = new ArrayList<>();
+
+        userService.getInactiveUsers().forEach(entity -> {
+            UserDTO dto = new UserDTO();
+            mapEntityToDto(entity, dto);
+            users.add(dto);
+        });
+
+        return users;
+    }
+
     public List<UserDTO> getAllUsers() {
         List<UserDTO> users = new ArrayList<>();
 

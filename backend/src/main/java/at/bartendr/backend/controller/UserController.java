@@ -15,9 +15,19 @@ public class UserController {
     @Autowired
     private UserFacade userFacade;
 
-    @GetMapping("/dto/users")
+    @GetMapping("/dto/users/")
     List<UserDTO> getAllUsers() {
         return userFacade.getAllUsers();
+    }
+
+    @GetMapping("/dto/users/active")
+    List<UserDTO> getAllActiveUsers() {
+        return userFacade.getAllActiveUsers();
+    }
+
+    @GetMapping("/dto/users/inactive")
+    List<UserDTO> getAllInActiveUsers() {
+        return userFacade.getAllInactiveUsers();
     }
 
     @GetMapping("/dto/users/{id}")

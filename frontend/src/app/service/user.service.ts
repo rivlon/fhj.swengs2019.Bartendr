@@ -11,8 +11,16 @@ export class UserService {
   constructor(private http: HttpClient) {
   }
 
-  getAll() {
-    return this.http.get('/api/dto/users');
+  getAllUsers() {
+    return this.http.get('/api/dto/users/');
+  }
+
+  getAllActive() {
+    return this.http.get('/api/dto/users/active');
+  }
+
+  getAllInactive() {
+    return this.http.get('/api/dto/users/inactive');
   }
 
   create(user: User) {
