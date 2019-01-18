@@ -21,7 +21,7 @@ export class LocationFormComponent implements OnInit {
   drinkOptions: Array<Drink>;
   drinkIDs;
   code;
-  adrs;
+  adrs = '';
   clicked = false;
   message;
 
@@ -41,7 +41,7 @@ export class LocationFormComponent implements OnInit {
 
     const data = this.route.snapshot.data;
     if (data.location) {
-      data.location.address = '';
+      data.location.address = this.adrs;
       this.locationService.makeRequest(data.location.plusCode).subscribe((response: any) => {
         this.adrs = response.plus_code.best_street_address;
       });
@@ -80,7 +80,6 @@ export class LocationFormComponent implements OnInit {
 
   saveLocation() {
     const locationToBeSafe = this.locationForm.value;
-    console.log(locationToBeSafe);
     if (locationToBeSafe.id) {
       this.locationService.update(locationToBeSafe)
         .subscribe(() => {

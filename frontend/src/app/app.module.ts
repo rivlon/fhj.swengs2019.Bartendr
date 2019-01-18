@@ -13,7 +13,6 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {NavigationComponent} from './components/navigation/navigation.component';
 import {UserFormComponent} from './components/user-form/user-form.component';
 import {RatingModule} from 'ngx-bootstrap/rating';
-import {NgxSelectModule} from 'ngx-select-ex';
 import {BsDropdownModule} from 'ngx-bootstrap';
 import {UserListComponent} from './components/user-list/user-list.component';
 import {MediainputComponent} from './components/mediainput/mediainput.component';
@@ -62,7 +61,6 @@ export const httpInterceptorProviders = [
     ReactiveFormsModule,
     RatingModule.forRoot(),
     BsDropdownModule.forRoot(),
-    NgxSelectModule,
     CommonModule,
     BrowserAnimationsModule,
     ToastrModule.forRoot(),
