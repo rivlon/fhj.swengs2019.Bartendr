@@ -15,7 +15,7 @@ export class NavigationComponent implements OnInit {
 
   constructor(private authService: AuthService, private userService: UserService, private userFormComponent: UserFormComponent,
               private drinkFormComponent: DrinkFormComponent, private locationFormComponent: LocationFormComponent,
-              private router: Router) {
+              public router: Router) {
     this.loadData();
   }
 
