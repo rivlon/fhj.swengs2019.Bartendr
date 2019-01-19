@@ -24,6 +24,9 @@ export class UserFormComponent implements OnInit {
   readonlyPassword: boolean;
   shouldNavigateToList: boolean;
 
+  constructor(private userService: UserService, private route: ActivatedRoute, private router: Router, private authService: AuthService,
+              private toastr: ToastrService) {
+  }
 
   ValidatePassword() {
     if (this.userForm == null) {
@@ -37,12 +40,6 @@ export class UserFormComponent implements OnInit {
       : {passwordsMatch: false};
     return result;
   }
-
-  constructor(private userService: UserService, private route: ActivatedRoute, private router: Router, private authService: AuthService,
-              private toastr: ToastrService) {
-    this.loadData();
-  }
-
   ngOnInit() {
 
     this.userForm = new FormGroup({
@@ -126,12 +123,17 @@ export class UserFormComponent implements OnInit {
   activatePasswordInsert() {
     this.readonlyPassword = false;
   }
-
   private loadData() {
     this.isLoggedIn = this.authService.isLoggedIn;
     this.isAdmin = this.authService.isAdmin;
     this.username = this.authService.userName;
   }
+
+  showToastr(message: string, error: boolean) {
+    if (error) {
+      this.toastr.error(message, 'Error!');
+    } else {
+      this.toastr.success(message, 'Success!');
+    }
+  }
 }
-
-
