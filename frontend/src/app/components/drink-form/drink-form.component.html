@@ -38,7 +38,7 @@
           18+
         </label>
         <div
-          *ngIf="drinkForm.controls.age.invalid" role="alert">
+          *ngIf="drinkForm.controls.age.invalid && (drinkForm.controls.age.dirty || drinkForm.controls.age.touched)" role="alert">
           <div *ngIf="drinkForm.controls.age.errors.required">
             {{showToastr('An age is required.')}}
           </div>
@@ -82,7 +82,7 @@
         </div>
       </div>
       <div
-        *ngIf="drinkForm.controls.category.invalid" role="alert">
+        *ngIf="drinkForm.controls.category.invalid && (drinkForm.controls.age.dirty || drinkForm.controls.age.touched)" role="alert">
         <div *ngIf="drinkForm.controls.category.errors.required">
           {{showToastr('A category is required.')}}
         </div>
