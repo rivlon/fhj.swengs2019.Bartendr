@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {Subject} from 'rxjs';
 import {JwtHelperService} from '@auth0/angular-jwt';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
@@ -45,6 +45,7 @@ export class AuthService {
       }
     });
   }
+
   login(user) {
     return this.http.post('/api/auth/', user, {
       'headers': new HttpHeaders({'Content-Type': 'application/json'}),
@@ -55,7 +56,10 @@ export class AuthService {
       localStorage.setItem(this.accessTokenLocalStorageKey, token);
       const infos = this.jwtHelperService.decodeToken(token);
       if (infos.authorities.filter((o) => o === 'ROLE_ADMIN').length > 0) {
-        this.isAdmin = true; } else  {this.isAdmin = false; }
+        this.isAdmin = true;
+      } else {
+        this.isAdmin = false;
+      }
       this.userName = infos.sub;
       console.log(this.jwtHelperService.decodeToken(token));
       this.loggedInChange.next(true);
@@ -68,5 +72,15 @@ export class AuthService {
     localStorage.removeItem(this.accessTokenLocalStorageKey);
     this.loggedInChange.next(false);
     this.router.navigate(['/login']);
+  }
+
+  public checkForJWTExpiration() {
+    const token = localStorage.getItem(this.accessTokenLocalStorageKey);
+    if (token != null && this.jwtHelperService.isTokenExpired(token)) {
+      console.log('Token expired !');
+      return true;
+    } else {
+      return false;
+    }
   }
 }

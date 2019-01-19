@@ -3,11 +3,12 @@ import {HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest}
 import {Observable, throwError} from 'rxjs';
 import {ToastrService} from 'ngx-toastr';
 import {catchError} from 'rxjs/operators';
+import {AuthService} from '../service/auth.service';
 
 @Injectable()
 export class ErrorInterceptor implements HttpInterceptor {
 
-  constructor(private toastrService: ToastrService) {
+  constructor(private toastrService: ToastrService, private authService: AuthService) {
   }
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
@@ -24,7 +25,8 @@ export class ErrorInterceptor implements HttpInterceptor {
           } else if (err.status === 400) {
             this.toastrService.error('Bad Request!', 'Message');
           } else if (err.status === 401) {
-            this.toastrService.error('Unauthorized', 'Message');
+            this.toastrService.error('Unauthorized', 'Not authorized!');
+            this.authService.logout();
           } else if (err.status === 403) {
             this.toastrService.error('Forbidden', 'Message');
           } else if (err.status === 404) {

@@ -4,6 +4,7 @@ import {Observable} from 'rxjs';
 import {UserService} from '../service/user.service';
 import {state} from '@angular/animations';
 import {AuthService} from '../service/auth.service';
+import {ToastrService} from 'ngx-toastr';
 
 @Injectable({
   providedIn: 'root'
@@ -11,18 +12,20 @@ import {AuthService} from '../service/auth.service';
 export class AuthGuard implements CanActivate {
 
   constructor(
-    private authService: AuthService,
-    private router: Router
-  ) {
+    private authService: AuthService, private router: Router, private toastr: ToastrService) {
   }
 
   canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
-    if (!this.authService.isLoggedIn) {
-      this.router.navigate(['/login']);
-      return false;
+    if (this.authService.checkForJWTExpiration()) {
+      this.authService.logout();
+      this.toastr.info('Warning: You have been automatically logged out!', 'Authentication expired!');
+    } else if (!this.authService.isLoggedIn) {
+      this.authService.logout();
+      this.toastr.info('Warning: You have been automatically logged out!', 'Authentication expired!');
+    } else {
+      return true;
     }
-    return true;
   }
 }
