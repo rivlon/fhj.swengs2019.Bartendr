@@ -6,8 +6,11 @@ import {AuthService} from '../../service/auth.service';
 import {DrinkFormComponent} from '../drink-form/drink-form.component';
 import {HttpClient} from '@angular/common/http';
 import {ToastrService} from 'ngx-toastr';
-import {Subject} from 'rxjs';
+import {Location} from '../../api/location';
+import {LocationService} from '../../service/location.service';
 import {DataTableDirective} from 'angular-datatables';
+import {Subject} from 'rxjs';
+import {forEach} from '@angular/router/src/utils/collection';
 
 @Component({
   selector: 'app-drink-list',
@@ -20,8 +23,6 @@ export class DrinkListComponent implements OnInit, OnDestroy {
   private datatableElement: DataTableDirective;
 
   drinks: Array<Drink>;
-  //locations: Array<Location>;
-  drinksWithLocations: Map<Drink, Location> = new Map<Drink, Location>();
   isLoggedIn: boolean;
   isAdmin: boolean;
   username: string;
@@ -72,15 +73,9 @@ export class DrinkListComponent implements OnInit, OnDestroy {
   fetchData() {
     this.drinkService.getAll().subscribe((response: any) => {
       this.drinks = response;
-      this.drinks.forEach((value, index) => {
-        this.locationService.getById(String(value.locationID)).subscribe((val: any) => {
-          this.drinksWithLocations.set(this.drinks[index], val);
-        });
-      });
+      this.rerender();
     });
-    this.rerender();
   }
-
 
   rerender(): void {
     this.datatableElement.dtInstance.then((dtInstance: DataTables.Api) => {
@@ -91,10 +86,13 @@ export class DrinkListComponent implements OnInit, OnDestroy {
     });
   }
 
+  ngAfterViewInit(): void {
+    this.dtTrigger.next();
+  }
+
   private loadData() {
     this.isLoggedIn = this.authService.isLoggedIn;
     this.isAdmin = this.authService.isAdmin;
     this.username = this.authService.userName;
   }
 }
-
