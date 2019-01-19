@@ -27,6 +27,7 @@ export class DrinkListComponent implements OnInit, OnDestroy {
   isAdmin: boolean;
   username: string;
   locations: Array<Location>;
+  locationMap: Map<number, string> = new Map<number, string>();
 
   dtTrigger: Subject<any> = new Subject();
   dtOptions: DataTables.Settings = {};
@@ -38,6 +39,10 @@ export class DrinkListComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     const data = this.route.snapshot.data;
+    this.locations = data.locations;
+    this.locations.forEach(loc => {
+      this.locationMap.set(loc.id, loc.name);
+    });
     if (data.drinks) {
       this.fetchData();
       this.dtTrigger.next();

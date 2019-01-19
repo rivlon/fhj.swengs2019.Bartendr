@@ -14,7 +14,7 @@
   <tr *ngFor="let drink of drinks">
     <td>{{drink.id}}</td>
     <td><a [routerLink]="'/drink-form/' + drink.id">{{drink.name}}</a></td>
-    <td><a [routerLink]="'/location-form/' + drink.locationID">{{drink.locationID}}</a></td>
+    <td><a [routerLink]="'/location-form/' + drink.locationID">{{locationMap.get(drink.locationID)}}</a></td>
     <td>{{drink.category}}</td>
     <td>{{drink.price}}</td>
     <td>{{drink.rating}}</td>
