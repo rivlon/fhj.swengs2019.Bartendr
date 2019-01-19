@@ -63,6 +63,9 @@ export class AuthService {
       this.userName = infos.sub;
       console.log(this.jwtHelperService.decodeToken(token));
       this.loggedInChange.next(true);
+      this.loggedInChange.subscribe((value) => {
+        this.isLoggedIn = value;
+      });
       this.router.navigate(['/drink-list']);
       return res;
     }));

@@ -18,6 +18,7 @@ export class AuthGuard implements CanActivate {
   canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
+
     if (this.authService.checkForJWTExpiration()) {
       this.authService.logout();
       this.toastr.info('Warning: You have been automatically logged out!', 'Authentication expired!');

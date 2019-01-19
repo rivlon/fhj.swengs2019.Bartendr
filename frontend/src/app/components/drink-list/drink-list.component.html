@@ -11,6 +11,7 @@
   </tr>
   </thead>
   <tbody>
+  <!--
   <tr *ngFor="let drink of (drinksWithLocations | keyvalue)">
     <td>{{drink.key.id}}</td>
     <td><a [routerLink]="'/drink-form/' + drink.key.id">{{drink.key.name}}</a></td>
@@ -21,6 +22,18 @@
     <td>{{drink.key.age}}</td>
     <button *ngIf="isAdmin" [routerLink]="'/drink-form/' + drink.key.id">EDIT</button>
     <button (click)="deleteDrink(drink.key)" *ngIf="isAdmin">DELETE</button>
+  </tr>
+  -->
+  <tr *ngFor="let drink of drinks ">
+    <td><a [routerLink]="'/drink-form/' + drink.id">{{ drink.id }}</a></td>
+    <td>{{ drink.name }}</td>
+    <td>{{drink.locationID}}</td>
+    <td>{{ drink.category }}</td>
+    <td>{{ drink.price }}</td>
+    <td>{{ drink.rating }}</td>
+    <td>{{ drink.age }}</td>
+    <button [routerLink]="'/drink-form/' + drink.id">EDIT</button>
+    <button *ngIf="isAdmin" (click)="deleteDrink(drink)">DELETE</button>
   </tr>
   </tbody>
 </table>
