@@ -44,7 +44,7 @@ export class DrinkFormComponent implements OnInit {
       'age': new FormControl([], [Validators.required]),
       'rating': new FormControl(),
       'locationID': new FormControl(),
-      'picture': new FormControl()
+      'pictures': new FormControl([])
     });
 
     const data = this.route.snapshot.data;

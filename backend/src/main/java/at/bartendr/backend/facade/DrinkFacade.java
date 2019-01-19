@@ -4,12 +4,14 @@ import at.bartendr.backend.dto.DrinkDTO;
 import at.bartendr.backend.model.Drink;
 import at.bartendr.backend.service.DrinkService;
 import at.bartendr.backend.service.LocationService;
+import at.bartendr.backend.service.MediaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service()
 @Transactional
@@ -21,13 +23,16 @@ public class DrinkFacade {
     @Autowired
     private LocationService locationService;
 
+    @Autowired
+    private MediaService mediaService;
+
     void mapDtoToEntity(DrinkDTO dto, Drink entity) {
         entity.setName(dto.getName());
         entity.setCategory(dto.getCategory());
         entity.setPrice(dto.getPrice());
         entity.setAge(dto.getAge());
         entity.setRating(dto.getRating());
-        entity.setPicture(dto.getPicture());
+        entity.setPictures(dto.getPictures());
         entity.setLocations(locationService.findById(
                 dto.getLocationID()
         ).get());
@@ -41,7 +46,7 @@ public class DrinkFacade {
         dto.setPrice(entity.getPrice());
         dto.setAge(entity.getAge());
         dto.setRating(entity.getRating());
-        dto.setPicture(entity.getPicture());
+        dto.setPictures(entity.getPictures());
         dto.setLocationID(entity.getLocations().getId());
     }
 

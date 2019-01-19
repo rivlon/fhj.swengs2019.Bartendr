@@ -10,7 +10,9 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.HashSet;
 import java.util.Optional;
+import java.util.Set;
 
 @Service
 public class MediaService {
@@ -79,6 +81,17 @@ public class MediaService {
             uploadsDir.mkdir();
         }
         return uploadsDir;
+    }
+
+    public Optional<Media> findById(Long id) {
+        return mediaRepository.findById(id);
+    }
+
+    public Set<Media> getPictures(Set<Long> dtos) {
+        Set<Media> entities = new HashSet<>();
+        if(dtos != null)
+            dtos.forEach((dto)->entities.add(mediaRepository.findById(dto).get()));
+        return entities;
     }
 
 }

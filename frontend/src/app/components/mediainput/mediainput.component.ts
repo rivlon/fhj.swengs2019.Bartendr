@@ -26,46 +26,58 @@ export interface IMedia {
 export class MediainputComponent implements OnInit, ControlValueAccessor {
   resourceUrl = '/api/media';
   name: string;
-  medium: IMedia;
+  accept: string;
+  medias: IMedia[];
   uploader: FileUploader;
-  preview: string;
-  pictureId?: number;
-
-  onChange = (medium: IMedia) => {
+  previews: Array<String> = [];
+  isAdmin: Boolean;
+  onChange = (medias: IMedia[]) => {
     // empty default
-  };
+  }
 
   constructor(private authService: AuthService, private http: HttpClient, elm: ElementRef) {
     this.name = elm.nativeElement.getAttribute('name');
+    if (this.name === 'pictures') {
+      this.accept = 'image/*';
+    } else {
+      this.accept = '*';
+    }
+    this.isAdmin = this.authService.isAdmin;
   }
 
   ngOnInit() {
-    this.uploader = new FileUploader({
-      url: this.resourceUrl,
-      authToken: 'Bearer ' + localStorage.getItem(this.authService.accessTokenLocalStorageKey),
-      autoUpload: true
-    });
-    this.uploader.onBeforeUploadItem = (item: FileItem) => {
-      if (!this.medium) {
-        this.medium = null;
-      } else {
-        this.medium.contentType = item.file.type;
-        this.medium.originalFileName = item.file.name;
-        this.medium.size = item.file.size;
-      }
-    };
-    this.uploader.onSuccessItem = (item: FileItem, response: string, status: number, headers: ParsedResponseHeaders) => {
-      const uploadedMedia = <IMedia>JSON.parse(response);
-      this.pictureId = uploadedMedia.id;
-      this.initPreview();
-    };
-    this.uploader.onCompleteAll = () => {
-      this.onChange(this.medium);
-    };
+    if (this.isAdmin) {
+      this.uploader = new FileUploader({
+        url: this.resourceUrl,
+        authToken: 'Bearer ' + localStorage.getItem(this.authService.accessTokenLocalStorageKey),
+        autoUpload: true
+      });
+      this.uploader.onBeforeUploadItem = (item: FileItem) => {
+        if (!this.medias) {
+          this.medias = [];
+        }
+        this.medias.push({
+          contentType: item.file.type,
+          originalFileName: item.file.name,
+          size: item.file.size
+        });
+      };
+      this.uploader.onSuccessItem = (item: FileItem, response: string, status: number, headers: ParsedResponseHeaders) => {
+        const uploadedMedia = <IMedia>JSON.parse(response);
+        this.medias.find(media => !media.id && media.originalFileName === uploadedMedia.originalFileName).id = uploadedMedia.id;
+        this.initPreviews();
+      };
+      this.uploader.onCompleteAll = () => {
+        this.onChange(this.medias);
+      };
+    }
   }
 
-  deleteMedium(id: number): void {
-    this.onChange(this.medium);
+  deleteMedia(index: number): void {
+    if (this.isAdmin) {
+      this.medias.splice(index, 1);
+      this.onChange(this.medias);
+    }
   }
 
   downloadMedia(media: IMedia): void {
@@ -95,17 +107,23 @@ export class MediainputComponent implements OnInit, ControlValueAccessor {
   }
 
   writeValue(obj: any): void {
-    this.medium = obj;
+    this.medias = obj;
     this.onChange(obj);
-    this.initPreview();
+    this.initPreviews();
   }
 
-  initPreview() {
-    if (this.medium && this.medium.id) {
-      this.http.get(`${this.resourceUrl}/${this.pictureId}`, {responseType: 'blob'}).subscribe((blob: Blob) => {
-        const fileURL = URL.createObjectURL(blob);
-        this.preview = fileURL;
+  initPreviews() {
+    if (this.medias) {
+      this.medias.forEach((media, index) => {
+        if (media.id && !this.previews[index]) {
+          this.http.get(`${this.resourceUrl}/${media.id}`, {responseType:
+              'blob'}).subscribe((blob: Blob) => {
+            const fileURL = URL.createObjectURL(blob);
+            this.previews[index] = fileURL;
+          });
+        }
       });
     }
   }
+
 }

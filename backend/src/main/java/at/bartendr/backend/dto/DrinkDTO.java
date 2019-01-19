@@ -3,6 +3,8 @@ package at.bartendr.backend.dto;
 import at.bartendr.backend.model.Age;
 import at.bartendr.backend.model.Media;
 
+import java.util.Set;
+
 
 public class DrinkDTO {
 
@@ -12,7 +14,7 @@ public class DrinkDTO {
     private float price;
     private Age age;
     private float rating;
-    private Media picture;
+    private Set<Media> pictures;
     private Long locationID;
 
     public Long getId() {
@@ -71,24 +73,27 @@ public class DrinkDTO {
         this.locationID = locationID;
     }
 
-    public Media getPicture() { return picture;}
+    public Set<Media> getPictures() {
+        return pictures;
+    }
 
-    public void setPicture(Media picture) { this.picture = picture;}
-
+    public void setPictures(Set<Media> pictures) {
+        this.pictures = pictures;
+    }
 
     public DrinkDTO() {
     }
 
 
-    public DrinkDTO(Long id, String name, String category, float price, Age age, float rating, Long locationID) {
+    public DrinkDTO(Long id, String name, String category, float price, Age age, float rating, Set<Media> pictures,
+                    Long locationID) {
         this.id = id;
         this.name = name;
         this.category = category;
         this.price = price;
         this.age = age;
         this.rating = rating;
-        this.picture = picture;
+        this.pictures = pictures;
         this.locationID = locationID;
-
     }
 }
