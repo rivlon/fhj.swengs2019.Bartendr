@@ -1,5 +1,5 @@
-<form (ngSubmit)="saveDrink()" [formGroup]="drinkForm">
-
+<form (ngSubmit)="saveDrink()" *ngIf="isAdmin" [formGroup]="drinkForm">
+  <div class="row">
     <div class="col">
       <div class="form-group">
         <label for="name">Drink name:</label>
@@ -42,11 +42,11 @@
           18+
         </label>
         <div
-        *ngIf="drinkForm.controls.age.invalid"
-        class="alert alert-danger">
-        <div *ngIf="drinkForm.controls.age.errors.required">
-          An age is required.
-        </div>
+          *ngIf="drinkForm.controls.age.invalid"
+          class="alert alert-danger">
+          <div *ngIf="drinkForm.controls.age.errors.required">
+            An age is required.
+          </div>
         </div>
       </div>
 
@@ -73,7 +73,7 @@
 
     <div class="col">
       <label for="rating">Rating:</label>
-      <rating [max]="5" formControlName="rating" id="rating" name="rating" type="text"></rating>
+      <rating [max]="5" formControlName="rating" id="rating" name="rating" type="number"></rating>
     </div>
 
     <div class="col">
@@ -96,8 +96,9 @@
     </div>
     <div class="col">
       <div class="dropdown" ngbDropdown placement="bottom">
-        <button class="btn btn-default dropdown-toggle" ngbDropdownToggle type="button">{{loc ? loc.name : 'Location'}}<span
-          class="caret"></span></button>
+        <button class="btn btn-default dropdown-toggle" ngbDropdownToggle type="button">{{loc ? loc.name : 'Location'}}
+          <span
+            class="caret"></span></button>
         <div ngbDropdownMenu>
           <div *ngFor="let loc of locationOptions">
             <a (click)="setLocation(loc)" class="dropdown-item" style="cursor: pointer">{{loc.name}}</a>
@@ -110,15 +111,31 @@
       <app-mediainput formControlName="picture" name="picture"></app-mediainput>
     </div>
 
-  <div class="btn-group">
-    <button [disabled]="drinkForm.invalid" class="btn btn-primary" type="submit">
-      Save
-    </button>
-    <button (click)="setShouldNavigateToList()" [disabled]="drinkForm.invalid" class="btn btn-primary" type="submit">
-      Save and Back
-    </button>
-    <button type="button" class="btn btn-primary" [routerLink]="'/drink-list/'">
-      CANCEL
-    </button>
+    <div class="btn-group">
+      <button [disabled]="drinkForm.invalid" class="btn btn-primary" type="submit">
+        Save
+      </button>
+      <button (click)="setShouldNavigateToList()" [disabled]="drinkForm.invalid" class="btn btn-primary" type="submit">
+        Save and Back
+      </button>
+      <button [routerLink]="'/drink-list/'" class="btn btn-primary" type="button">
+        Back
+      </button>
+    </div>
   </div>
+</form>
+
+<form *ngIf="!isAdmin" [formGroup]="drinkForm">
+  <p class="h1">{{drinkForm.value.name}}
+    <rating readonly="true" [max]="5" formControlName="rating" type="number"></rating>
+  </p>
+  <p class="h6">Category: {{drinkForm.value.category}}</p>
+  <p class="h5">Location: <a *ngIf="loc" [routerLink]="'/location-form/' + loc.id">{{loc ? loc.name : ''}}</a></p>
+  <p class="h5">Price: {{drinkForm.value.price | currency: 'EUR'}}</p>
+  <div [ngSwitch]="drinkForm.value.age">
+    <p class="h5" *ngSwitchCase="'forAllAges'">Suitable for all ages!</p>
+    <p class="h5" *ngSwitchCase="'atLeast16'">Suitable for people 16 and up!</p>
+    <p class="h5" *ngSwitchCase="'atLeast18'">Suitable for people 18 and up!</p>
+  </div>
+  <button [routerLink]="'/drink-list/'" class="btn btn-primary" type="button">Back</button>
 </form>

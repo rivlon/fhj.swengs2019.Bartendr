@@ -40,7 +40,7 @@ export class DrinkFormComponent implements OnInit {
       'id': new FormControl(),
       'name': new FormControl([], [Validators.required, Validators.minLength(2), Validators.maxLength(25)]),
       'category': new FormControl([], [Validators.required]),
-      'price': new FormControl( [], [Validators.min(0), Validators.max(15), Validators.required]),
+      'price': new FormControl([], [Validators.min(0), Validators.max(15), Validators.required]),
       'age': new FormControl([], [Validators.required]),
       'rating': new FormControl(),
       'locationID': new FormControl(),
@@ -92,7 +92,7 @@ export class DrinkFormComponent implements OnInit {
   }
 
   setLocation(loc: Location) {
-    this.loc.name = loc.name;
+    this.loc = loc;
     this.drinkForm.patchValue({locationID: loc.id});
   }
 

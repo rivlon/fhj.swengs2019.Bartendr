@@ -23,13 +23,13 @@ const routes: Routes = [
   {path: 'drink-list', component: DrinkListComponent, canActivate: [AuthGuard], resolve: {drinks: DrinksResolver}},
   {path: 'drink-form', component: DrinkFormComponent, canActivate: [AdminGuard],
     resolve: {drink: DrinkResolver, locations: LocationsResolver}},
-  {path: 'drink-form/:id', component: DrinkFormComponent, canActivate: [AdminGuard],
+  {path: 'drink-form/:id', component: DrinkFormComponent, canActivate: [AuthGuard],
     resolve: {drink: DrinkResolver, locations: LocationsResolver}},
 
   {path: 'locations', component: LocationsComponent, canActivate: [AuthGuard], resolve: {locations: LocationsResolver}},
   {path: 'location-form', component: LocationFormComponent, canActivate: [AdminGuard],
     resolve: {location: LocationResolver, drinks: DrinksResolver}},
-  {path: 'location-form/:id', component: LocationFormComponent, canActivate: [AdminGuard],
+  {path: 'location-form/:id', component: LocationFormComponent, canActivate: [AuthGuard],
     resolve: {location: LocationResolver, drinks: DrinksResolver}},
 
   {path: 'user-list', component: UserListComponent, canActivate: [AdminGuard], resolve: {users: UsersResolver}},
