@@ -98,14 +98,6 @@ export class MediainputComponent implements OnInit, ControlValueAccessor {
     this.onChange = fn;
   }
 
-  registerOnTouched(fn: any): void {
-    // not implemented
-  }
-
-  setDisabledState(isDisabled: boolean): void {
-    // not implemented
-  }
-
   writeValue(obj: any): void {
     this.medias = obj;
     this.onChange(obj);
