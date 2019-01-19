@@ -66,7 +66,10 @@ export const httpInterceptorProviders = [
     BsDropdownModule.forRoot(),
     CommonModule,
     BrowserAnimationsModule,
-    ToastrModule.forRoot(),
+    ToastrModule.forRoot({
+      preventDuplicates: true,
+      resetTimeoutOnDuplicate: true
+    }),
     FormsModule,
     JwBootstrapSwitchNg2Module,
     NgbModule,

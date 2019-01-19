@@ -4,6 +4,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {AuthService} from '../../service/auth.service';
 import {UserNameValidator} from '../../shared/validateUsername';
+import {ToastrService} from 'ngx-toastr';
 
 
 @Component({
@@ -19,6 +20,9 @@ export class UserFormComponent implements OnInit {
   readonlyPassword: boolean;
   shouldNavigateToList: boolean;
 
+  constructor(private userService: UserService, private route: ActivatedRoute, private router: Router, private authService: AuthService,
+              private toastr: ToastrService) {
+  }
 
   ValidatePassword() {
     if (this.userForm == null) {
@@ -31,9 +35,6 @@ export class UserFormComponent implements OnInit {
       ? {passwordsMatch: true}
       : {passwordsMatch: false};
     return result;
-  }
-
-  constructor(private userService: UserService, private route: ActivatedRoute, private router: Router, private authService: AuthService) {
   }
 
   ngOnInit() {
@@ -102,6 +103,12 @@ export class UserFormComponent implements OnInit {
   activatePasswordInsert() {
     this.readonlyPassword = false;
   }
+
+  showToastr(message: string, error: boolean) {
+    if (error) {
+      this.toastr.error(message, 'Error!');
+    } else {
+      this.toastr.success(message, 'Success!');
+    }
+  }
 }
-
-
