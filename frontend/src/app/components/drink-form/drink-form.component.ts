@@ -5,6 +5,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {ToastrService} from 'ngx-toastr';
 import {Location} from '../../api/location';
+import {AuthService} from '../../service/auth.service';
 
 @Component({
   selector: 'app-drink-form',
@@ -22,9 +23,10 @@ export class DrinkFormComponent implements OnInit {
   text: string;
   categories: Array<string> = ['Beer', 'Wine', 'Vodka', 'Gin'];
   message;
+  isAdmin: boolean;
 
   constructor(private drinkService: DrinkService, private route: ActivatedRoute, private router: Router,
-              private locationService: LocationService, private toastr: ToastrService) {
+              private locationService: LocationService, private toastr: ToastrService, private authService: AuthService) {
 
   }
 
@@ -47,8 +49,13 @@ export class DrinkFormComponent implements OnInit {
         this.loc = val;
       });
       this.cat = this.drinkForm.value.category;
+    } else {
+      this.locationService.getById('1').subscribe((val: any) => {
+        this.loc = val;
+      });
     }
     this.locationOptions = data.locations;
+    this.isAdmin = this.authService.isAdmin;
   }
 
   saveDrink() {
