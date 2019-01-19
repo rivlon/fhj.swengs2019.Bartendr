@@ -66,16 +66,12 @@ export class LocationFormComponent implements OnInit {
   }
 
   async getPlusCode() {
-    if (!this.locationForm.value.plusCode) {
-      await this.generatePlusCode();
-      await this.code.subscribe((val: any) => {
-        this.locationForm.patchValue(
-          {plusCode: (val.plus_code.local_code + ' ' + val.plus_code.locality.local_address)});
-        this.saveLocation();
-      });
-    } else {
+    await this.generatePlusCode();
+    await this.code.subscribe((val: any) => {
+      this.locationForm.patchValue(
+        {plusCode: (val.plus_code.local_code + ' ' + val.plus_code.locality.local_address)});
       this.saveLocation();
-    }
+    });
   }
 
   saveLocation() {
