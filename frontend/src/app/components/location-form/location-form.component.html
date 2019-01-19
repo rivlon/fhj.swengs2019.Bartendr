@@ -1,6 +1,5 @@
 <form (ngSubmit)="getPlusCode()" [formGroup]="locationForm">
 
-  <div class="row">
 
     <div class="col">
       <div class="form-group">
@@ -15,26 +14,35 @@
           <div *ngIf="locationForm.controls.name.errors.minlength">
             Name must be at least 2 characters long.
           </div>
+          <div *ngIf="locationForm.controls.name.errors.maxLength">
+            Name must not exceed 25 characters.
+          </div>
         </div>
       </div>
     </div>
-
     <div class="col">
       <div class="form-group">
         <label for="address">Address:</label>
         <input [value]="adrs" class="form-control" formControlName="address" id="address" name="address" type="text"/>
+        <div *ngIf="locationForm.controls.address.invalid && (locationForm.controls.address.dirty || locationForm.controls.address.touched)"
+          class="alert alert-danger">
+          <div *ngIf="locationForm.controls.address.errors.required">
+            Address is required.
+          </div>
+          <div *ngIf="locationForm.controls.address.errors.minlength">
+            Name must be at least 2 characters long.
+          </div>
+          <div *ngIf="locationForm.controls.address.errors.maxLength">
+            Name must not exceed 255 characters.
+          </div>
+        </div>
       </div>
     </div>
 
-    <div class="col">
-      <div class="row">
         <div class="col">
           <label for="rating">Rating:</label>
           <rating [max]="5" formControlName="rating" id="rating" name="rating" type="number"></rating>
         </div>
-      </div>
-    </div>
-  </div>
 
   <div *ngFor="let drinks of drinkArray">
     <button (click)="navigateToDrink(drinks.id)" class="btn btn-default">{{drinks.name}}</button>
@@ -47,6 +55,9 @@
     <button (click)="setShouldNavigateToList()" [disabled]="locationForm.invalid" class="btn btn-primary"
             type="submit">
       Save and Back
+    </button>
+    <button type="button" class="btn btn-primary" [routerLink]="'/locations/'">
+      CANCEL
     </button>
   </div>
 </form>

@@ -6,6 +6,7 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {Drink} from '../../api/drink';
 import {HttpClient} from '@angular/common/http';
 import {ToastrService} from 'ngx-toastr';
+import {AuthService} from '../../service/auth.service';
 
 @Component({
   selector: 'app-location-form',
@@ -14,6 +15,10 @@ import {ToastrService} from 'ngx-toastr';
   styleUrls: ['./location-form.component.scss']
 })
 export class LocationFormComponent implements OnInit {
+
+  isLoggedIn: boolean;
+  isAdmin: boolean;
+  username: string;
 
   locationForm;
   shouldNavigateToList: boolean;
@@ -26,17 +31,19 @@ export class LocationFormComponent implements OnInit {
   message;
 
   constructor(private drinkService: DrinkService, private route: ActivatedRoute, private router: Router,
-              private locationService: LocationService, private http: HttpClient, private toastr: ToastrService) {
+              private locationService: LocationService, private http: HttpClient, private toastr: ToastrService
+              , private authService: AuthService) {
+    this.loadData();
   }
 
   ngOnInit() {
     this.locationForm = new FormGroup({
       'id': new FormControl(),
-      'name': new FormControl([''], [Validators.required, Validators.minLength(2)]),
+      'name': new FormControl([], [Validators.required, Validators.minLength(2), Validators.maxLength(25)]),
       'plusCode': new FormControl(),
       'rating': new FormControl(),
       'drinks': new FormControl(),
-      'address': new FormControl()
+      'address': new FormControl([], [Validators.required, Validators.minLength(2), Validators.maxLength(255)]),
     });
 
     const data = this.route.snapshot.data;
@@ -75,21 +82,25 @@ export class LocationFormComponent implements OnInit {
   }
 
   saveLocation() {
-    const locationToBeSafe = this.locationForm.value;
-    if (locationToBeSafe.id) {
-      this.locationService.update(locationToBeSafe)
-        .subscribe(() => {
-          this.message = 'Successfully updated ' + this.locationForm.value.name + '!';
-          this.toastr.success(this.message, 'Message:');
-          this.navigateToList();
-        });
+    if (this.isAdmin) {
+      const locationToBeSafe = this.locationForm.value;
+      if (locationToBeSafe.id) {
+        this.locationService.update(locationToBeSafe)
+          .subscribe(() => {
+            this.message = 'Successfully updated ' + this.locationForm.value.name + '!';
+            this.toastr.success(this.message, 'Message:');
+            this.navigateToList();
+          });
+      } else {
+        this.locationService.create(locationToBeSafe)
+          .subscribe(() => {
+            this.message = 'Successfully created ' + this.locationForm.value.name + '!';
+            this.toastr.success(this.message, 'Message:');
+            this.navigateToList();
+          });
+      }
     } else {
-      this.locationService.create(locationToBeSafe)
-        .subscribe(() => {
-          this.message = 'Successfully created ' + this.locationForm.value.name + '!';
-          this.toastr.success(this.message, 'Message:');
-          this.navigateToList();
-        });
+      this.toastr.error('Not authorized', 'Error:');
     }
   }
 
@@ -105,6 +116,12 @@ export class LocationFormComponent implements OnInit {
 
   navigateToDrink(id) {
     this.router.navigate(['/drink-form/' + id]);
+  }
+
+  private loadData() {
+    this.isLoggedIn = this.authService.isLoggedIn;
+    this.isAdmin = this.authService.isAdmin;
+    this.username = this.authService.userName;
   }
 
 }
