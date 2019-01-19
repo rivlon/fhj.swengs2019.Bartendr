@@ -5,15 +5,15 @@
       <input class="form-control" formControlName="name" id="name" name="name" type="text"/>
       <div
         *ngIf="locationForm.controls.name.invalid && (locationForm.controls.name.dirty || locationForm.controls.name.touched)"
-        class="alert alert-danger">
+        role="alert">
         <div *ngIf="locationForm.controls.name.errors.required">
-          Name is required.
+          {{showToastr('Name is required.')}}
         </div>
         <div *ngIf="locationForm.controls.name.errors.minlength">
-          Name must be at least 2 characters long.
+          {{showToastr('Name must be at least 2 characters long.')}}
         </div>
         <div *ngIf="locationForm.controls.name.errors.maxLength">
-          Name must not exceed 25 characters.
+          {{showToastr('Name must not exceed 25 characters.')}}
         </div>
       </div>
     </div>
@@ -24,15 +24,12 @@
       <input [value]="adrs" class="form-control" formControlName="address" id="address" name="address" type="text"/>
       <div
         *ngIf="locationForm.controls.address.invalid && (locationForm.controls.address.dirty || locationForm.controls.address.touched)"
-        class="alert alert-danger">
-        <div *ngIf="locationForm.controls.address.errors.required">
-          Address is required.
-        </div>
+        role="alert">
         <div *ngIf="locationForm.controls.address.errors.minlength">
-          Name must be at least 2 characters long.
+          {{showToastr('Name must be at least 2 characters long.')}}
         </div>
         <div *ngIf="locationForm.controls.address.errors.maxLength">
-          Name must not exceed 255 characters.
+          {{showToastr('Name must not exceed 255 characters.')}}
         </div>
       </div>
     </div>

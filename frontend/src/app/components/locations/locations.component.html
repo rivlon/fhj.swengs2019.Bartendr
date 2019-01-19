@@ -1,8 +1,23 @@
-<div *ngFor="let location of locations">
-  Name: {{location.name}} | Address: {{location.address}} |
-  <button (click)="navigateToLocationForm(location.id)" *ngIf="isAdmin">Edit</button>
-  <button (click)="deleteLocation(location)" *ngIf="isAdmin">Delete</button>
-</div>
+<table [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="row-border hover" datatable id="datatable">
+  <thead>
+  <tr>
+    <th>ID</th>
+    <th>Location Name</th>
+    <th>Address</th>
+    <th>Rating</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let location of locations">
+    <td>{{location.id}}</td>
+    <td><a [routerLink]="'/location-form/' + location.id">{{location.name}}</a></td>
+    <td>{{location.address}}</td>
+    <td>{{location.rating}}</td>
+    <button *ngIf="isAdmin" [routerLink]="'/location-form/' + location.id">EDIT</button>
+    <button (click)="deleteLocation(location)" *ngIf="isAdmin">DELETE</button>
+  </tr>
+  </tbody>
+</table>
 <div class="map">
   <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom">
     <div *ngFor="let location of locations">

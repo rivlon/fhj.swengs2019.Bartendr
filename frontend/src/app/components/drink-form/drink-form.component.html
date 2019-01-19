@@ -5,15 +5,15 @@
         <input class="form-control" formControlName="name" id="name" name="name" type="text"/>
         <div
           *ngIf="drinkForm.controls.name.invalid && (drinkForm.controls.name.dirty || drinkForm.controls.name.touched)"
-          class="alert alert-danger">
+          role="alert">
           <div *ngIf="drinkForm.controls.name.errors.required">
-            Name is required.
+            {{showToastr('Name is required.')}}
           </div>
           <div *ngIf="drinkForm.controls.name.errors.minlength">
-            Name must be at least 2 characters long.
+            {{showToastr('Name must be at least 2 characters long.')}}
           </div>
           <div *ngIf="drinkForm.controls.name.errors.maxlength">
-            Name must not exceed 25 characters.
+            {{showToastr('Name must not exceed 25 characters.')}}
           </div>
         </div>
       </div>
@@ -21,30 +21,26 @@
     <div class="col">
       <label>Age</label>
       <div>
-        <input formControlName="age" id="under16" name="age" type="radio"
-               value="forAllAges">
+        <input formControlName="age" id="under16" name="age" type="radio" value="forAllAges">
         <label for="under16">
           Under 16
         </label>
       </div>
       <div>
-        <input formControlName="age" id="16" name="age" type="radio"
-               value="atLeast16">
+        <input formControlName="age" id="16" name="age" type="radio" value="atLeast16">
         <label for="16">
           16
         </label>
       </div>
       <div>
-        <input formControlName="age" id="18+" name="age" type="radio"
-               value="atLeast18">
+        <input formControlName="age" id="18+" name="age" type="radio" value="atLeast18">
         <label for="18+">
           18+
         </label>
         <div
-          *ngIf="drinkForm.controls.age.invalid"
-          class="alert alert-danger">
+          *ngIf="drinkForm.controls.age.invalid" role="alert">
           <div *ngIf="drinkForm.controls.age.errors.required">
-            An age is required.
+            {{showToastr('An age is required.')}}
           </div>
         </div>
       </div>
@@ -53,18 +49,18 @@
     <div class="col">
       <div class="form-group">
         <label for="price">Price:</label>
-        <input class="form-control" formControlName="price" id="price" name="price" step="0.01" type="number"/>
+        <input class="form-control" formControlName="price" id="price" name="price" min="0" max="99999" step="0.01" type="number"/>
         <div
           *ngIf="drinkForm.controls.price.invalid && (drinkForm.controls.price.dirty || drinkForm.controls.price.touched)"
-          class="alert alert-danger">
+          role="alert">
           <div *ngIf="drinkForm.controls.price.errors.required">
-            A Price is required.
+            {{showToastr('A Price is required.')}}
           </div>
           <div *ngIf="drinkForm.controls.price.errors.min">
-            Price cannot become negative.
+            {{showToastr('Price can\'t be negative.')}}
           </div>
           <div *ngIf="drinkForm.controls.price.errors.max">
-            Price cannot exceed 99999.
+            {{showToastr('Price cannot exceed 99999.')}}
           </div>
         </div>
       </div>
@@ -86,10 +82,9 @@
         </div>
       </div>
       <div
-        *ngIf="drinkForm.controls.category.invalid"
-        class="alert alert-danger">
+        *ngIf="drinkForm.controls.category.invalid" role="alert">
         <div *ngIf="drinkForm.controls.category.errors.required">
-          A category is required.
+          {{showToastr('A category is required.')}}
         </div>
       </div>
     </div>

@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {AfterViewInit, Component, OnInit} from '@angular/core';
 import {UserService} from '../../service/user.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
@@ -7,24 +7,24 @@ import {UserNameValidator} from '../../shared/validateUsername';
 import {ToastrService} from 'ngx-toastr';
 
 
-
-
 @Component({
   selector: 'app-user-form',
   providers: [UserFormComponent],
   templateUrl: './user-form.component.html',
   styleUrls: ['./user-form.component.scss']
 })
-export class UserFormComponent implements OnInit {
 
+
+export class UserFormComponent implements OnInit, AfterViewInit {
+  userForm;
   isLoggedIn: boolean;
   isAdmin: boolean;
   username: string;
-
-  userForm;
   readOnly: boolean;
   readonlyPassword: boolean;
   shouldNavigateToList: boolean;
+  msg: string;
+  error: boolean;
 
   constructor(private userService: UserService, private route: ActivatedRoute, private router: Router, private authService: AuthService,
               private toastr: ToastrService) {
@@ -42,6 +42,7 @@ export class UserFormComponent implements OnInit {
       : {passwordsMatch: false};
     return result;
   }
+
   ngOnInit() {
 
     this.userForm = new FormGroup({
@@ -125,6 +126,7 @@ export class UserFormComponent implements OnInit {
   activatePasswordInsert() {
     this.readonlyPassword = false;
   }
+
   private loadData() {
     this.isLoggedIn = this.authService.isLoggedIn;
     this.isAdmin = this.authService.isAdmin;
@@ -132,10 +134,18 @@ export class UserFormComponent implements OnInit {
   }
 
   showToastr(message: string, error: boolean) {
-    if (error) {
-      this.toastr.error(message, 'Error!');
-    } else {
-      this.toastr.success(message, 'Success!');
-    }
+    this.msg = message;
+    this.error = error;
+    this.ngAfterViewInit();
+  }
+
+  ngAfterViewInit(): void {
+    setTimeout(() => {
+      if (this.error && this.msg) {
+        this.toastr.error(this.msg, 'Error!');
+      } else if (!this.error && this.msg) {
+        this.toastr.success(this.msg, 'Success!');
+      }
+    }, 0);
   }
 }

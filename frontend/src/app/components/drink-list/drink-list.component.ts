@@ -6,11 +6,8 @@ import {AuthService} from '../../service/auth.service';
 import {DrinkFormComponent} from '../drink-form/drink-form.component';
 import {HttpClient} from '@angular/common/http';
 import {ToastrService} from 'ngx-toastr';
-import {LocationService} from '../../service/location.service';
 import {Subject} from 'rxjs';
 import {DataTableDirective} from 'angular-datatables';
-import {map} from 'rxjs/operators';
-import {forEach} from '@angular/router/src/utils/collection';
 
 @Component({
   selector: 'app-drink-list',
@@ -28,25 +25,20 @@ export class DrinkListComponent implements OnInit, OnDestroy {
   isLoggedIn: boolean;
   isAdmin: boolean;
   username: string;
+  locations: Array<Location>;
 
   dtTrigger: Subject<any> = new Subject();
   dtOptions: DataTables.Settings = {};
 
   constructor(private drinkFormComponent: DrinkFormComponent, private authService: AuthService, private drinkService: DrinkService,
-              private route: ActivatedRoute, private router: Router, private http: HttpClient, private toastr: ToastrService,
-              private locationService: LocationService) {
+              private route: ActivatedRoute, private router: Router, private http: HttpClient, private toastr: ToastrService) {
     this.loadData();
   }
 
   ngOnInit() {
     const data = this.route.snapshot.data;
     if (data.drinks) {
-      this.drinks = data.drinks;
-      this.drinks.forEach((value, index) => {
-        this.locationService.getById(String(value.locationID)).subscribe((val: any) => {
-          this.drinksWithLocations.set(this.drinks[index], val);
-        });
-      });
+      this.fetchData();
       this.dtTrigger.next();
       this.dtOptions = {
         pagingType: 'full_numbers',
@@ -71,14 +63,7 @@ export class DrinkListComponent implements OnInit, OnDestroy {
         this.fetchData();
       });
   }
-/*
-  fetchData() {
-    this.drinkService.getAll().subscribe((response: any) => {
-      this.drinks = response;
-    });
-    this.rerender();
-  }
-  */
+
   fetchData() {
     this.drinkService.getAll().subscribe((response: any) => {
       this.drinks = response;
@@ -92,12 +77,6 @@ export class DrinkListComponent implements OnInit, OnDestroy {
   }
 
 
-  private loadData() {
-    this.isLoggedIn = this.authService.isLoggedIn;
-    this.isAdmin = this.authService.isAdmin;
-    this.username = this.authService.userName;
-  }
-
   rerender(): void {
     this.datatableElement.dtInstance.then((dtInstance: DataTables.Api) => {
       // Destroy the table first
@@ -106,8 +85,11 @@ export class DrinkListComponent implements OnInit, OnDestroy {
       this.dtTrigger.next();
     });
   }
-  ngAfterViewInit(): void {
-    this.dtTrigger.next();
+
+  private loadData() {
+    this.isLoggedIn = this.authService.isLoggedIn;
+    this.isAdmin = this.authService.isAdmin;
+    this.username = this.authService.userName;
   }
 }
 

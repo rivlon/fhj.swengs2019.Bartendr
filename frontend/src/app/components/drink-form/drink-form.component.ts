@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {AfterViewInit, Component, OnInit} from '@angular/core';
 import {DrinkService} from '../../service/drink.service';
 import {LocationService} from '../../service/location.service';
 import {ActivatedRoute, Router} from '@angular/router';
@@ -13,13 +13,12 @@ import {AuthService} from '../../service/auth.service';
   templateUrl: './drink-form.component.html',
   styleUrls: ['./drink-form.component.scss']
 })
-export class DrinkFormComponent implements OnInit {
+export class DrinkFormComponent implements OnInit, AfterViewInit {
 
   isLoggedIn: boolean;
   isAdmin: boolean;
   username: string;
-
-
+  msg: string;
   drinkForm;
   shouldNavigateToList: boolean;
   locationOptions: Array<Location>;
@@ -40,7 +39,7 @@ export class DrinkFormComponent implements OnInit {
       'id': new FormControl(),
       'name': new FormControl([], [Validators.required, Validators.minLength(2), Validators.maxLength(25)]),
       'category': new FormControl([], [Validators.required]),
-      'price': new FormControl([], [Validators.min(0), Validators.max(15), Validators.required]),
+      'price': new FormControl([], [Validators.min(0), Validators.max(99999), Validators.required]),
       'age': new FormControl([], [Validators.required]),
       'rating': new FormControl(),
       'locationID': new FormControl(),
@@ -57,6 +56,7 @@ export class DrinkFormComponent implements OnInit {
     } else {
       this.locationService.getById('1').subscribe((val: any) => {
         this.loc = val;
+        this.loc.name = 'Location';
       });
     }
     this.locationOptions = data.locations;
@@ -112,4 +112,16 @@ export class DrinkFormComponent implements OnInit {
     this.username = this.authService.userName;
   }
 
+  showToastr(message: string) {
+    this.msg = message;
+    this.ngAfterViewInit();
+  }
+
+  ngAfterViewInit(): void {
+    setTimeout(() => {
+      if (this.msg) {
+        this.toastr.error(this.msg, 'Error!');
+      }
+    }, 0);
+  }
 }
