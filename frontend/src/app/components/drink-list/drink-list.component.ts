@@ -5,8 +5,9 @@ import {Drink} from '../../api/drink';
 import {AuthService} from '../../service/auth.service';
 import {DrinkFormComponent} from '../drink-form/drink-form.component';
 import {HttpClient} from '@angular/common/http';
-import {map} from 'rxjs/operators';
 import {ToastrService} from 'ngx-toastr';
+import {Location} from '../../api/location';
+import {LocationService} from '../../service/location.service';
 
 @Component({
   selector: 'app-drink-list',
@@ -16,13 +17,14 @@ import {ToastrService} from 'ngx-toastr';
 export class DrinkListComponent implements OnInit {
 
   drinks: Array<Drink>;
+  drinksWithLocations: Map<Drink, Location> = new Map<Drink, Location>();
   isLoggedIn: boolean;
   isAdmin: boolean;
   username: string;
-  message;
 
   constructor(private drinkFormComponent: DrinkFormComponent, private authService: AuthService, private drinkService: DrinkService,
-              private route: ActivatedRoute, private router: Router, private http: HttpClient, private toastr: ToastrService) {
+              private route: ActivatedRoute, private router: Router, private http: HttpClient, private toastr: ToastrService,
+              private locationService: LocationService) {
     this.loadData();
   }
 
@@ -30,12 +32,12 @@ export class DrinkListComponent implements OnInit {
     const data = this.route.snapshot.data;
     if (data.drinks) {
       this.drinks = data.drinks;
+      this.drinks.forEach((value, index) => {
+        this.locationService.getById(String(value.locationID)).subscribe((val: any) => {
+          this.drinksWithLocations.set(this.drinks[index], val);
+        });
+      });
     }
-  }
-  private loadData() {
-    this.isLoggedIn = this.authService.isLoggedIn;
-    this.isAdmin = this.authService.isAdmin;
-    this.username = this.authService.userName;
   }
 
   navigateToDrinkForm(id: number) {
@@ -51,9 +53,15 @@ export class DrinkListComponent implements OnInit {
   }
 
   refetchData() {
-   this.drinkService.getAll().subscribe((response: any) => {
+    this.drinkService.getAll().subscribe((response: any) => {
       this.drinks = response;
     });
+  }
+
+  private loadData() {
+    this.isLoggedIn = this.authService.isLoggedIn;
+    this.isAdmin = this.authService.isAdmin;
+    this.username = this.authService.userName;
   }
 }
 

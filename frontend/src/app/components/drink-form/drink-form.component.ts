@@ -32,6 +32,7 @@ export class DrinkFormComponent implements OnInit {
   constructor(private drinkService: DrinkService, private route: ActivatedRoute, private router: Router,
               private locationService: LocationService, private toastr: ToastrService, private authService: AuthService) {
     this.loadData();
+
   }
 
   ngOnInit() {
@@ -53,8 +54,13 @@ export class DrinkFormComponent implements OnInit {
         this.loc = val;
       });
       this.cat = this.drinkForm.value.category;
+    } else {
+      this.locationService.getById('1').subscribe((val: any) => {
+        this.loc = val;
+      });
     }
     this.locationOptions = data.locations;
+    this.isAdmin = this.authService.isAdmin;
   }
 
   saveDrink() {

@@ -76,7 +76,7 @@
       <label for="email"><strong>eMail:</strong>
         <li>Only lowercase letters</li>
       </label>
-      <input class="form-control" formControlName="email" id="email" name="email" type="text"/>
+      <input class="form-control" formControlName="email" id="email" name="email" type="email"/>
       <div
         *ngIf="userForm.controls.email.invalid && (userForm.controls.email.dirty || userForm.controls.email.touched)"
         class="alert alert-danger">
