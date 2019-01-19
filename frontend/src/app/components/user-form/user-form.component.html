@@ -112,7 +112,7 @@
     </bSwitch>
     <label for="active">Active?</label>
   </div>
-  <button (click)="activatePasswordInsert()" *ngIf="readOnly" class="btn btn-primary" id="activatePasswordInsert"
+  <button (click)="activatePasswordInsert()" *ngIf="!readonlyPassword" class="btn btn-primary" id="activatePasswordInsert"
           name="activatePasswordInsert"
           type="button">Activate Password Insert
   </button>
@@ -144,9 +144,8 @@
       <div class="form-group">
         <label for="password">Password:</label>
         <input [readOnly]="readOnly && readonlyPassword" class="form-control" formControlName="password" id="password"
-               name="password"
-               type="password"/>
-        <div *ngIf="!readOnly && !readonlyPassword">
+               name="password" type="password"/>
+        <div *ngIf="readOnly && !readonlyPassword">
           <div
             *ngIf="userForm.controls.password.invalid && (userForm.controls.password.dirty || userForm.controls.password.touched)"
             role="alert">
@@ -173,7 +172,7 @@
                id="confirm_password"
                name="confirm_password"
                type="password"/>
-        <div *ngIf="!readOnly && !readonlyPassword">
+        <div *ngIf="readOnly && !readonlyPassword">
           <div
             *ngIf="userForm.controls.confirm_password.invalid && (userForm.controls.confirm_password.dirty || userForm.controls.confirm_password.touched)"
             role="alert">
@@ -186,14 +185,14 @@
             <div *ngIf="userForm.controls.confirm_password.errors.maxLength">
               {{showToastr('Password must not exceed 15 characters.', true)}}
             </div>
-            <div *ngIf="!userForm.errors.passwordsMatch && (!readOnly && !readonlyPassword)" role="alert">
-              {{showToastr('Passwords do not match!', true)}}
-            </div>
-            <div
-              *ngIf="userForm.errors.passwordsMatch && userForm.controls.password.valid && (!readOnly && !readonlyPassword)"
-              role="alert">
-              {{showToastr(' Password is valid', false)}}
-            </div>
+          </div>
+          <div *ngIf="!userForm.errors.passwordsMatch && (!readOnly && !readonlyPassword)" role="alert">
+            {{showToastr('Passwords do not match!', true)}}
+          </div>
+          <div
+            *ngIf="userForm.errors.passwordsMatch && userForm.controls.password.valid && (!readOnly && !readonlyPassword)"
+            role="alert">
+            {{showToastr(' Password is valid', false)}}
           </div>
         </div>
       </div>
