@@ -20,7 +20,8 @@ const routes: Routes = [
   {path: '', redirectTo: '/login', pathMatch: 'full'},
   {path: 'login', component: LoginComponent},
 
-  {path: 'drink-list', component: DrinkListComponent, canActivate: [AuthGuard], resolve: {drinks: DrinksResolver}},
+  {path: 'drink-list', component: DrinkListComponent, canActivate: [AuthGuard],
+    resolve: {drinks: DrinksResolver, locations: LocationsResolver}},
   {path: 'drink-form', component: DrinkFormComponent, canActivate: [AdminGuard],
     resolve: {drink: DrinkResolver, locations: LocationsResolver}},
   {path: 'drink-form/:id', component: DrinkFormComponent, canActivate: [AuthGuard],
