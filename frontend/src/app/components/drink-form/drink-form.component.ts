@@ -5,6 +5,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {ToastrService} from 'ngx-toastr';
 import {Location} from '../../api/location';
+import {AuthService} from '../../service/auth.service';
 
 @Component({
   selector: 'app-drink-form',
@@ -13,6 +14,11 @@ import {Location} from '../../api/location';
   styleUrls: ['./drink-form.component.scss']
 })
 export class DrinkFormComponent implements OnInit {
+
+  isLoggedIn: boolean;
+  isAdmin: boolean;
+  username: string;
+
 
   drinkForm;
   shouldNavigateToList: boolean;
@@ -24,17 +30,17 @@ export class DrinkFormComponent implements OnInit {
   message;
 
   constructor(private drinkService: DrinkService, private route: ActivatedRoute, private router: Router,
-              private locationService: LocationService, private toastr: ToastrService) {
-
+              private locationService: LocationService, private toastr: ToastrService, private authService: AuthService) {
+    this.loadData();
   }
 
   ngOnInit() {
     this.drinkForm = new FormGroup({
       'id': new FormControl(),
-      'name': new FormControl([''], [Validators.required, Validators.minLength(2)]),
-      'category': new FormControl(),
-      'price': new FormControl(),
-      'age': new FormControl(),
+      'name': new FormControl([], [Validators.required, Validators.minLength(2), Validators.maxLength(25)]),
+      'category': new FormControl([], [Validators.required]),
+      'price': new FormControl( [], [Validators.min(0), Validators.max(15), Validators.required]),
+      'age': new FormControl([], [Validators.required]),
       'rating': new FormControl(),
       'locationID': new FormControl(),
       'picture': new FormControl()
@@ -53,20 +59,24 @@ export class DrinkFormComponent implements OnInit {
 
   saveDrink() {
     const drinkToBeSafe = this.drinkForm.value;
-    if (drinkToBeSafe.id) {
-      this.drinkService.update(drinkToBeSafe)
-        .subscribe(() => {
-          this.message = 'Successfully updated ' + this.drinkForm.value.name + '!';
-          this.toastr.success(this.message, 'Message:');
-          this.navigateToList();
-        });
+    if (this.isAdmin) {
+      if (drinkToBeSafe.id) {
+        this.drinkService.update(drinkToBeSafe)
+          .subscribe(() => {
+            this.message = 'Successfully updated ' + this.drinkForm.value.name + '!';
+            this.toastr.success(this.message, 'Message:');
+            this.navigateToList();
+          });
+      } else {
+        this.drinkService.create(drinkToBeSafe)
+          .subscribe(() => {
+            this.message = 'Successfully created ' + this.drinkForm.value.name + '!';
+            this.toastr.success(this.message, 'Message:');
+            this.navigateToList();
+          });
+      }
     } else {
-      this.drinkService.create(drinkToBeSafe)
-        .subscribe(() => {
-          this.message = 'Successfully created ' + this.drinkForm.value.name + '!';
-          this.toastr.success(this.message, 'Message:');
-          this.navigateToList();
-        });
+      this.toastr.error('Not authorized!', 'Error:');
     }
   }
 
@@ -80,10 +90,6 @@ export class DrinkFormComponent implements OnInit {
     this.drinkForm.patchValue({locationID: loc.id});
   }
 
-  onOpenChange() {
-    this.text = this.cat ? this.cat : 'not set';
-  }
-
   navigateToList() {
     if (this.shouldNavigateToList) {
       this.router.navigate(['/drink-list']);
@@ -92,6 +98,12 @@ export class DrinkFormComponent implements OnInit {
 
   setShouldNavigateToList() {
     this.shouldNavigateToList = true;
+  }
+
+  private loadData() {
+    this.isLoggedIn = this.authService.isLoggedIn;
+    this.isAdmin = this.authService.isAdmin;
+    this.username = this.authService.userName;
   }
 
 }

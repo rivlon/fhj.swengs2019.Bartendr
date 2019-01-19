@@ -1,5 +1,4 @@
 <form (ngSubmit)="saveDrink()" [formGroup]="drinkForm">
-  <div class="row">
 
     <div class="col">
       <div class="form-group">
@@ -13,6 +12,9 @@
           </div>
           <div *ngIf="drinkForm.controls.name.errors.minlength">
             Name must be at least 2 characters long.
+          </div>
+          <div *ngIf="drinkForm.controls.name.errors.maxlength">
+            Name must not exceed 25 characters.
           </div>
         </div>
       </div>
@@ -39,21 +41,41 @@
         <label for="18+">
           18+
         </label>
+        <div
+        *ngIf="drinkForm.controls.age.invalid"
+        class="alert alert-danger">
+        <div *ngIf="drinkForm.controls.age.errors.required">
+          An age is required.
+        </div>
+        </div>
       </div>
+
     </div>
     <div class="col">
       <div class="form-group">
         <label for="price">Price:</label>
         <input class="form-control" formControlName="price" id="price" name="price" step="0.01" type="number"/>
+        <div
+          *ngIf="drinkForm.controls.price.invalid && (drinkForm.controls.price.dirty || drinkForm.controls.price.touched)"
+          class="alert alert-danger">
+          <div *ngIf="drinkForm.controls.price.errors.required">
+            A Price is required.
+          </div>
+          <div *ngIf="drinkForm.controls.price.errors.min">
+            Price cannot become negative.
+          </div>
+          <div *ngIf="drinkForm.controls.price.errors.max">
+            Price cannot exceed 99999.
+          </div>
+        </div>
       </div>
     </div>
-  </div>
 
-  <div class="row">
     <div class="col">
       <label for="rating">Rating:</label>
       <rating [max]="5" formControlName="rating" id="rating" name="rating" type="text"></rating>
     </div>
+
     <div class="col">
       <div class="dropdown" ngbDropdown placement="bottom">
         <button class="btn btn-default dropdown-toggle" ngbDropdownToggle type="button">{{cat ? cat : 'Category'}}<span
@@ -62,6 +84,13 @@
           <div *ngFor="let cat of categories">
             <a (click)="setCategory(cat)" class="dropdown-item" style="cursor: pointer">{{cat}}</a>
           </div>
+        </div>
+      </div>
+      <div
+        *ngIf="drinkForm.controls.category.invalid"
+        class="alert alert-danger">
+        <div *ngIf="drinkForm.controls.category.errors.required">
+          A category is required.
         </div>
       </div>
     </div>
@@ -76,13 +105,10 @@
         </div>
       </div>
     </div>
-  </div>
 
-  <div class="row">
     <div class="col">
       <app-mediainput formControlName="picture" name="picture"></app-mediainput>
     </div>
-  </div>
 
   <div class="btn-group">
     <button [disabled]="drinkForm.invalid" class="btn btn-primary" type="submit">
