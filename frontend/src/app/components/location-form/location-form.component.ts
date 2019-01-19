@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {AfterViewInit, Component, OnInit} from '@angular/core';
 import {DrinkService} from '../../service/drink.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {LocationService} from '../../service/location.service';
@@ -14,11 +14,12 @@ import {AuthService} from '../../service/auth.service';
   templateUrl: './location-form.component.html',
   styleUrls: ['./location-form.component.scss']
 })
-export class LocationFormComponent implements OnInit {
+export class LocationFormComponent implements OnInit, AfterViewInit {
 
   isLoggedIn: boolean;
   isAdmin: boolean;
   username: string;
+  msg: string;
 
   locationForm;
   shouldNavigateToList: boolean;
@@ -34,8 +35,8 @@ export class LocationFormComponent implements OnInit {
   message;
 
   constructor(private drinkService: DrinkService, private route: ActivatedRoute, private router: Router,
-              private locationService: LocationService, private http: HttpClient, private toastr: ToastrService
-              , private authService: AuthService) {
+              private locationService: LocationService, private http: HttpClient, private toastr: ToastrService,
+              private authService: AuthService) {
     this.loadData();
   }
 
@@ -46,7 +47,7 @@ export class LocationFormComponent implements OnInit {
       'plusCode': new FormControl(),
       'rating': new FormControl(),
       'drinks': new FormControl(),
-      'address': new FormControl([], [Validators.required, Validators.minLength(2), Validators.maxLength(255)]),
+      'address': new FormControl([], [Validators.minLength(2), Validators.maxLength(255)]),
     });
 
     const data = this.route.snapshot.data;
@@ -127,6 +128,19 @@ export class LocationFormComponent implements OnInit {
     this.isLoggedIn = this.authService.isLoggedIn;
     this.isAdmin = this.authService.isAdmin;
     this.username = this.authService.userName;
+  }
+
+  showToastr(message: string) {
+    this.msg = message;
+    this.ngAfterViewInit();
+  }
+
+  ngAfterViewInit(): void {
+    setTimeout(() => {
+      if (this.msg) {
+        this.toastr.error(this.msg, 'Error!');
+      }
+    }, 0);
   }
 
 }
