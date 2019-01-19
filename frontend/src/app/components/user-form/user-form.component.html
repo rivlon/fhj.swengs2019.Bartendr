@@ -73,9 +73,7 @@
   </div>
   <div class="col">
     <div class="form-group">
-      <label for="email"><strong>eMail:</strong>
-        <li>Only lowercase letters</li>
-      </label>
+      <label for="email"><strong>eMail:</strong></label>
       <input class="form-control" formControlName="email" id="email" name="email" type="email"/>
       <div
         *ngIf="userForm.controls.email.invalid && (userForm.controls.email.dirty || userForm.controls.email.touched)"
@@ -108,7 +106,8 @@
     </bSwitch>
     <label for="active">Active?</label>
   </div>
-  <button *ngIf="readOnly" class="btn btn-primary" type="button" id="activatePasswordInsert" name="activatePasswordInsert"
+  <button *ngIf="readOnly" class="btn btn-primary" type="button" id="activatePasswordInsert"
+          name="activatePasswordInsert"
           (click)="activatePasswordInsert()">Activate Password Insert
   </button>
 
@@ -181,8 +180,9 @@
     <div *ngIf="userForm.errors.passwordsMatch === false && (readOnly === false || readonlyPassword === false)"
          class="alert alert-danger">Passwords do not match!
     </div>
-    <div *ngIf="userForm.errors.passwordsMatch === true && userForm.controls.password.valid && (readOnly === false || readonlyPassword === false)"
-         class="alert alert-success"> Password is valid
+    <div
+      *ngIf="userForm.errors.passwordsMatch === true && userForm.controls.password.valid && (readOnly === false || readonlyPassword === false)"
+      class="alert alert-success"> Password is valid
     </div>
     <button *ngIf="isAdmin" [disabled]="(readOnly === false && userForm.controls.username.invalid) || userForm.controls.firstname.invalid ||
     userForm.controls.lastname.invalid || userForm.controls.email.invalid || (userForm.controls.password.invalid && readOnly === false)"
@@ -194,10 +194,22 @@
             class="btn btn-primary" type="submit">
       SAVE
     </button>
-    <button type="button" class="btn btn-primary"  *ngIf="isAdmin" [routerLink]="'/user-list/'">
+    <button (click)="setShouldNavigateToList()" *ngIf="isAdmin" [disabled]="(readOnly === false && userForm.controls.username.invalid) || userForm.controls.firstname.invalid ||
+    userForm.controls.lastname.invalid || userForm.controls.email.invalid || (userForm.controls.password.invalid && readOnly === false)"
+            class="btn btn-primary"
+            type="submit">
+      SAVE AND BACK
+    </button>
+    <button (click)="setShouldNavigateToList()" *ngIf="!isAdmin" [disabled]="userForm.controls.firstname.invalid ||
+    userForm.controls.lastname.invalid || userForm.controls.email.invalid || (userForm.controls.password.invalid && readOnly === false)"
+            class="btn btn-primary"
+            type="submit">
+      SAVE AND BACK
+    </button>
+    <button type="button" class="btn btn-primary" *ngIf="isAdmin" [routerLink]="'/user-list/'">
       CANCEL
     </button>
-    <button type="button" class="btn btn-primary"  *ngIf="!isAdmin" [routerLink]="'/drink-list/'">
+    <button type="button" class="btn btn-primary" *ngIf="!isAdmin" [routerLink]="'/drink-list/'">
       CANCEL
     </button>
   </div>

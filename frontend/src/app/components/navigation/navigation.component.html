@@ -15,7 +15,7 @@
           <li
             [className]="router.url.includes('/user-form/') && router.url.includes(username) ? 'nav-item active' : 'nav-item'">
             <a
-              (click)="navigateToProfile()" class="nav-link" style="cursor: pointer">Profile</a>
+              [routerLink]="'/user-form/' + username" class="nav-link" style="cursor: pointer">Profile</a>
           </li>
           <li
             [className]="router.url.includes('/drink-form') && !router.url.includes('/drink-form/') ? 'nav-item active' : 'nav-item'">

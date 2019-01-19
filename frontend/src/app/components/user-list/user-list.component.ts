@@ -5,11 +5,9 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {User} from '../../api/user';
 import {UserFormComponent} from '../user-form/user-form.component';
 import {UserService} from '../../service/user.service';
-import {Observable, Subject} from 'rxjs';
-import {HttpClient} from '@angular/common/http';
+import {Subject} from 'rxjs';
 import {ToastrService} from 'ngx-toastr';
 import {DataTableDirective} from 'angular-datatables';
-import {map} from 'rxjs/operators';
 
 @Component({
   selector: 'app-user-list',
@@ -63,13 +61,13 @@ export class UserListComponent implements OnInit, OnDestroy {
       this.toastr.error('System Administrator cannot be deleted!', 'Not authorized!:');
     } else if (user.username === this.username) {
       this.toastr.error('You cannot delete yourself!', 'Not authorized!:');
-    } else if (this.isAdmin ) {
+    } else if (this.isAdmin) {
       this.userService.deleteById(user.id).subscribe(() => {
         this.fetchData();
         this.toastr.success('User with username: ' + user.username + ' has been successfully deleted!', 'Success!:');
       });
     } else {
-      this.toastr.error('Only Admins can delete Users!', 'Not authorized!:');
+      this.toastr.error('Not authorized!', 'Error!:');
     }
   }
 
@@ -80,7 +78,7 @@ export class UserListComponent implements OnInit, OnDestroy {
         this.toastr.success('User with username: ' + user.username + ' has been successfully reactivated!', 'Success!:');
       });
     } else {
-      this.toastr.error('Only Admins can reactivate Users!', 'Not authorized!:');
+      this.toastr.error('Not authorized!', 'Error!:');
     }
   }
 

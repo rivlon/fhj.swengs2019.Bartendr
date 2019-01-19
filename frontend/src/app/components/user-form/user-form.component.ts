@@ -4,6 +4,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {AuthService} from '../../service/auth.service';
 import {UserNameValidator} from '../../shared/validateUsername';
+import {ToastrService} from 'ngx-toastr';
 
 
 @Component({
@@ -13,8 +14,12 @@ import {UserNameValidator} from '../../shared/validateUsername';
   styleUrls: ['./user-form.component.scss']
 })
 export class UserFormComponent implements OnInit {
-  userForm;
+
+  isLoggedIn: boolean;
   isAdmin: boolean;
+  username: string;
+
+  userForm;
   readOnly: boolean;
   readonlyPassword: boolean;
   shouldNavigateToList: boolean;
@@ -33,7 +38,9 @@ export class UserFormComponent implements OnInit {
     return result;
   }
 
-  constructor(private userService: UserService, private route: ActivatedRoute, private router: Router, private authService: AuthService) {
+  constructor(private userService: UserService, private route: ActivatedRoute, private router: Router, private authService: AuthService,
+              private toastr: ToastrService) {
+    this.loadData();
   }
 
   ngOnInit() {
@@ -47,7 +54,7 @@ export class UserFormComponent implements OnInit {
       'lastname': new FormControl([''], [Validators.required, Validators.minLength(2),
         Validators.maxLength(35)]),
       'email': new FormControl([''], [Validators.required, Validators.minLength(2),
-        Validators.maxLength(50), Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$')]),
+        Validators.maxLength(50), Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$')]),
       'admin': new FormControl(),
       'active': new FormControl(),
       'password': new FormControl([''], [Validators.required, Validators.minLength(5),
@@ -77,7 +84,6 @@ export class UserFormComponent implements OnInit {
         active: true,
       });
     }
-    this.isAdmin = this.authService.isAdmin;
   }
 
   saveUser() {
@@ -85,22 +91,46 @@ export class UserFormComponent implements OnInit {
     if (userToBeSafed.id) {
       this.userService.update(userToBeSafed)
         .subscribe(() => {
-          alert('updated successfully');
+          this.toastr.success('User: ' + userToBeSafed.username + ' has been succesfully updated!', 'Successfully Updated:');
           this.readonlyPassword = true;
+          this.navigateToList();
         });
     } else if (this.isAdmin) {
       this.userService.create(userToBeSafed)
         .subscribe(() => {
-          alert('created successfully');
+          this.toastr.success('User: ' + userToBeSafed.username + ' has been succesfully created!', 'Successfully Created:');
           this.readOnly = true;
           this.readonlyPassword = true;
+          this.navigateToList();
         });
 
+    } else {
+      this.toastr.error('Not authorized!', 'Error:');
+    }
+  }
+
+  setShouldNavigateToList() {
+    this.shouldNavigateToList = true;
+  }
+
+  navigateToList() {
+    if (this.shouldNavigateToList) {
+      if (this.isAdmin) {
+        this.router.navigate(['/user-list']);
+      } else {
+        this.router.navigate(['/drink-list']);
+      }
     }
   }
 
   activatePasswordInsert() {
     this.readonlyPassword = false;
+  }
+
+  private loadData() {
+    this.isLoggedIn = this.authService.isLoggedIn;
+    this.isAdmin = this.authService.isAdmin;
+    this.username = this.authService.userName;
   }
 }
 

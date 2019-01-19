@@ -40,20 +40,4 @@ export class NavigationComponent implements OnInit {
     this.authService.logout();
   }
 
-  navigateCreateDrink() {
-    this.router.navigate(['/drink-form']);
-  }
-
-  navigateCreateLocation() {
-    this.router.navigate(['/location-form']);
-  }
-
-  navigateCreateUser() {
-    this.router.navigate(['/user-form']);
-  }
-
-  navigateToProfile() {
-    this.router.navigate(['/user-form/' + this.username]);
-  }
-
 }
