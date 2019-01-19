@@ -1,22 +1,40 @@
 <div>
-<div *ngIf="medium">
-    <div><strong>{{ medium.originalFileName }}</strong></div>
-  <div><strong>{{ medium.size / 1024 / 1024 | number }}&nbsp;MB</strong></div>
-  <div>
-    <span *ngIf="!pictureId">Uploading...</span>
-    <span *ngIf="pictureId">Uploaded</span>
-  </div>
-  <div class="btn-group">
-    <button type="button" class="btn btn-primary" (click)="downloadMedia(medium)">
-      Download
-    </button>
-    <button type="button" class="btn btn-danger" (click)="deleteMedium(medium.id)">
-      Remove
-    </button>
-  </div>
-  <div>
-    <img [src]="preview | safeUrl" *ngIf="preview" class="img-fluid">
-  </div>
-</div>
-  <input [id]="'field_' + name" type="file" ng2FileSelect [uploader]="uploader" [multiple]="false"/>
+  <table class="table" *ngIf="medias?.length">
+    <thead>
+    <tr>
+      <th>Name</th>
+      <th>Size</th>
+      <th>State</th>
+      <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let media of medias; let i = index;">
+      <td *ngIf="isAdmin"><strong>{{ media.originalFileName }}</strong></td>
+      <td *ngIf="isAdmin">{{ media.size / 1024 / 1024 | number }}&nbsp;MB</td>
+      <td *ngIf="isAdmin">
+        <span *ngIf="!media.id">Uploading ...</span>
+        <span *ngIf="media.id">Successfully Uploaded</span>
+      </td>
+
+      <td>
+        <img [src]="previews[i] | safeUrl" *ngIf="previews[i]"
+             class="img-fluid">
+      </td>
+
+      <td>
+        <div class="btn-group">
+          <button type="button" class="btn btn-outline-success" (click)="downloadMedia(media)">
+            Download
+          </button>
+          <button *ngIf="isAdmin" type="button" class="btn btn-outline-danger" (click)="deleteMedia(media,i)">
+            Delete
+          </button>
+        </div>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+  <!-- add accept type -->
+  <input *ngIf="medias.length < 1" [id]="'field_' + name" type="file" ng2FileSelect [uploader]="uploader" [multiple]="true" [accept]="accept"/>
 </div>

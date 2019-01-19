@@ -34,8 +34,15 @@ public class Drink {
     @ManyToOne
     private Location locations;
 
-    @Column(name = "picture")
-    private Media picture;
+    @ManyToMany
+    @JoinTable(name =
+            "drinks_pictures"
+            ,
+            joinColumns = @JoinColumn(name =
+                    "drink_id"),
+            inverseJoinColumns = @JoinColumn(name =
+                    "pictures_id"))
+    private Set<Media> pictures = new HashSet<>();
 
     @Version
     @JsonIgnore
@@ -44,14 +51,14 @@ public class Drink {
     public Drink() {
     }
 
-    public Drink(String name, String category, float price, Age age, float rating, Location locations, Media picture, Long version) {
+    public Drink(String name, String category, float price, Age age, float rating, Location locations, Set<Media> pictures, Long version) {
         this.name = name;
         this.category = category;
         this.price = price;
         this.age = age;
         this.rating = rating;
         this.locations = locations;
-        this.picture = picture;
+        this.pictures = pictures;
         this.version = version;
     }
 
@@ -111,12 +118,12 @@ public class Drink {
         this.locations = locations;
     }
 
-    public Media getPicture() {
-        return picture;
+    public Set<Media> getPictures() {
+        return pictures;
     }
 
-    public void setPicture(Media picture) {
-        this.picture = picture;
+    public void setPictures(Set<Media> pictures) {
+        this.pictures = pictures;
     }
 
     public Long getVersion() {
@@ -140,12 +147,12 @@ public class Drink {
                 Objects.equals(getCategory(), drink.getCategory()) &&
                 getAge() == drink.getAge() &&
                 Objects.equals(getLocations(), drink.getLocations()) &&
-                Objects.equals(getPicture(), drink.getPicture());
+                Objects.equals(getPictures(), drink.getPictures());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getName(), getCategory(), getPrice(), getAge(), getRating(), getPicture(), getVersion());
+        return Objects.hash(getId(), getName(), getCategory(), getPrice(), getAge(), getRating(), getPictures(), getVersion());
     }
 
     @Override
@@ -158,7 +165,7 @@ public class Drink {
                 ", age=" + age +
                 ", rating=" + rating +
                 ", locations=" + locations +
-                ", picture=" + picture +
+                ", pictures=" + pictures +
                 ", version=" + version +
                 '}';
     }

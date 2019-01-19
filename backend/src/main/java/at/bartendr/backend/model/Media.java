@@ -4,6 +4,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = "media")
@@ -24,6 +25,9 @@ public class Media implements Serializable {
     @NotNull
     @Column(name = "jhi_size", nullable = false)
     private Long size;
+
+    @ManyToOne
+    private Drink drink;
 
     public Long getId() {
         return id;
@@ -72,6 +76,13 @@ public class Media implements Serializable {
         this.size = size;
     }
 
+    public Drink getDrink() {
+        return drink;
+    }
+
+    public void setDrink(Drink drink) {
+        this.drink = drink;
+    }
 
     @Override
     public boolean equals(Object o) {
@@ -96,10 +107,10 @@ public class Media implements Serializable {
     @Override
     public String toString() {
         return "Media{" +
-            "id=" + getId() +
-            ", originalFileName='" + getOriginalFileName() + "'" +
-            ", contentType='" + getContentType() + "'" +
-            ", size=" + getSize() +
-            "}";
+                "id=" + getId() +
+                ", originalFileName='" + getOriginalFileName() + "'" +
+                ", contentType='" + getContentType() + "'" +
+                ", size=" + getSize() +
+                "}";
     }
 }
