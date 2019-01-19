@@ -27,6 +27,9 @@ export class LocationFormComponent implements OnInit {
   drinkIDs;
   code;
   adrs = '';
+  lat: number;
+  lng: number;
+  zoom = 17;
   clicked = false;
   message;
 
@@ -51,6 +54,8 @@ export class LocationFormComponent implements OnInit {
       data.location.address = this.adrs;
       this.locationService.makeRequest(data.location.plusCode).subscribe((response: any) => {
         this.adrs = response.plus_code.best_street_address;
+        this.lat = response.plus_code.geometry.location.lat;
+        this.lng = response.plus_code.geometry.location.lng;
       });
       this.drinkIDs = data.location.drinks;
       this.drinkOptions = data.drinks;

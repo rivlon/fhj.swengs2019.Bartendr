@@ -14,12 +14,14 @@ import {ToastrService} from 'ngx-toastr';
 })
 export class LocationsComponent implements OnInit {
 
-  zoom = 17;
+  zoom = 14;
 
   locations: Array<Location>;
   isLoggedIn: boolean;
   isAdmin: boolean;
   username: string;
+  lat = 47.07056250000001;
+  lng = 15.438562500000003;
   message;
   beforeDelete: number;
   afterDelete: number;
