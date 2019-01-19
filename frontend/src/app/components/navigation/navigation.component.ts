@@ -14,7 +14,7 @@ import {UserFormComponent} from '../user-form/user-form.component';
 export class NavigationComponent implements OnInit {
 
   constructor(private authService: AuthService, private userService: UserService, private userFormComponent: UserFormComponent,
-              private drinkFormComponent: DrinkFormComponent, private locationFormComponent: LocationFormComponent,
+              private locationFormComponent: LocationFormComponent,
               public router: Router) {
     this.loadData();
   }
@@ -38,6 +38,13 @@ export class NavigationComponent implements OnInit {
 
   logout() {
     this.authService.logout();
+  }
+
+  checkForJWTExpiration() {
+    const token = localStorage.getItem(this.authService.accessTokenLocalStorageKey);
+    if (this.authService.jwtHelperService.isTokenExpired(token)) {
+      this.logout();
+    }
   }
 
 }
