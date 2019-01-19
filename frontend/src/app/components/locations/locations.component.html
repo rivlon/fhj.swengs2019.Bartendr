@@ -1,13 +1,15 @@
 <div *ngFor="let location of locations">
-  <div class="map">
-    <agm-map [latitude]="location.lat" [longitude]="location.lng" [zoom]="zoom">
-      <agm-marker [label]="location.name.substr(0, 1)" [latitude]="location.lat" [longitude]="location.lng"
-                  [markerClickable]="true" [markerDraggable]="false">
-        <agm-info-window>{{location.name}}</agm-info-window>
-      </agm-marker>
-    </agm-map>
-  </div>
   Name: {{location.name}} | Address: {{location.address}} |
   <button (click)="navigateToLocationForm(location.id)" *ngIf="isAdmin">Edit</button>
   <button (click)="deleteLocation(location)" *ngIf="isAdmin">Delete</button>
+</div>
+<div class="map">
+  <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom">
+    <div *ngFor="let location of locations">
+      <agm-marker [label]="location.name.substr(0, 1)" [latitude]="location.lat" [longitude]="location.lng"
+                  [markerClickable]="true" [markerDraggable]="false">
+        <agm-info-window><a [href]="'/location-form/' + location.id">{{location.name}}</a></agm-info-window>
+      </agm-marker>
+    </div>
+  </agm-map>
 </div>
