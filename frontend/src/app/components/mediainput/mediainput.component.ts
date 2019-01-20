@@ -3,6 +3,7 @@ import {ControlValueAccessor, NG_VALUE_ACCESSOR} from '@angular/forms';
 import {FileItem, FileUploader, ParsedResponseHeaders} from 'ng2-file-upload';
 import {HttpClient} from '@angular/common/http';
 import {AuthService} from '../../service/auth.service';
+import {ToastrService} from 'ngx-toastr';
 
 export interface IMedia {
   id?: number;
@@ -34,7 +35,7 @@ export class MediainputComponent implements OnInit, ControlValueAccessor {
     // empty default
   }
 
-  constructor(private authService: AuthService, private http: HttpClient, elm: ElementRef) {
+  constructor(private authService: AuthService, private http: HttpClient, elm: ElementRef, private toastr: ToastrService) {
     this.name = elm.nativeElement.getAttribute('name');
     this.isAdmin = this.authService.isAdmin;
   }
@@ -44,25 +45,33 @@ export class MediainputComponent implements OnInit, ControlValueAccessor {
       this.uploader = new FileUploader({
         url: this.resourceUrl,
         authToken: 'Bearer ' + localStorage.getItem(this.authService.accessTokenLocalStorageKey),
+        maxFileSize: 1048576,
+        allowedFileType: ['image'],
         autoUpload: true
       });
+      this.uploader.onWhenAddingFileFailed = (item: any, filter: any, options: any) => {
+        this.toastr.error('Only Images smaller than 1MB allowed', 'Message:');
+      };
       this.uploader.onBeforeUploadItem = (item: FileItem) => {
-        if (!this.medias) {
-          this.medias = [];
-        }
-        this.medias.push({
-          contentType: item.file.type,
-          originalFileName: item.file.name,
-          size: item.file.size
-        });
+          if (!this.medias) {
+            this.medias = [];
+          }
+          this.medias.push({
+            contentType: item.file.type,
+            originalFileName: item.file.name,
+            size: item.file.size
+          });
       };
       this.uploader.onSuccessItem = (item: FileItem, response: string, status: number, headers: ParsedResponseHeaders) => {
-        const uploadedMedia = <IMedia>JSON.parse(response);
-        this.medias.find(media => !media.id && media.originalFileName === uploadedMedia.originalFileName).id = uploadedMedia.id;
-        this.initPreviews();
+          const uploadedMedia = <IMedia>JSON.parse(response);
+          this.medias.find(media => !media.id && media.originalFileName === uploadedMedia.originalFileName).id = uploadedMedia.id;
+          this.initPreviews();
       };
       this.uploader.onCompleteAll = () => {
         this.onChange(this.medias);
+      };
+      this.uploader.onCancelItem = (item: FileItem, response: string, status: number, headers: ParsedResponseHeaders)  => {
+        this.toastr.error('Dere');
       };
     }
   }
