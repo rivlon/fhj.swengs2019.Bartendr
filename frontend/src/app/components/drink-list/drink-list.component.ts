@@ -70,6 +70,16 @@ export class DrinkListComponent implements OnInit, OnDestroy {
       });
   }
 
+  convertAge (age) {
+    if (age === 'forAllAges') {
+      return '0+';
+    } else if (age === 'atLeast16') {
+      return '16+';
+    } else {
+      return '18+';
+    }
+  }
+
   fetchData() {
     this.drinkService.getAll().subscribe((response: any) => {
       this.drinks = response;
