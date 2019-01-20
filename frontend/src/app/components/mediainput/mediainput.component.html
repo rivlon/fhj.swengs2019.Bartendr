@@ -40,7 +40,7 @@
          [multiple]="true" [accept]="'image/*'"/>
 </div>
 
-<div *ngIf="!isAdmin">
+<div *ngIf="!isAdmin && medias?.length">
   <div *ngFor="let media of medias; let i = index;">
     <img [src]="previews[i] | safeUrl" *ngIf="previews[i]"
          class="img-fluid">
