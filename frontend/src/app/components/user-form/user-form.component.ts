@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {UserService} from '../../service/user.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
@@ -15,7 +15,7 @@ import {ToastrService} from 'ngx-toastr';
 })
 
 
-export class UserFormComponent implements OnInit, AfterViewInit {
+export class UserFormComponent implements OnInit {
   userForm;
   isLoggedIn: boolean;
   isAdmin: boolean;
@@ -23,8 +23,6 @@ export class UserFormComponent implements OnInit, AfterViewInit {
   readOnly: boolean;
   readonlyPassword: boolean;
   shouldNavigateToList: boolean;
-  msg: string;
-  error: boolean;
 
   constructor(private userService: UserService, private route: ActivatedRoute, private router: Router, private authService: AuthService,
               private toastr: ToastrService) {
@@ -53,13 +51,14 @@ export class UserFormComponent implements OnInit, AfterViewInit {
         Validators.maxLength(35)]),
       'lastname': new FormControl([''], [Validators.required, Validators.minLength(2),
         Validators.maxLength(35)]),
-      'email': new FormControl([''], [Validators.required, Validators.minLength(2),
-        Validators.maxLength(50), Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$')]),
+      'email': new FormControl([''], [Validators.email, Validators.required, Validators.minLength(6),
+        Validators.maxLength(50)]),
       'admin': new FormControl(),
       'active': new FormControl(),
       'password': new FormControl([''], [Validators.required, Validators.minLength(5),
         Validators.maxLength(15), Validators.pattern('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&]).{5,}')]),
-      'confirm_password': new FormControl([''], [Validators.required, Validators.minLength(5), Validators.maxLength(15)]),
+      'confirm_password': new FormControl([''], [Validators.required, Validators.minLength(5),
+        Validators.maxLength(15), Validators.pattern('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&]).{5,}')]),
     }, (formGroup: FormGroup) => {
       return this.ValidatePassword();
     });
@@ -131,21 +130,5 @@ export class UserFormComponent implements OnInit, AfterViewInit {
     this.isLoggedIn = this.authService.isLoggedIn;
     this.isAdmin = this.authService.isAdmin;
     this.username = this.authService.userName;
-  }
-
-  showToastr(message: string, error: boolean) {
-    this.msg = message;
-    this.error = error;
-    this.ngAfterViewInit();
-  }
-
-  ngAfterViewInit(): void {
-    setTimeout(() => {
-      if (this.error && this.msg) {
-        this.toastr.error(this.msg, 'Error!');
-      } else if (!this.error && this.msg) {
-        this.toastr.success(this.msg, 'Success!');
-      }
-    }, 0);
   }
 }

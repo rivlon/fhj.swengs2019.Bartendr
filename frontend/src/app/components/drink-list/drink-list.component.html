@@ -18,7 +18,7 @@
     <td>{{drink.category}}</td>
     <td>{{drink.price}}</td>
     <td>{{drink.rating}}</td>
-    <td>{{drink.age}}</td>
+    <td>{{convertAge(drink.age)}}</td>
     <button *ngIf="isAdmin" [routerLink]="'/drink-form/' + drink.id">EDIT</button>
     <button (click)="deleteDrink(drink)" *ngIf="isAdmin">DELETE</button>
   </tr>

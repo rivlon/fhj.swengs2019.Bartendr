@@ -1,4 +1,4 @@
-<div>
+<div *ngIf="isAdmin">
   <table class="table" *ngIf="medias?.length">
     <thead>
     <tr>
@@ -6,13 +6,14 @@
       <th>Size</th>
       <th>State</th>
       <th></th>
+      <th></th>
     </tr>
     </thead>
     <tbody>
     <tr *ngFor="let media of medias; let i = index;">
-      <td *ngIf="isAdmin"><strong>{{ media.originalFileName }}</strong></td>
-      <td *ngIf="isAdmin">{{ media.size / 1024 / 1024 | number }}&nbsp;MB</td>
-      <td *ngIf="isAdmin">
+      <td><strong>{{ media.originalFileName }}</strong></td>
+      <td>{{ media.size / 1024 / 1024 | number }}&nbsp;MB</td>
+      <td>
         <span *ngIf="!media.id">Uploading ...</span>
         <span *ngIf="media.id">Successfully Uploaded</span>
       </td>
@@ -27,7 +28,7 @@
           <button type="button" class="btn btn-outline-success" (click)="downloadMedia(media)">
             Download
           </button>
-          <button *ngIf="isAdmin" type="button" class="btn btn-outline-danger" (click)="deleteMedia(media,i)">
+          <button type="button" class="btn btn-outline-danger" (click)="deleteMedia(media,i)">
             Delete
           </button>
         </div>
@@ -35,6 +36,18 @@
     </tr>
     </tbody>
   </table>
-  <!-- add accept type -->
-  <input *ngIf="medias.length < 1" [id]="'field_' + name" type="file" ng2FileSelect [uploader]="uploader" [multiple]="true" [accept]="accept"/>
+  <input *ngIf="medias.length < 1" [id]="'field_' + name" type="file" ng2FileSelect [uploader]="uploader"
+         [multiple]="true" [accept]="'image/*'"/>
+</div>
+
+<div *ngIf="!isAdmin">
+  <div *ngFor="let media of medias; let i = index;">
+    <img [src]="previews[i] | safeUrl" *ngIf="previews[i]"
+         class="img-fluid">
+  </div>
+  <div class="btn-group">
+    <button type="button" class="btn btn-outline-success" (click)="downloadMedia(media)">
+      Download
+    </button>
+  </div>
 </div>

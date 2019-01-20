@@ -26,7 +26,6 @@ export interface IMedia {
 export class MediainputComponent implements OnInit, ControlValueAccessor {
   resourceUrl = '/api/media';
   name: string;
-  accept: string;
   medias: IMedia[];
   uploader: FileUploader;
   previews: Array<String> = [];
@@ -37,11 +36,6 @@ export class MediainputComponent implements OnInit, ControlValueAccessor {
 
   constructor(private authService: AuthService, private http: HttpClient, elm: ElementRef) {
     this.name = elm.nativeElement.getAttribute('name');
-    if (this.name === 'pictures') {
-      this.accept = 'image/*';
-    } else {
-      this.accept = '*';
-    }
     this.isAdmin = this.authService.isAdmin;
   }
 

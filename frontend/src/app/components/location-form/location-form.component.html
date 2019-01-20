@@ -1,35 +1,45 @@
 <form (ngSubmit)="getPlusCode()" *ngIf="isAdmin" [formGroup]="locationForm">
   <div class="col">
-    <div class="form-group">
+    <div [ngClass]="{
+  'has-danger': locationForm.controls.name.invalid && locationForm.controls.name.dirty,
+  'has-success': locationForm.controls.name.valid && locationForm.controls.name.dirty
+}" class="form-group">
       <label for="name">Location name:</label>
       <input class="form-control" formControlName="name" id="name" name="name" type="text"/>
-      <div
-        *ngIf="locationForm.controls.name.invalid && (locationForm.controls.name.dirty || locationForm.controls.name.touched)"
-        role="alert">
-        <div *ngIf="locationForm.controls.name.errors.required">
-          {{showToastr('Name is required.')}}
-        </div>
-        <div *ngIf="locationForm.controls.name.errors.minlength">
-          {{showToastr('Name must be at least 2 characters long.')}}
-        </div>
-        <div *ngIf="locationForm.controls.name.errors.maxLength">
-          {{showToastr('Name must not exceed 25 characters.')}}
+      <div>
+        <div
+          *ngIf="locationForm.controls.name.invalid && (locationForm.controls.name.dirty || locationForm.controls.name.touched)"
+          class="form-control-feedback">
+          <p *ngIf="locationForm.controls.name.errors.required">
+            Name is required!
+          </p>
+          <p *ngIf="locationForm.controls.name.errors.minlength">
+            Name must be at least 2 characters long!
+          </p>
+          <p *ngIf="locationForm.controls.name.errors.maxLength">
+            Name mustn't exceed 25 characters!
+          </p>
         </div>
       </div>
     </div>
   </div>
   <div class="col">
-    <div class="form-group">
+    <div [ngClass]="{
+  'has-danger': locationForm.controls.address.invalid && locationForm.controls.address.dirty,
+  'has-success': locationForm.controls.address.valid && locationForm.controls.address.dirty
+}" class="form-group">
       <label for="address">Address:</label>
       <input [value]="adrs" class="form-control" formControlName="address" id="address" name="address" type="text"/>
-      <div
-        *ngIf="locationForm.controls.address.invalid && (locationForm.controls.address.dirty || locationForm.controls.address.touched)"
-        role="alert">
-        <div *ngIf="locationForm.controls.address.errors.minlength">
-          {{showToastr('Name must be at least 2 characters long.')}}
-        </div>
-        <div *ngIf="locationForm.controls.address.errors.maxLength">
-          {{showToastr('Name must not exceed 255 characters.')}}
+      <div>
+        <div
+          *ngIf="locationForm.controls.address.invalid && (locationForm.controls.address.dirty || locationForm.controls.address.touched)"
+          class="form-control-feedback">
+          <p *ngIf="locationForm.controls.address.errors.minlength">
+            Address must be at least 2 characters long!
+          </p>
+          <p *ngIf="locationForm.controls.address.errors.maxLength">
+            Address mustn't exceed 255 characters!
+          </p>
         </div>
       </div>
     </div>
