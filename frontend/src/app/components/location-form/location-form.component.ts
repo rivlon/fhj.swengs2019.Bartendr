@@ -67,11 +67,14 @@ export class LocationFormComponent implements OnInit {
   }
 
   generatePlusCode(): Promise<string> {
-    if (this.locationForm.value.address != null) {
+    if (this.locationForm.value.address !== '') {
       const address = this.locationForm.value.address;
       this.code = this.locationService.makeRequest(address);
       this.clicked = true;
+      return;
     } else {
+      const address = this.adrs;
+      this.code = this.locationService.makeRequest(address);
       this.clicked = true;
       return;
     }

@@ -57,3 +57,6 @@ frontend/Thumbs.db
 # package-lock
 **/application.properties
 **/package-lock.json
+
+# files
+backend/uploads/*
