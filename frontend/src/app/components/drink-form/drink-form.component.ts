@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {DrinkService} from '../../service/drink.service';
 import {LocationService} from '../../service/location.service';
 import {ActivatedRoute, Router} from '@angular/router';
@@ -13,12 +13,11 @@ import {AuthService} from '../../service/auth.service';
   templateUrl: './drink-form.component.html',
   styleUrls: ['./drink-form.component.scss']
 })
-export class DrinkFormComponent implements OnInit, AfterViewInit {
+export class DrinkFormComponent implements OnInit {
 
   isLoggedIn: boolean;
   isAdmin: boolean;
   username: string;
-  msg: string;
   drinkForm;
   shouldNavigateToList: boolean;
   locationOptions: Array<Location>;
@@ -112,16 +111,4 @@ export class DrinkFormComponent implements OnInit, AfterViewInit {
     this.username = this.authService.userName;
   }
 
-  showToastr(message: string) {
-    this.msg = message;
-    this.ngAfterViewInit();
-  }
-
-  ngAfterViewInit(): void {
-    setTimeout(() => {
-      if (this.msg) {
-        this.toastr.error(this.msg, 'Error!');
-      }
-    }, 0);
-  }
 }

@@ -1,68 +1,82 @@
 <form (ngSubmit)="saveDrink()" *ngIf="isAdmin" [formGroup]="drinkForm">
   <div class="col">
-    <div class="form-group">
+    <div [ngClass]="{
+  'has-danger': drinkForm.controls.name.invalid && drinkForm.controls.name.dirty,
+  'has-success': drinkForm.controls.name.valid && drinkForm.controls.name.dirty
+}" class="form-group">
       <label for="name">Drink name:</label>
       <input class="form-control" formControlName="name" id="name" name="name" type="text"/>
-      <div
-        *ngIf="drinkForm.controls.name.invalid && (drinkForm.controls.name.dirty || drinkForm.controls.name.touched)"
-        role="alert">
-        <div *ngIf="drinkForm.controls.name.errors.required">
-          {{showToastr('Name is required.')}}
-        </div>
-        <div *ngIf="drinkForm.controls.name.errors.minlength">
-          {{showToastr('Name must be at least 2 characters long.')}}
-        </div>
-        <div *ngIf="drinkForm.controls.name.errors.maxlength">
-          {{showToastr('Name must not exceed 25 characters.')}}
+      <div>
+        <div
+          *ngIf="drinkForm.controls.name.invalid && (drinkForm.controls.name.dirty || drinkForm.controls.name.touched)"
+          class="form-control-feedback">
+          <p *ngIf="drinkForm.controls.name.errors.required">
+            Name is required!
+          </p>
+          <p *ngIf="drinkForm.controls.name.errors.minlength">
+            Name must be at least 2 characters long!
+          </p>
+          <p *ngIf="drinkForm.controls.name.errors.maxlength">
+            Name mustn't exceed 25 characters!
+          </p>
         </div>
       </div>
     </div>
   </div>
   <div class="col">
-    <label>Age</label>
-    <div>
-      <input formControlName="age" id="under16" name="age" type="radio" value="forAllAges">
-      <label for="under16">
-        0+
-      </label>
-    </div>
-    <div>
-      <input formControlName="age" id="16" name="age" type="radio" value="atLeast16">
-      <label for="16">
-        16+
-      </label>
-    </div>
-    <div>
-      <input formControlName="age" id="18+" name="age" type="radio" value="atLeast18">
-      <label for="18+">
-        18+
-      </label>
-      <div
-        *ngIf="drinkForm.controls.age.invalid && (drinkForm.controls.age.dirty || drinkForm.controls.age.touched)"
-        role="alert">
-        <div *ngIf="drinkForm.controls.age.errors.required">
-          {{showToastr('An age is required.')}}
+    <div [ngClass]="{
+  'has-danger': drinkForm.controls.age.invalid && drinkForm.controls.age.dirty,
+  'has-success': drinkForm.controls.age.valid && drinkForm.controls.age.dirty
+}" class="form-group">
+      <label>Age</label>
+      <div>
+        <input formControlName="age" id="under16" name="age" type="radio" value="forAllAges">
+        <label for="under16">
+          0+
+        </label>
+      </div>
+      <div>
+        <input formControlName="age" id="16" name="age" type="radio" value="atLeast16">
+        <label for="16">
+          16+
+        </label>
+      </div>
+      <div>
+        <input formControlName="age" id="18+" name="age" type="radio" value="atLeast18">
+        <label for="18+">
+          18+
+        </label>
+        <div
+          *ngIf="drinkForm.controls.age.invalid && (drinkForm.controls.age.dirty || drinkForm.controls.age.touched)"
+          class="form-control-feedback">
+          <p *ngIf="drinkForm.controls.age.errors.required">
+            An age is required!
+          </p>
         </div>
       </div>
     </div>
-
   </div>
   <div class="col">
-    <div class="form-group">
+    <div [ngClass]="{
+  'has-danger': drinkForm.controls.price.invalid && drinkForm.controls.price.dirty,
+  'has-success': drinkForm.controls.price.valid && drinkForm.controls.price.dirty
+}" class="form-group">
       <label for="price">Price:</label>
-      <input class="form-control" formControlName="price" id="price" name="price" min="0" max="99999" step="0.01"
-             type="number"/>
-      <div
-        *ngIf="drinkForm.controls.price.invalid && (drinkForm.controls.price.dirty || drinkForm.controls.price.touched)"
-        role="alert">
-        <div *ngIf="drinkForm.controls.price.errors.required">
-          {{showToastr('A Price is required.')}}
-        </div>
-        <div *ngIf="drinkForm.controls.price.errors.min">
-          {{showToastr('Price can\'t be negative.')}}
-        </div>
-        <div *ngIf="drinkForm.controls.price.errors.max">
-          {{showToastr('Price cannot exceed 99999.')}}
+      <input class="form-control" formControlName="price" id="price" max="99999" min="0" name="price" step="0.01"
+             type="number">
+      <div>
+        <div
+          *ngIf="drinkForm.controls.price.invalid && (drinkForm.controls.price.dirty || drinkForm.controls.price.touched)"
+          class="form-control-feedback">
+          <p *ngIf="drinkForm.controls.price.errors.required">
+            A price is required!
+          </p>
+          <p *ngIf="drinkForm.controls.price.errors.min">
+            Price can't be negative!
+          </p>
+          <p *ngIf="drinkForm.controls.price.errors.max">
+            Price can't exceed 99999!
+          </p>
         </div>
       </div>
     </div>
@@ -75,7 +89,10 @@
 
   <div class="col">
     <div class="dropdown" ngbDropdown placement="bottom">
-      <button class="btn btn-default dropdown-toggle" ngbDropdownToggle type="button">{{cat ? cat : 'Category'}}<span
+      <button [ngClass]="{
+  'btn-danger': drinkForm.controls.category.invalid,
+  'btn-success': drinkForm.controls.category.valid
+}" class="btn btn-default dropdown-toggle" ngbDropdownToggle type="button">{{cat ? cat : 'Category'}}<span
         class="caret"></span></button>
       <div ngbDropdownMenu>
         <div *ngFor="let cat of categories">
@@ -83,11 +100,13 @@
         </div>
       </div>
     </div>
-    <div
-      *ngIf="drinkForm.controls.category.invalid && (drinkForm.controls.age.dirty || drinkForm.controls.age.touched)"
-      role="alert">
-      <div *ngIf="drinkForm.controls.category.errors.required">
-        {{showToastr('A category is required.')}}
+    <div>
+      <div
+        *ngIf="drinkForm.controls.category.invalid"
+        class="form-control-feedback">
+        <p *ngIf="drinkForm.controls.category.errors.required">
+          A category is required!
+        </p>
       </div>
     </div>
   </div>

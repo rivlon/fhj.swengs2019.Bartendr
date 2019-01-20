@@ -7,94 +7,107 @@
     </div>
   </div>
   <div class="col">
-    <div class="form-group">
+    <div [ngClass]="{
+  'has-danger': userForm.controls.username.invalid && userForm.controls.username.dirty,
+  'has-success': userForm.controls.username.valid && userForm.controls.username.dirty
+}" class="form-group">
       <label for="username"><strong>User Name:</strong></label>
       <input [readOnly]="readOnly" class="form-control" formControlName="username" id="username" name="username"
              type="text"/>
       <div *ngIf="!readOnly">
         <div
           *ngIf="userForm.controls.username.invalid && (userForm.controls.username.dirty || userForm.controls.username.touched)"
-          role="alert">
-          <div *ngIf="userForm.controls.username.errors.required">
-            {{showToastr('User Name is required.', true)}}
-          </div>
-          <div *ngIf="userForm.controls.username.errors.minlength">
-            {{showToastr('User Name must be at least 2 characters long.', true)}}
-          </div>
-          <div *ngIf="userForm.controls.username.errors.maxLength">
-            {{showToastr('User Name must not exceed 35 characters.', true)}}
-          </div>
-          <div *ngIf="userForm.controls.username.errors.userNameTaken">
-            {{showToastr('User Name has already been taken!', true)}}
-          </div>
-        </div>
-        <div *ngIf="userForm.controls.username.valid" role="alert">
-          {{showToastr('Your User Name is valid!', false)}}
+          class="form-control-feedback">
+          <p *ngIf="userForm.controls.username.errors.required">
+            Username is required!
+          </p>
+          <p *ngIf="userForm.controls.username.errors.minlength">
+            Username must be at least 2 characters long!
+          </p>
+          <p *ngIf="userForm.controls.username.errors.maxLength">
+            Username mustn't exceed 35 characters!
+          </p>
+          <p *ngIf="userForm.controls.username.errors.userNameTaken">
+            Username has already been taken, sorry!
+          </p>
         </div>
       </div>
     </div>
   </div>
   <div class="col">
-    <div class="form-group">
+    <div [ngClass]="{
+  'has-danger': userForm.controls.firstname.invalid && userForm.controls.firstname.dirty,
+  'has-success': userForm.controls.firstname.valid && userForm.controls.firstname.dirty
+}" class="form-group">
       <label for="firstname"><strong>First Name:</strong></label>
       <input class="form-control" formControlName="firstname" id="firstname" name="firstname" type="text"/>
-      <div
-        *ngIf="userForm.controls.firstname.invalid && (userForm.controls.firstname.dirty || userForm.controls.firstname.touched)"
-        role="alert">
-        <div *ngIf="userForm.controls.firstname.errors.required">
-          {{showToastr('First Name is required.', true)}}
-        </div>
-        <div *ngIf="userForm.controls.firstname.errors.minlength">
-          {{showToastr('First Name must be at least 2 characters long.', true)}}
-        </div>
-        <div *ngIf="userForm.controls.firstname.errors.maxlength">
-          {{showToastr('First Name must not exceed 35 characters.', true)}}
+      <div *ngIf="!readOnly">
+        <div
+          *ngIf="userForm.controls.firstname.invalid && (userForm.controls.firstname.dirty || userForm.controls.firstname.touched)"
+          class="form-control-feedback">
+          <p *ngIf="userForm.controls.firstname.errors.required">
+            First name is required!
+          </p>
+          <p *ngIf="userForm.controls.firstname.errors.minlength">
+            First name must be at least 2 characters long!
+          </p>
+          <p *ngIf="userForm.controls.firstname.errors.maxlength">
+            First name mustn't exceed 35 characters!
+          </p>
         </div>
       </div>
     </div>
   </div>
 
   <div class="col">
-    <div class="form-group">
+    <div [ngClass]="{
+  'has-danger': userForm.controls.lastname.invalid && userForm.controls.lastname.dirty,
+  'has-success': userForm.controls.lastname.valid && userForm.controls.lastname.dirty
+}" class="form-group">
       <label for="lastname"><strong>Last Name:</strong></label>
       <input class="form-control" formControlName="lastname" id="lastname" name="lastname" type="text"/>
-      <div
-        *ngIf="userForm.controls.lastname.invalid && (userForm.controls.lastname.dirty || userForm.controls.lastname.touched)"
-        role="alert">
-        <div *ngIf="userForm.controls.lastname.errors.required">
-          {{showToastr('Last Name is required.', true)}}
-        </div>
-        <div *ngIf="userForm.controls.lastname.errors.minlength">
-          {{showToastr('Last Name must be at least 2 characters long.', true)}}
-        </div>
-        <div *ngIf="userForm.controls.lastname.errors.maxlength">
-          {{showToastr('Last Name must not exceed 35 characters.', true)}}
+      <div *ngIf="!readOnly">
+        <div
+          *ngIf="userForm.controls.lastname.invalid && (userForm.controls.lastname.dirty || userForm.controls.lastname.touched)"
+          class="form-control-feedback">
+          <p *ngIf="userForm.controls.lastname.errors.required">
+            Last name is required!
+          </p>
+          <p *ngIf="userForm.controls.lastname.errors.minlength">
+            Last name must be at least 2 characters long!
+          </p>
+          <p *ngIf="userForm.controls.lastname.errors.maxlength">
+            Last name mustn't exceed 35 characters!
+          </p>
         </div>
       </div>
     </div>
   </div>
   <div class="col">
-    <div class="form-group">
-
+    <div [ngClass]="{
+  'has-danger': userForm.controls.email.invalid && userForm.controls.email.dirty,
+  'has-success': userForm.controls.email.valid && userForm.controls.email.dirty
+}" class="form-group">
       <label for="email">
         <strong>Email:</strong><br/>
-        <small class="text-muted h6">Only lowercase letters</small>
       </label>
       <input class="form-control" formControlName="email" id="email" name="email" type="email"/>
-      <div
-        *ngIf="userForm.controls.email.invalid && (userForm.controls.email.dirty || userForm.controls.email.touched)"
-        role="alert">
-        <div *ngIf="userForm.controls.email.errors.required">
-          {{showToastr('Email is required.', true)}}
-        </div>
-        <div *ngIf="userForm.controls.email.errors.minlength">
-          {{showToastr('Email must be at least 2 characters long.', true)}}
-        </div>
-        <div *ngIf="userForm.controls.email.errors.maxlength">
-          {{showToastr('Email must not exceed 50 characters.', true)}}
-        </div>
-        <div *ngIf="userForm.controls.email.errors.pattern">
-          {{showToastr('Email does not meet the requirements. Example max.mustermann@mustermail.at', true)}}
+      <div *ngIf="!readOnly">
+        <div
+          *ngIf="userForm.controls.email.invalid && (userForm.controls.email.dirty || userForm.controls.email.touched)"
+          class="form-control-feedback">
+          <p *ngIf="userForm.controls.email.errors.required">
+            Email is required!
+          </p>
+          <p *ngIf="userForm.controls.email.errors.minlength">
+            Email must be at least 6 characters long!
+          </p>
+          <p *ngIf="userForm.controls.email.errors.maxlength">
+            Email mustn't exceed 50 characters!
+          </p>
+          <p *ngIf="userForm.controls.email.errors.email">
+            This doesn't look like an Email to us! Emails look like this: max@mustermann.at
+          </p>
         </div>
       </div>
     </div>
@@ -112,7 +125,7 @@
     </bSwitch>
     <label for="active">Active?</label>
   </div>
-  <button (click)="activatePasswordInsert()" *ngIf="!readonlyPassword" class="btn btn-primary" id="activatePasswordInsert"
+  <button (click)="activatePasswordInsert()" class="btn btn-primary" id="activatePasswordInsert"
           name="activatePasswordInsert"
           type="button">Activate Password Insert
   </button>
@@ -141,58 +154,68 @@
       </small>
     </label>
     <div class="col">
-      <div class="form-group">
+      <div [ngClass]="{
+  'has-danger': userForm.controls.password.invalid && userForm.controls.password.dirty,
+  'has-success': userForm.controls.password.valid && userForm.controls.password.dirty
+}" class="form-group">
         <label for="password">Password:</label>
         <input [readOnly]="readOnly && readonlyPassword" class="form-control" formControlName="password" id="password"
                name="password" type="password"/>
-        <div *ngIf="readOnly && !readonlyPassword">
+        <div *ngIf="!readOnly && !readonlyPassword">
           <div
             *ngIf="userForm.controls.password.invalid && (userForm.controls.password.dirty || userForm.controls.password.touched)"
-            role="alert">
-            <div *ngIf="userForm.controls.password.errors.required">
-              {{showToastr('Password is required.', true)}}
-            </div>
-            <div *ngIf="userForm.controls.password.errors.minlength">
-              {{showToastr('Password must be at least 5 characters long.', true)}}
-            </div>
-            <div *ngIf="userForm.controls.password.errors.maxLength">
-              {{showToastr('Password must not exceed 15 characters.', true)}}
-            </div>
-            <div *ngIf="userForm.controls.password.errors.pattern">
-              {{showToastr('Password does not meed the requirements.', true)}}
-            </div>
+            class="form-control-feedback">
+            <p *ngIf="userForm.controls.password.errors.required">
+              Password is required!
+            </p>
+            <p *ngIf="userForm.controls.password.errors.minlength">
+              Password must be at least 5 characters long!
+            </p>
+            <p *ngIf="userForm.controls.password.errors.maxLength">
+              Password mustn't exceed 15 characters!
+            </p>
+            <p *ngIf="userForm.controls.password.errors.pattern">
+              Password doesn't meet all requirements!
+            </p>
           </div>
         </div>
       </div>
     </div>
     <div class="col">
-      <div class="form-group">
+      <div [ngClass]="{
+  'has-danger': userForm.controls.confirm_password.invalid && userForm.controls.confirm_password.dirty && !userForm.passwordsMatch,
+  'has-success': userForm.controls.confirm_password.valid && userForm.controls.confirm_password.dirty && userForm.passwordsMatch
+}" class="form-group">
         <label for="confirm_password">Confirm Password:</label>
         <input [readOnly]="readOnly && readonlyPassword" class="form-control" formControlName="confirm_password"
-               id="confirm_password"
-               name="confirm_password"
-               type="password"/>
-        <div *ngIf="readOnly && !readonlyPassword">
+               id="confirm_password" name="confirm_password" type="password"/>
+        <div *ngIf="!readOnly && !readonlyPassword">
           <div
             *ngIf="userForm.controls.confirm_password.invalid && (userForm.controls.confirm_password.dirty || userForm.controls.confirm_password.touched)"
-            role="alert">
-            <div *ngIf="userForm.controls.confirm_password.errors.required">
-              {{showToastr('Password is required.', true)}}
-            </div>
-            <div *ngIf="userForm.controls.confirm_password.errors.minlength">
-              {{showToastr('Password must be at least 5 characters long.', true)}}
-            </div>
-            <div *ngIf="userForm.controls.confirm_password.errors.maxLength">
-              {{showToastr('Password must not exceed 15 characters.', true)}}
-            </div>
+            class="form-control-feedback">
+            <p *ngIf="userForm.controls.confirm_password.errors.required">
+              Password is required!
+            </p>
+            <p *ngIf="userForm.controls.confirm_password.errors.minlength">
+              Password must be at least 5 characters long!
+            </p>
+            <p *ngIf="userForm.controls.confirm_password.errors.maxLength">
+              Password mustn't exceed 15 characters!
+            </p>
+            <p *ngIf="userForm.controls.confirm_password.errors.pattern">
+              Password doesn't meet all requirements!
+            </p>
           </div>
-          <div *ngIf="!userForm.errors.passwordsMatch && (!readOnly && !readonlyPassword)" role="alert">
-            {{showToastr('Passwords do not match!', true)}}
+          <div class="form-control-feedback">
+            <p *ngIf="!userForm.errors.passwordsMatch">
+              Passwords don't match!
+            </p>
           </div>
-          <div
-            *ngIf="userForm.errors.passwordsMatch && userForm.controls.password.valid && (!readOnly && !readonlyPassword)"
-            role="alert">
-            {{showToastr(' Password is valid', false)}}
+          <div class="form-control-feedback">
+            <p
+              *ngIf="userForm.errors.passwordsMatch && userForm.controls.password.valid">
+              Password is valid!
+            </p>
           </div>
         </div>
       </div>
@@ -206,22 +229,19 @@
       Save
     </button>
     <button *ngIf="!isAdmin" [disabled]="userForm.controls.firstname.invalid || userForm.controls.lastname.invalid ||
-    userForm.controls.email.invalid || (userForm.controls.password.invalid && !readOnly)"
-            class="btn btn-primary" type="submit">
+    userForm.controls.email.invalid || (userForm.controls.password.invalid && !readOnly)" class="btn btn-primary" type="submit">
       Save
     </button>
 
     <button (click)="setShouldNavigateToList()" *ngIf="isAdmin" [disabled]="(readOnly === false && userForm.controls.username.invalid) || userForm.controls.firstname.invalid ||
     userForm.controls.lastname.invalid || userForm.controls.email.invalid || (userForm.controls.password.invalid && readOnly === false)"
-            class="btn btn-primary"
-            type="submit">
-      SAVE AND BACK
+            class="btn btn-primary" type="submit">
+      Save and Back
     </button>
     <button (click)="setShouldNavigateToList()" *ngIf="!isAdmin" [disabled]="userForm.controls.firstname.invalid ||
     userForm.controls.lastname.invalid || userForm.controls.email.invalid || (userForm.controls.password.invalid && readOnly === false)"
-            class="btn btn-primary"
-            type="submit">
-      SAVE AND BACK
+            class="btn btn-primary" type="submit">
+      Save and Back
     </button>
 
     <button *ngIf="isAdmin" [routerLink]="'/user-list/'" class="btn btn-primary" type="button">

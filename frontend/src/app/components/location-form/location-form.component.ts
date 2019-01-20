@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {DrinkService} from '../../service/drink.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {LocationService} from '../../service/location.service';
@@ -14,12 +14,11 @@ import {AuthService} from '../../service/auth.service';
   templateUrl: './location-form.component.html',
   styleUrls: ['./location-form.component.scss']
 })
-export class LocationFormComponent implements OnInit, AfterViewInit {
+export class LocationFormComponent implements OnInit {
 
   isLoggedIn: boolean;
   isAdmin: boolean;
   username: string;
-  msg: string;
 
   locationForm;
   shouldNavigateToList: boolean;
@@ -128,19 +127,6 @@ export class LocationFormComponent implements OnInit, AfterViewInit {
     this.isLoggedIn = this.authService.isLoggedIn;
     this.isAdmin = this.authService.isAdmin;
     this.username = this.authService.userName;
-  }
-
-  showToastr(message: string) {
-    this.msg = message;
-    this.ngAfterViewInit();
-  }
-
-  ngAfterViewInit(): void {
-    setTimeout(() => {
-      if (this.msg) {
-        this.toastr.error(this.msg, 'Error!');
-      }
-    }, 0);
   }
 
 }
