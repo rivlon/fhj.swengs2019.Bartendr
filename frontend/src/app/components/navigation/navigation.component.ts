@@ -40,11 +40,4 @@ export class NavigationComponent implements OnInit {
     this.authService.logout();
   }
 
-  checkForJWTExpiration() {
-    const token = localStorage.getItem(this.authService.accessTokenLocalStorageKey);
-    if (this.authService.jwtHelperService.isTokenExpired(token)) {
-      this.logout();
-    }
-  }
-
 }

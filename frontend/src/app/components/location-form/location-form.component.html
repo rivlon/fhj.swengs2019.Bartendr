@@ -65,7 +65,7 @@
   <p class="h5">{{adrs}}</p>
   <p>Drinks:<br/>
     <span *ngFor="let drinks of drinkArray">
-    <a [href]="'/drink-form/' + drinks.id">{{drinks.name}}</a><br/>
+    <a  [routerLink]="'/drink-form/' + drinks.id">{{drinks.name}}</a><br/>
   </span>
   </p>
   <div class="map">

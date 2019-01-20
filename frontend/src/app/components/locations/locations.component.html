@@ -23,7 +23,7 @@
     <div *ngFor="let location of locations">
       <agm-marker [label]="location.name.substr(0, 1)" [latitude]="location.lat" [longitude]="location.lng"
                   [markerClickable]="true" [markerDraggable]="false">
-        <agm-info-window><a [href]="'/location-form/' + location.id">{{location.name}}</a></agm-info-window>
+        <agm-info-window><a [routerLink]="'/location-form/' + location.id">{{location.name}}</a></agm-info-window>
       </agm-marker>
     </div>
   </agm-map>
