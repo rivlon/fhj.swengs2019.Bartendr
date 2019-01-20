@@ -20,6 +20,8 @@ export class ErrorInterceptor implements HttpInterceptor {
             this.toastrService.error('Could not be deleted, still Drinks assigned!', 'Message');
           } else if (err.status === 410) {
             this.toastrService.success('Successfully deleted', 'Message');
+          } else if (err.status === 504) {
+            this.toastrService.error('Gateway timeout!', 'Error');
           } else if (err.status > 499 && err.status < 600) {
             this.toastrService.error('Some Server Error occurred!', 'Message');
           } else if (err.status === 400) {
@@ -31,7 +33,7 @@ export class ErrorInterceptor implements HttpInterceptor {
             this.toastrService.error('Forbidden', 'Message');
           } else if (err.status === 404) {
             this.toastrService.error('Not Found', 'Message');
-          } else {
+          }  else {
             this.toastrService.error('Some Error occurred!', 'Message');
           }
         }

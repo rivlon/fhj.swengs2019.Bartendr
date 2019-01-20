@@ -125,24 +125,13 @@
     </bSwitch>
     <label for="active">Active?</label>
   </div>
-  <button (click)="activatePasswordInsert()" class="btn btn-primary" id="activatePasswordInsert"
+  <button *ngIf="readonlyPassword" (click)="activatePasswordInsert()" class="btn btn-primary" id="activatePasswordInsert"
           name="activatePasswordInsert"
           type="button">Activate Password Insert
   </button>
 
   <div class="col" id="PasswordChange">
-    <label *ngIf="readOnly" for="PasswordChange"><strong>Change Password:</strong>
-      <small class="text-muted h6">
-        <ul>
-          <li>At least 5 and maximum 15 characters in length.</li>
-          <li>One lowercase letter.</li>
-          <li>One uppercase letter.</li>
-          <li>One number.</li>
-          <li>One special character.</li>
-        </ul>
-      </small>
-    </label>
-    <label *ngIf="!readOnly" for="PasswordChange"><strong>Enter Password:</strong>
+    <label *ngIf="!readonlyPassword" for="PasswordChange"><strong>Change Password:</strong>
       <small class="text-muted h6">
         <ul>
           <li>At least 5 and maximum 15 characters in length.</li>

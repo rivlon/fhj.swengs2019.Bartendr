@@ -19,9 +19,9 @@
     <td>{{ user.email }}</td>
     <td>{{ user.admin }}</td>
     <td >{{ user.active }}</td>
-    <button [routerLink]="'/user-form/' + user.username">EDIT</button>
-    <button *ngIf="user.active" (click)="deleteUser(user)">DELETE</button>
-    <button *ngIf="!user.active" (click)="activateUser(user)">ACTIVATE</button>
+    <button *ngIf="user.username !== 'sysAdmin'" [routerLink]="'/user-form/' + user.username">EDIT</button>
+    <button *ngIf="user.active && user.username !== 'sysAdmin'" (click)="deleteUser(user)">DELETE</button>
+    <button *ngIf="!user.active && user.username !== 'sysAdmin'" (click)="activateUser(user)">ACTIVATE</button>
   </tr>
   </tbody>
 </table>

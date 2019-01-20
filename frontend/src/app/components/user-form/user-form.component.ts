@@ -26,6 +26,7 @@ export class UserFormComponent implements OnInit {
 
   constructor(private userService: UserService, private route: ActivatedRoute, private router: Router, private authService: AuthService,
               private toastr: ToastrService) {
+    this.loadData();
   }
 
   ValidatePassword() {
@@ -89,7 +90,11 @@ export class UserFormComponent implements OnInit {
 
   saveUser() {
     const userToBeSafed = this.userForm.value;
-    if (userToBeSafed.id) {
+    if (this.username === userToBeSafed.username && !userToBeSafed.active) {
+      this.toastr.error('You cannot delete yourself!', 'Error');
+    } else if (userToBeSafed.username === 'sysAdmin') {
+      this.toastr.error('System Administrator cannot be modified!', 'Error!');
+    } else if (userToBeSafed.id ) {
       this.userService.update(userToBeSafed)
         .subscribe(() => {
           this.toastr.success('User: ' + userToBeSafed.username + ' has been succesfully updated!', 'Successfully Updated:');
@@ -104,7 +109,6 @@ export class UserFormComponent implements OnInit {
           this.readonlyPassword = true;
           this.navigateToList();
         });
-
     } else {
       this.toastr.error('Not authorized!', 'Error:');
     }
