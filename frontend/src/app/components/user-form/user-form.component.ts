@@ -64,6 +64,7 @@ export class UserFormComponent implements OnInit {
     });
 
     const data = this.route.snapshot.data;
+
     if (data.user) {
       this.readOnly = true;
       this.readonlyPassword = true;
@@ -71,6 +72,7 @@ export class UserFormComponent implements OnInit {
       this.userForm.setValue(data.user);
     } else {
       this.readOnly = false;
+      //this.readonlyPassword = false;
       this.userForm.setValue({
         id: null,
         username: '',

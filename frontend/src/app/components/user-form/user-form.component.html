@@ -41,7 +41,7 @@
 }" class="form-group">
       <label for="firstname"><strong>First Name:</strong></label>
       <input class="form-control" formControlName="firstname" id="firstname" name="firstname" type="text"/>
-      <div *ngIf="!readOnly">
+      <div>
         <div
           *ngIf="userForm.controls.firstname.invalid && (userForm.controls.firstname.dirty || userForm.controls.firstname.touched)"
           class="form-control-feedback">
@@ -66,7 +66,7 @@
 }" class="form-group">
       <label for="lastname"><strong>Last Name:</strong></label>
       <input class="form-control" formControlName="lastname" id="lastname" name="lastname" type="text"/>
-      <div *ngIf="!readOnly">
+      <div>
         <div
           *ngIf="userForm.controls.lastname.invalid && (userForm.controls.lastname.dirty || userForm.controls.lastname.touched)"
           class="form-control-feedback">
@@ -92,7 +92,7 @@
         <strong>Email:</strong><br/>
       </label>
       <input class="form-control" formControlName="email" id="email" name="email" type="email"/>
-      <div *ngIf="!readOnly">
+      <div>
         <div
           *ngIf="userForm.controls.email.invalid && (userForm.controls.email.dirty || userForm.controls.email.touched)"
           class="form-control-feedback">
@@ -161,7 +161,7 @@
         <label for="password">Password:</label>
         <input [readOnly]="readOnly && readonlyPassword" class="form-control" formControlName="password" id="password"
                name="password" type="password"/>
-        <div *ngIf="!readOnly && !readonlyPassword">
+        <div *ngIf="(!readOnly && !readonlyPassword) || (readOnly && !readonlyPassword)">
           <div
             *ngIf="userForm.controls.password.invalid && (userForm.controls.password.dirty || userForm.controls.password.touched)"
             class="form-control-feedback">
@@ -189,7 +189,7 @@
         <label for="confirm_password">Confirm Password:</label>
         <input [readOnly]="readOnly && readonlyPassword" class="form-control" formControlName="confirm_password"
                id="confirm_password" name="confirm_password" type="password"/>
-        <div *ngIf="!readOnly && !readonlyPassword">
+        <div *ngIf="(!readOnly && !readonlyPassword) || (readOnly && !readonlyPassword)">
           <div
             *ngIf="userForm.controls.confirm_password.invalid && (userForm.controls.confirm_password.dirty || userForm.controls.confirm_password.touched)"
             class="form-control-feedback">
