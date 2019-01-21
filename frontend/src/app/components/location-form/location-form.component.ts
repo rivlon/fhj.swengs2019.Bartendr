@@ -29,7 +29,7 @@ export class LocationFormComponent implements OnInit {
   adrs = '';
   lat: number;
   lng: number;
-  zoom = 17;
+  zoom = 18;
   clicked = false;
   message;
 

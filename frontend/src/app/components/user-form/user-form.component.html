@@ -12,7 +12,8 @@
   'has-success': userForm.controls.username.valid && userForm.controls.username.dirty
 }" class="form-group">
       <label for="username"><strong>User Name:</strong></label>
-      <input [readOnly]="readOnly" class="form-control" formControlName="username" id="username" name="username"
+      <input [readOnly]="readOnly" autocomplete="username" class="form-control" formControlName="username" id="username"
+             name="username"
              type="text"/>
       <div *ngIf="!readOnly">
         <div
@@ -40,7 +41,8 @@
   'has-success': userForm.controls.firstname.valid && userForm.controls.firstname.dirty
 }" class="form-group">
       <label for="firstname"><strong>First Name:</strong></label>
-      <input class="form-control" formControlName="firstname" id="firstname" name="firstname" type="text"/>
+      <input autocomplete="given-name" class="form-control" formControlName="firstname" id="firstname" name="firstname"
+             type="text"/>
       <div>
         <div
           *ngIf="userForm.controls.firstname.invalid && (userForm.controls.firstname.dirty || userForm.controls.firstname.touched)"
@@ -65,7 +67,8 @@
   'has-success': userForm.controls.lastname.valid && userForm.controls.lastname.dirty
 }" class="form-group">
       <label for="lastname"><strong>Last Name:</strong></label>
-      <input class="form-control" formControlName="lastname" id="lastname" name="lastname" type="text"/>
+      <input autocomplete="family-name" class="form-control" formControlName="lastname" id="lastname" name="lastname"
+             type="text"/>
       <div>
         <div
           *ngIf="userForm.controls.lastname.invalid && (userForm.controls.lastname.dirty || userForm.controls.lastname.touched)"
@@ -91,7 +94,7 @@
       <label for="email">
         <strong>Email:</strong><br/>
       </label>
-      <input class="form-control" formControlName="email" id="email" name="email" type="email"/>
+      <input autocomplete="email" class="form-control" formControlName="email" id="email" name="email" type="email"/>
       <div>
         <div
           *ngIf="userForm.controls.email.invalid && (userForm.controls.email.dirty || userForm.controls.email.touched)"
@@ -125,7 +128,8 @@
     </bSwitch>
     <label for="active">Active?</label>
   </div>
-  <button *ngIf="readonlyPassword" (click)="activatePasswordInsert()" class="btn btn-primary" id="activatePasswordInsert"
+  <button (click)="activatePasswordInsert()" *ngIf="readonlyPassword" class="btn btn-primary"
+          id="activatePasswordInsert"
           name="activatePasswordInsert"
           type="button">Activate Password Insert
   </button>
@@ -148,7 +152,8 @@
   'has-success': userForm.controls.password.valid && userForm.controls.password.dirty
 }" class="form-group">
         <label for="password">Password:</label>
-        <input [readOnly]="readOnly && readonlyPassword" class="form-control" formControlName="password" id="password"
+        <input [readOnly]="readOnly && readonlyPassword" autocomplete="new-password" class="form-control"
+               formControlName="password" id="password"
                name="password" type="password"/>
         <div *ngIf="(!readOnly && !readonlyPassword) || (readOnly && !readonlyPassword)">
           <div
@@ -176,7 +181,8 @@
   'has-success': userForm.controls.confirm_password.valid && userForm.controls.confirm_password.dirty && userForm.passwordsMatch
 }" class="form-group">
         <label for="confirm_password">Confirm Password:</label>
-        <input [readOnly]="readOnly && readonlyPassword" class="form-control" formControlName="confirm_password"
+        <input [readOnly]="readOnly && readonlyPassword" autocomplete="new-password" class="form-control"
+               formControlName="confirm_password"
                id="confirm_password" name="confirm_password" type="password"/>
         <div *ngIf="(!readOnly && !readonlyPassword) || (readOnly && !readonlyPassword)">
           <div
@@ -218,7 +224,8 @@
       Save
     </button>
     <button *ngIf="!isAdmin" [disabled]="userForm.controls.firstname.invalid || userForm.controls.lastname.invalid ||
-    userForm.controls.email.invalid || (userForm.controls.password.invalid && !readOnly)" class="btn btn-primary" type="submit">
+    userForm.controls.email.invalid || (userForm.controls.password.invalid && !readOnly)" class="btn btn-primary"
+            type="submit">
       Save
     </button>
 

@@ -33,6 +33,12 @@ export class DrinkFormComponent implements OnInit {
 
   }
 
+  static sorter(a: string, b: string) {
+    const tA = a.toLowerCase();
+    const tB = b.toLowerCase();
+    return (tA < tB) ? -1 : (tA > tB) ? 1 : 0;
+  }
+
   ngOnInit() {
     this.drinkForm = new FormGroup({
       'id': new FormControl(),
@@ -59,6 +65,8 @@ export class DrinkFormComponent implements OnInit {
       });
     }
     this.locationOptions = data.locations;
+    this.locationOptions.sort((a, b) => DrinkFormComponent.sorter(a.name, b.name));
+    this.categories.sort((a, b) => DrinkFormComponent.sorter(a, b));
     this.isAdmin = this.authService.isAdmin;
   }
 
