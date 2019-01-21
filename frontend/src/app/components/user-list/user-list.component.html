@@ -1,28 +1,53 @@
-<table id="datatable" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="row-border hover">
-  <thead>
-  <tr>
-    <th>ID</th>
-    <th>User Name</th>
-    <th>First Name</th>
-    <th>Last Name</th>
-    <th>eMail</th>
-    <th>Admin?</th>
-    <th>Active?</th>
-  </tr>
-  </thead>
-  <tbody>
-  <tr *ngFor="let user of users ">
-    <td>{{ user.id }}</td>
-    <td>{{ user.username }}</td>
-    <td>{{ user.firstname }}</td>
-    <td>{{ user.lastname }}</td>
-    <td>{{ user.email }}</td>
-    <td>{{ user.admin }}</td>
-    <td >{{ user.active }}</td>
-    <button *ngIf="user.username !== 'sysAdmin'" [routerLink]="'/user-form/' + user.username">EDIT</button>
-    <button *ngIf="user.active && user.username !== 'sysAdmin'" (click)="deleteUser(user)">DELETE</button>
-    <button *ngIf="!user.active && user.username !== 'sysAdmin'" (click)="activateUser(user)">ACTIVATE</button>
-  </tr>
-  </tbody>
-</table>
-
+<div class="container">
+  <div class="main-content">
+    <div class="card">
+      <div class="card-body">
+        <h3 class="card-title">
+          Users
+        </h3>
+        <div class="row">
+          <div class="col">
+            <table [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="row-border hover" datatable id="datatable">
+              <thead>
+              <tr>
+                <th>ID</th>
+                <th>User Name</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>eMail</th>
+                <th>Admin?</th>
+                <th>Active?</th>
+                <th>Actions</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr *ngFor="let user of users ">
+                <td>{{ user.id }}</td>
+                <td>{{ user.username }}</td>
+                <td>{{ user.firstname }}</td>
+                <td>{{ user.lastname }}</td>
+                <td>{{ user.email }}</td>
+                <td>{{ user.admin }}</td>
+                <td>{{ user.active }}</td>
+                <td>
+                  <div class="btn-group">
+                    <button *ngIf="user.username !== 'sysAdmin'" [routerLink]="'/user-form/' + user.username"
+                            class="btn btn-warning">Edit
+                    </button>
+                    <button (click)="deleteUser(user)" *ngIf="user.active && user.username !== 'sysAdmin'"
+                            class="btn btn-danger">Delete
+                    </button>
+                    <button (click)="activateUser(user)" *ngIf="!user.active && user.username !== 'sysAdmin'"
+                            class="btn btn-success">Reactivate
+                    </button>
+                  </div>
+                </td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,99 +1,142 @@
-<form (ngSubmit)="getPlusCode()" *ngIf="isAdmin" [formGroup]="locationForm">
-  <div class="col">
-    <div [ngClass]="{
-  'has-danger': locationForm.controls.name.invalid && locationForm.controls.name.dirty,
-  'has-success': locationForm.controls.name.valid && locationForm.controls.name.dirty
-}" class="form-group">
-      <label for="name">Location name:</label>
-      <input autocomplete="organization" class="form-control" formControlName="name" id="name" name="name" type="text"/>
-      <div>
-        <div
-          *ngIf="locationForm.controls.name.invalid && (locationForm.controls.name.dirty || locationForm.controls.name.touched)"
-          class="form-control-feedback">
-          <p *ngIf="locationForm.controls.name.errors.required">
-            Name is required!
-          </p>
-          <p *ngIf="locationForm.controls.name.errors.minlength">
-            Name must be at least 2 characters long!
-          </p>
-          <p *ngIf="locationForm.controls.name.errors.maxLength">
-            Name mustn't exceed 25 characters!
-          </p>
-        </div>
+<div class="container">
+  <div class="main-content">
+    <div class="card">
+      <div *ngIf="isAdmin" class="card-body">
+        <h3 class="card-title">
+          {{locationForm.value.id ? 'Edit Location' : 'Create Location'}}
+        </h3>
+        <form (ngSubmit)="getPlusCode()" [formGroup]="locationForm">
+          <div class="row">
+            <div class="col">
+              <div [ngClass]="{'has-danger': locationForm.controls.name.invalid && locationForm.controls.name.dirty,
+              'has-success': locationForm.controls.name.valid && locationForm.controls.name.dirty}" class="form-group">
+                <label for="name">Location name:</label>
+                <input autocomplete="organization" class="form-control" formControlName="name" id="name" name="name"
+                       type="text"/>
+                <div>
+                  <div
+                    *ngIf="locationForm.controls.name.invalid && (locationForm.controls.name.dirty || locationForm.controls.name.touched)"
+                    class="form-control-feedback">
+                    <p *ngIf="locationForm.controls.name.errors.required">
+                      Name is required!
+                    </p>
+                    <p *ngIf="locationForm.controls.name.errors.minlength">
+                      Name must be at least 2 characters long!
+                    </p>
+                    <p *ngIf="locationForm.controls.name.errors.maxLength">
+                      Name mustn't exceed 25 characters!
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col">
+              <div [ngClass]="{'has-danger': locationForm.controls.address.invalid && locationForm.controls.address.dirty,
+              'has-success': locationForm.controls.address.valid && locationForm.controls.address.dirty}"
+                   class="form-group">
+                <label for="address">Address:</label>
+                <input [value]="adrs" autocomplete="street-address" class="form-control" formControlName="address"
+                       id="address"
+                       name="address" type="text"/>
+                <div>
+                  <div
+                    *ngIf="locationForm.controls.address.invalid && (locationForm.controls.address.dirty || locationForm.controls.address.touched)"
+                    class="form-control-feedback">
+                    <p *ngIf="locationForm.controls.address.errors.minlength">
+                      Address must be at least 2 characters long!
+                    </p>
+                    <p *ngIf="locationForm.controls.address.errors.maxLength">
+                      Address mustn't exceed 255 characters!
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col">
+              <label for="rating">Rating:</label>
+              <rating [max]="5" formControlName="rating" id="rating" type="number"></rating>
+            </div>
+            <div *ngFor="let drinks of drinkArray">
+              <div class="col">
+                <button (click)="navigateToDrink(drinks.id)" class="btn btn-default">{{drinks.name}}</button>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col">
+              <div *ngIf="adrs">
+                <agm-map [latitude]="lat" [longitude]="lng" [scrollwheel]="false" [zoom]="zoom">
+                  <agm-marker [label]="locationForm.value.name.substr(0, 1)" [latitude]="lat" [longitude]="lng"
+                              [markerClickable]="true" [markerDraggable]="false">
+                    <agm-info-window>{{locationForm.value.name}}</agm-info-window>
+                  </agm-marker>
+                </agm-map>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col">
+              <div class="btn-group">
+                <button [disabled]="locationForm.invalid" class="btn btn-primary" type="submit">
+                  Save
+                </button>
+                <button (click)="setShouldNavigateToList()" [disabled]="locationForm.invalid" class="btn btn-primary"
+                        type="submit">
+                  Save and Back
+                </button>
+                <button [routerLink]="'/locations/'" class="btn btn-danger" type="button">
+                  Back
+                </button>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+
+      <div *ngIf="!isAdmin" class="card-body">
+        <form [formGroup]="locationForm">
+          <h1 class="card-title">
+            {{locationForm.value.name}}
+            <rating [max]="5" formControlName="rating" readonly="true" type="number"></rating>
+          </h1>
+          <div class="row">
+            <div class="col">
+              <p class="h5">{{adrs}}</p>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col">
+              <div class="map">
+                <agm-map [latitude]="lat" [longitude]="lng" [scrollwheel]="false" [zoom]="zoom">
+                  <agm-marker [label]="locationForm.value.name.substr(0, 1)" [latitude]="lat" [longitude]="lng"
+                              [markerClickable]="true" [markerDraggable]="false">
+                    <agm-info-window>{{locationForm.value.name}}</agm-info-window>
+                  </agm-marker>
+                </agm-map>
+              </div>
+            </div>
+            <div class="col">
+              <strong>Drinks:</strong>
+              <div *ngFor="let drinks of drinkArray">
+                <div class="row">
+                  <div class="col">
+                    <a [routerLink]="'/drink-form/' + drinks.id">
+                      {{drinks.name}}
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col">
+              <button [routerLink]="'/drink-list/'" class="btn btn-primary" type="button">Back</button>
+            </div>
+          </div>
+        </form>
       </div>
     </div>
   </div>
-  <div class="col">
-    <div [ngClass]="{
-  'has-danger': locationForm.controls.address.invalid && locationForm.controls.address.dirty,
-  'has-success': locationForm.controls.address.valid && locationForm.controls.address.dirty
-}" class="form-group">
-      <label for="address">Address:</label>
-      <input [value]="adrs" autocomplete="street-address" class="form-control" formControlName="address" id="address"
-             name="address" type="text"/>
-      <div>
-        <div
-          *ngIf="locationForm.controls.address.invalid && (locationForm.controls.address.dirty || locationForm.controls.address.touched)"
-          class="form-control-feedback">
-          <p *ngIf="locationForm.controls.address.errors.minlength">
-            Address must be at least 2 characters long!
-          </p>
-          <p *ngIf="locationForm.controls.address.errors.maxLength">
-            Address mustn't exceed 255 characters!
-          </p>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="col">
-    <label for="rating">Rating:</label>
-    <rating [max]="5" formControlName="rating" id="rating" name="rating" type="number"></rating>
-  </div>
-
-  <div *ngFor="let drinks of drinkArray">
-    <button (click)="navigateToDrink(drinks.id)" class="btn btn-default">{{drinks.name}}</button>
-  </div>
-
-  <div class="btn-group">
-    <button [disabled]="locationForm.invalid" class="btn btn-primary" type="submit">
-      Save
-    </button>
-    <button (click)="setShouldNavigateToList()" [disabled]="locationForm.invalid" class="btn btn-primary"
-            type="submit">
-      Save and Back
-    </button>
-    <button [routerLink]="'/locations/'" class="btn btn-primary" type="button">
-      Back
-    </button>
-  </div>
-  <div *ngIf="adrs">
-    <agm-map [latitude]="lat" [longitude]="lng" [scrollwheel]="false" [zoom]="zoom">
-      <agm-marker [label]="locationForm.value.name.substr(0, 1)" [latitude]="lat" [longitude]="lng"
-                  [markerClickable]="true" [markerDraggable]="false">
-        <agm-info-window>{{locationForm.value.name}}</agm-info-window>
-      </agm-marker>
-    </agm-map>
-  </div>
-</form>
-
-<form *ngIf="!isAdmin" [formGroup]="locationForm">
-  <p class="h1">{{locationForm.value.name}}
-    <rating readonly="true" [max]="5" formControlName="rating" type="number"></rating>
-  </p>
-  <p class="h5">{{adrs}}</p>
-  <p>Drinks:<br/>
-    <span *ngFor="let drinks of drinkArray">
-    <a [routerLink]="'/drink-form/' + drinks.id">{{drinks.name}}</a><br/>
-  </span>
-  </p>
-  <div class="map">
-    <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom" [scrollwheel]="false">
-      <agm-marker [label]="locationForm.value.name.substr(0, 1)" [latitude]="lat" [longitude]="lng"
-                  [markerClickable]="true" [markerDraggable]="false">
-        <agm-info-window>{{locationForm.value.name}}</agm-info-window>
-      </agm-marker>
-    </agm-map>
-  </div>
-  <button [routerLink]="'/drink-list/'" class="btn btn-primary" type="button">Back</button>
-</form>
+</div>

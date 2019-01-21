@@ -11,7 +11,8 @@
           </div>
           <div class="content">
             <div class="input-group form-group-no-border input-lg">
-              <input [(ngModel)]="user.username" autocomplete="username" class="form-control" name="username" placeholder="Username"
+              <input [(ngModel)]="user.username" autocomplete="username" class="form-control" name="username"
+                     placeholder="Username"
                      type="text"/>
             </div>
             <div class="input-group form-group-no-border input-lg">
@@ -21,6 +22,9 @@
           </div>
           <button class="btn btn-primary" type="submit">
             Login
+          </button>
+          <button [routerLink]="'/register'" class="btn btn-secondary" type="button">
+            Register
           </button>
         </form>
       </div>

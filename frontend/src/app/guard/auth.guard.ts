@@ -1,8 +1,6 @@
 import {Injectable} from '@angular/core';
-import {CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Router} from '@angular/router';
+import {ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot} from '@angular/router';
 import {Observable} from 'rxjs';
-import {UserService} from '../service/user.service';
-import {state} from '@angular/animations';
 import {AuthService} from '../service/auth.service';
 import {ToastrService} from 'ngx-toastr';
 
@@ -24,6 +22,8 @@ export class AuthGuard implements CanActivate {
     } else if (!this.authService.isLoggedIn) {
       this.authService.logout();
       this.toastr.info('Warning: You have been automatically logged out!', 'Authentication expired!');
+    } else if (this.authService.userName === 'creator') {
+      this.authService.logout();
     } else {
       return true;
     }

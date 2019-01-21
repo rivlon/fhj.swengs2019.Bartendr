@@ -85,6 +85,16 @@ public class UserDetailsServiceImpl implements UserDetailsService {
             tester.setLastname("wasIrgend");
             tester.setEmail("was-irgend@peter-hans.com");
             userRepository.save(tester);
+
+            at.bartendr.backend.model.User creator = new at.bartendr.backend.model.User();
+            creator.setUsername("creator");
+            creator.setPassword(encoder.encode("creator"));
+            creator.setAdmin(false);
+            creator.setActive(true);
+            creator.setFirstname("Creator");
+            creator.setLastname("Creator");
+            creator.setEmail("creator@creator.com");
+            userRepository.save(creator);
         }
         if (locationRepository.count() == 0) {
 
