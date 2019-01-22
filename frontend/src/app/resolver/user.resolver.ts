@@ -10,8 +10,7 @@ import {ToastrService} from 'ngx-toastr';
 })
 export class UserResolver implements Resolve<Observable<any>> {
 
-  constructor(private userService: UserService, private authService: AuthService,
-              private router: Router, private toastr: ToastrService) {
+  constructor(private userService: UserService, private authService: AuthService, private router: Router, private toastr: ToastrService) {
   }
 
   resolve(route: ActivatedRouteSnapshot,

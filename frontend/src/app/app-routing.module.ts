@@ -1,5 +1,5 @@
 import {NgModule} from '@angular/core';
-import {Routes, RouterModule} from '@angular/router';
+import {RouterModule, Routes} from '@angular/router';
 import {LoginComponent} from './components/login/login.component';
 import {DrinkListComponent} from './components/drink-list/drink-list.component';
 import {DrinkFormComponent} from './components/drink-form/drink-form.component';
@@ -15,30 +15,46 @@ import {LocationsResolver} from './resolver/locations.resolver';
 import {UserResolver} from './resolver/user.resolver';
 import {UsersResolver} from './resolver/users.resolver';
 import {UserListComponent} from './components/user-list/user-list.component';
+import {RegisterUserComponent} from './components/register-user/register-user.component';
 
 const routes: Routes = [
   {path: '', redirectTo: '/login', pathMatch: 'full'},
   {path: 'login', component: LoginComponent},
 
-  {path: 'drink-list', component: DrinkListComponent, canActivate: [AuthGuard],
-    resolve: {drinks: DrinksResolver, locations: LocationsResolver}},
-  {path: 'drink-form', component: DrinkFormComponent, canActivate: [AdminGuard],
-    resolve: {drink: DrinkResolver, locations: LocationsResolver}},
-  {path: 'drink-form/:id', component: DrinkFormComponent, canActivate: [AuthGuard],
-    resolve: {drink: DrinkResolver, locations: LocationsResolver}},
+  {
+    path: 'drink-list', component: DrinkListComponent, canActivate: [AuthGuard],
+    resolve: {drinks: DrinksResolver, locations: LocationsResolver}
+  },
+  {
+    path: 'drink-form', component: DrinkFormComponent, canActivate: [AdminGuard],
+    resolve: {drink: DrinkResolver, locations: LocationsResolver}
+  },
+  {
+    path: 'drink-form/:id', component: DrinkFormComponent, canActivate: [AuthGuard],
+    resolve: {drink: DrinkResolver, locations: LocationsResolver}
+  },
 
   {path: 'locations', component: LocationsComponent, canActivate: [AuthGuard], resolve: {locations: LocationsResolver}},
-  {path: 'location-form', component: LocationFormComponent, canActivate: [AdminGuard],
-    resolve: {location: LocationResolver, drinks: DrinksResolver}},
-  {path: 'location-form/:id', component: LocationFormComponent, canActivate: [AuthGuard],
-    resolve: {location: LocationResolver, drinks: DrinksResolver}},
+  {
+    path: 'location-form', component: LocationFormComponent, canActivate: [AdminGuard],
+    resolve: {location: LocationResolver, drinks: DrinksResolver}
+  },
+  {
+    path: 'location-form/:id', component: LocationFormComponent, canActivate: [AuthGuard],
+    resolve: {location: LocationResolver, drinks: DrinksResolver}
+  },
 
   {path: 'user-list', component: UserListComponent, canActivate: [AdminGuard], resolve: {users: UsersResolver}},
   {path: 'user-form', component: UserFormComponent, canActivate: [AdminGuard], resolve: {user: UserResolver}},
-  {path: 'user-form/:username', component: UserFormComponent, canActivate: [AuthGuard],
-    resolve: {user: UserResolver}}
+  {
+    path: 'user-form/:username', component: UserFormComponent, canActivate: [AuthGuard],
+    resolve: {user: UserResolver}
+  },
 
 
+  {
+    path: 'register', component: RegisterUserComponent
+  }
 ];
 
 @NgModule({

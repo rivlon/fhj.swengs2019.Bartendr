@@ -3,7 +3,7 @@
   <div class="container">
     <div class="col-md-4 content-center">
       <div class="card card-login card-plain">
-        <form class="form" (ngSubmit)="login()">
+        <form (ngSubmit)="login()" class="form">
           <div class="header header-primary text-center">
             <div class="logo-container">
               <h1>Bartendr</h1>
@@ -11,14 +11,20 @@
           </div>
           <div class="content">
             <div class="input-group form-group-no-border input-lg">
-              <input type="text" name="username" class="form-control" placeholder="Username" [(ngModel)]="user.username"/>
+              <input [(ngModel)]="user.username" autocomplete="username" class="form-control" name="username"
+                     placeholder="Username"
+                     type="text"/>
             </div>
             <div class="input-group form-group-no-border input-lg">
-              <input type="password" name="password" placeholder="Password" class="form-control" [(ngModel)]="user.password"/>
+              <input [(ngModel)]="user.password" autocomplete="current-password" class="form-control" name="password"
+                     placeholder="Password" type="password"/>
             </div>
           </div>
           <button class="btn btn-primary" type="submit">
             Login
+          </button>
+          <button [routerLink]="'/register'" class="btn btn-secondary" type="button">
+            Register
           </button>
         </form>
       </div>

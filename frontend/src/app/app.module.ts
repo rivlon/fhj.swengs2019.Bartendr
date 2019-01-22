@@ -29,6 +29,7 @@ import {DataTablesModule} from 'angular-datatables';
 import {ToastrModule} from 'ngx-toastr';
 import {ErrorInterceptor} from './httpinterceptor/error.interceptor';
 import {HTTP_INTERCEPTORS} from '@angular/common/http';
+import { RegisterUserComponent } from './components/register-user/register-user.component';
 
 
 export function tokenGetter() {
@@ -51,7 +52,8 @@ export const httpInterceptorProviders = [
     LocationsComponent,
     NavigationComponent,
     UserFormComponent,
-    UserListComponent
+    UserListComponent,
+    RegisterUserComponent
   ],
   imports: [
     BrowserModule,

@@ -1,48 +1,46 @@
 <div *ngIf="isAdmin">
-  <table class="table" *ngIf="medias?.length">
-    <thead>
-    <tr>
-      <th>Name</th>
-      <th>Size</th>
-      <th>State</th>
-      <th></th>
-      <th></th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr *ngFor="let media of medias; let i = index;">
-      <td><strong>{{ media.originalFileName }}</strong></td>
-      <td>{{ media.size / 1024 / 1024 | number }}&nbsp;MB</td>
-      <td>
+  <div *ngFor="let media of medias; let i = index;">
+    <div class="row">
+      <div class="col">
+        <strong>{{ media.originalFileName }}</strong>
+      </div>
+      <div class="col">
+        Size: {{ media.size / 1024 / 1024 | number }}&nbsp;MB
+      </div>
+      <div class="col">
         <span *ngIf="!media.id">Uploading ...</span>
         <span *ngIf="media.id">Successfully Uploaded</span>
-      </td>
-
-      <td>
-        <img [src]="previews[i] | safeUrl" *ngIf="previews[i]"
-             class="img-fluid">
-      </td>
-
-      <td>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <img *ngIf="previews[i]" [src]="previews[i] | safeUrl" alt="image for a drink" class="card-img-bottom"
+             style="max-height: 20rem; max-width: 20rem;">
+      </div>
+      <div class="col"></div>
+      <div class="col">
         <div class="btn-group">
-          <button type="button" class="btn btn-outline-success" (click)="downloadMedia(media)">
+          <button (click)="downloadMedia(media)" class="btn btn-outline-success" type="button">
             Download
           </button>
-          <button type="button" class="btn btn-outline-danger" (click)="deleteMedia(media,i)">
+          <button (click)="deleteMedia(media,i)" class="btn btn-outline-danger" type="button">
             Delete
           </button>
         </div>
-      </td>
-    </tr>
-    </tbody>
-  </table>
-  <input *ngIf="medias.length < 1" [id]="'field_' + name" type="file" ng2FileSelect [uploader]="uploader"
-         [multiple]="true" [accept]="'image/*'"/>
+      </div>
+    </div>
+  </div>
+  <input *ngIf="medias.length < 1" [accept]="'image/*'" [id]="'field_' + name" [multiple]="true" [uploader]="uploader"
+         ng2FileSelect type="file"/>
 </div>
 
 <div *ngIf="!isAdmin && medias?.length">
   <div *ngFor="let media of medias; let i = index;">
-    <img [src]="previews[i] | safeUrl" *ngIf="previews[i]"
-         class="img-fluid">
+    <div class="row">
+      <div class="col">
+        <img class="card-img-bottom" [src]="previews[i] | safeUrl" *ngIf="previews[i]" alt="image for a drink"
+             style="max-height: 20rem; max-width: 20rem;">
+      </div>
+    </div>
   </div>
 </div>

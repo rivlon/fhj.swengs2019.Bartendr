@@ -1,30 +1,62 @@
-<table [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="row-border hover" datatable id="datatable">
-  <thead>
-  <tr>
-    <th>ID</th>
-    <th>Location Name</th>
-    <th>Address</th>
-    <th>Rating</th>
-  </tr>
-  </thead>
-  <tbody>
-  <tr *ngFor="let location of locations">
-    <td>{{location.id}}</td>
-    <td><a [routerLink]="'/location-form/' + location.id">{{location.name}}</a></td>
-    <td>{{location.address}}</td>
-    <td>{{location.rating}}</td>
-    <button *ngIf="isAdmin" [routerLink]="'/location-form/' + location.id">EDIT</button>
-    <button (click)="deleteLocation(location)" *ngIf="isAdmin">DELETE</button>
-  </tr>
-  </tbody>
-</table>
-<div class="map">
-  <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom">
-    <div *ngFor="let location of locations">
-      <agm-marker [label]="location.name.substr(0, 1)" [latitude]="location.lat" [longitude]="location.lng"
-                  [markerClickable]="true" [markerDraggable]="false">
-        <agm-info-window><a [routerLink]="'/location-form/' + location.id">{{location.name}}</a></agm-info-window>
-      </agm-marker>
+<div class="container">
+  <div class="main-content">
+    <div class="card">
+      <div class="card-body">
+        <h3 class="card-title">
+          Locations
+        </h3>
+        <div class="row">
+          <div class="col">
+            <table [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="row-border hover" datatable id="datatable">
+              <thead>
+              <tr>
+                <th>ID</th>
+                <th>Location Name</th>
+                <th>Address</th>
+                <th>Rating</th>
+                <th>Actions</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr *ngFor="let location of locations">
+                <td>{{location.id}}</td>
+                <td><a [routerLink]="'/location-form/' + location.id">{{location.name}}</a></td>
+                <td>{{location.address}}</td>
+                <td>{{location.rating}}</td>
+                <td>
+                  <div class="btn-group">
+                    <button *ngIf="isAdmin" [routerLink]="'/location-form/' + location.id" class="btn btn-warning">
+                      Edit
+                    </button>
+                    <button (click)="deleteLocation(location)" *ngIf="isAdmin" class="btn btn-danger">Delete</button>
+                  </div>
+                </td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <h4>Location Map</h4>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <div class="map">
+              <agm-map [latitude]="lat" [longitude]="lng" [scrollwheel]="false" [zoom]="zoom">
+                <div *ngFor="let location of locations">
+                  <agm-marker [label]="location.name.substr(0, 1)" [latitude]="location.lat" [longitude]="location.lng"
+                              [markerClickable]="true" [markerDraggable]="false">
+                    <agm-info-window><a [routerLink]="'/location-form/' + location.id">{{location.name}}</a>
+                    </agm-info-window>
+                  </agm-marker>
+                </div>
+              </agm-map>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-  </agm-map>
+  </div>
 </div>

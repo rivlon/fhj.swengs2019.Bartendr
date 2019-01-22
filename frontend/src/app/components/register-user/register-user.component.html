@@ -3,25 +3,17 @@
     <div class="card">
       <div class="card-body">
         <h3 class="card-title">
-          {{userForm.value.id ? 'Edit Profile' : 'Create User'}}
+          Create User
         </h3>
         <form (ngSubmit)="saveUser()" [formGroup]="userForm">
           <div class="row">
-            <div *ngIf="isAdmin" class="col">
-              <div class="form-group">
-                <label for="username"><strong>ID:</strong></label>
-                <input [readOnly]="true" class="form-control" formControlName="id" id="id" name="id" type="number"/>
-              </div>
-            </div>
             <div class="col">
               <div [ngClass]="{'has-danger': userForm.controls.username.invalid && userForm.controls.username.dirty,
         'has-success': userForm.controls.username.valid && userForm.controls.username.dirty}" class="form-group">
                 <label for="username"><strong>User Name:</strong></label>
-                <input [readOnly]="readOnly" autocomplete="username" class="form-control" formControlName="username"
-                       id="username"
-                       name="username"
-                       type="text"/>
-                <div *ngIf="!readOnly">
+                <input autocomplete="username" class="form-control" formControlName="username" id="username"
+                       name="username" type="text"/>
+                <div>
                   <div
                     *ngIf="userForm.controls.username.invalid && (userForm.controls.username.dirty || userForm.controls.username.touched)"
                     class="form-control-feedback">
@@ -122,32 +114,11 @@
                 </div>
               </div>
             </div>
-            <div *ngIf="isAdmin" class="col">
-              <label for="admin">Admin?</label><br/>
-              <bSwitch
-                [switch-off-color]="'danger'" [switch-on-color]="'success'" formControlName="admin" id="admin"
-                name="admin">
-              </bSwitch>
-            </div>
-            <div *ngIf="isAdmin" class="col">
-              <label for="active">Active?</label><br/>
-              <bSwitch
-                [switch-off-color]="'danger'" [switch-on-color]="'success'" formControlName="active" id="active"
-                name="active">
-              </bSwitch>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col">
-              <button (click)="activatePasswordInsert()" *ngIf="readonlyPassword" class="btn btn-primary"
-                      id="activatePasswordInsert" name="activatePasswordInsert" type="button">
-                Activate Password Insert
-              </button>
-            </div>
           </div>
           <div class="row">
             <div class="col" id="PasswordChange">
-              <label *ngIf="!readonlyPassword" for="PasswordChange"><strong>Change Password:</strong>
+              <label for="PasswordChange">
+                <strong>Choose Password:</strong>
                 <small class="text-muted h6">
                   <ul>
                     <li>At least 5 and maximum 15 characters in length.</li>
@@ -166,10 +137,9 @@
                 'has-success': userForm.controls.password.valid && userForm.controls.password.dirty}"
                    class="form-group">
                 <label for="password">Password:</label>
-                <input [readOnly]="readOnly && readonlyPassword" autocomplete="new-password" class="form-control"
-                       formControlName="password" id="password"
+                <input autocomplete="new-password" class="form-control" formControlName="password" id="password"
                        name="password" type="password"/>
-                <div *ngIf="(!readOnly && !readonlyPassword) || (readOnly && !readonlyPassword)">
+                <div>
                   <div
                     *ngIf="userForm.controls.password.invalid && (userForm.controls.password.dirty || userForm.controls.password.touched)"
                     class="form-control-feedback">
@@ -195,10 +165,10 @@
                 'has-success': userForm.controls.confirm_password.valid && userForm.controls.confirm_password.dirty && userForm.passwordsMatch}"
                 class="form-group">
                 <label for="confirm_password">Confirm Password:</label>
-                <input [readOnly]="readOnly && readonlyPassword" autocomplete="new-password" class="form-control"
+                <input autocomplete="new-password" class="form-control"
                        formControlName="confirm_password"
                        id="confirm_password" name="confirm_password" type="password"/>
-                <div *ngIf="(!readOnly && !readonlyPassword) || (readOnly && !readonlyPassword)">
+                <div>
                   <div
                     *ngIf="userForm.controls.confirm_password.invalid && (userForm.controls.confirm_password.dirty || userForm.controls.confirm_password.touched)"
                     class="form-control-feedback">
@@ -232,33 +202,12 @@
           <div class="row">
             <div class="col">
               <div class="btn-group">
-
-                <button *ngIf="isAdmin" [disabled]="(!readOnly && userForm.controls.username.invalid) || userForm.controls.firstname.invalid ||
-    userForm.controls.lastname.invalid || userForm.controls.email.invalid || (userForm.controls.password.invalid && !readOnly)"
-                        class="btn btn-primary" type="submit">
-                  Save
-                </button>
-                <button *ngIf="!isAdmin" [disabled]="userForm.controls.firstname.invalid || userForm.controls.lastname.invalid ||
-    userForm.controls.email.invalid || (userForm.controls.password.invalid && !readOnly)" class="btn btn-primary"
-                        type="submit">
-                  Save
-                </button>
-
-                <button (click)="setShouldNavigateToList()" *ngIf="isAdmin" [disabled]="(readOnly === false && userForm.controls.username.invalid) || userForm.controls.firstname.invalid ||
-    userForm.controls.lastname.invalid || userForm.controls.email.invalid || (userForm.controls.password.invalid && readOnly === false)"
+                <button [disabled]="(userForm.controls.username.invalid) || userForm.controls.firstname.invalid ||
+    userForm.controls.lastname.invalid || userForm.controls.email.invalid || (userForm.controls.password.invalid)"
                         class="btn btn-primary" type="submit">
                   Save and Back
                 </button>
-                <button (click)="setShouldNavigateToList()" *ngIf="!isAdmin" [disabled]="userForm.controls.firstname.invalid ||
-    userForm.controls.lastname.invalid || userForm.controls.email.invalid || (userForm.controls.password.invalid && readOnly === false)"
-                        class="btn btn-primary" type="submit">
-                  Save and Back
-                </button>
-
-                <button *ngIf="isAdmin" [routerLink]="'/user-list/'" class="btn btn-danger" type="button">
-                  Back
-                </button>
-                <button *ngIf="!isAdmin" [routerLink]="'/drink-list/'" class="btn btn-danger" type="button">
+                <button [routerLink]="'/login'" class="btn btn-danger" type="button">
                   Back
                 </button>
               </div>
