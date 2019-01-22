@@ -62,9 +62,9 @@ public class UserDetailsServiceImpl implements UserDetailsService {
             admin.setUsername("admin");
             admin.setPassword(encoder.encode("admin"));
             admin.setAdmin(true);
-            admin.setFirstname("Hans-Peter");
-            admin.setLastname("Irgendwas");
-            admin.setEmail("hans-peter@irgendwas.com");
+            admin.setFirstname("Max");
+            admin.setLastname("Mustermann");
+            admin.setEmail("max.mustermann@bartendr.at");
             userRepository.save(admin);
 
             at.bartendr.backend.model.User sysAdmin = new at.bartendr.backend.model.User();
@@ -73,7 +73,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
             sysAdmin.setAdmin(true);
             sysAdmin.setFirstname("System");
             sysAdmin.setLastname("Administrator");
-            sysAdmin.setEmail("administrator@bartender.at");
+            sysAdmin.setEmail("administrator@bartendr.at");
             userRepository.save(sysAdmin);
 
 
@@ -81,9 +81,9 @@ public class UserDetailsServiceImpl implements UserDetailsService {
             tester.setUsername("tester");
             tester.setPassword(encoder.encode("tester"));
             tester.setAdmin(false);
-            tester.setFirstname("Peter-Hans");
-            tester.setLastname("wasIrgend");
-            tester.setEmail("was-irgend@peter-hans.com");
+            tester.setFirstname("Maxima");
+            tester.setLastname("Musterfrau");
+            tester.setEmail("maxima.musterfrau@bartendr.at");
             userRepository.save(tester);
         }
         if (locationRepository.count() == 0) {
@@ -118,8 +118,8 @@ public class UserDetailsServiceImpl implements UserDetailsService {
             Drink hausBier = new Drink();
             hausBier.setName("Hausbier");
             hausBier.setCategory("Beer");
-            if (locationRepository.findByName("Cafe Pucher").isPresent()) {
-                hausBier.setLocations(locationRepository.findByName("Cafe Pucher").get());
+            if (locationRepository.findByName("MurStüberl zum Stamperl").isPresent()) {
+                hausBier.setLocations(locationRepository.findByName("MurStüberl zum Stamperl").get());
             }
             hausBier.setAge(Age.atLeast16);
             hausBier.setPrice(3.3f);
@@ -139,7 +139,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
             Drink berlinerLuft = new Drink();
             berlinerLuft.setName("Berliner Luft");
-            berlinerLuft.setCategory("High Percentage!");
+            berlinerLuft.setCategory("Liquor");
             if (locationRepository.findByName("TamTam").isPresent()) {
                 berlinerLuft.setLocations(locationRepository.findByName("TamTam").get());
             }
@@ -149,8 +149,8 @@ public class UserDetailsServiceImpl implements UserDetailsService {
             drinkRepository.save(berlinerLuft);
 
             Drink tequilla = new Drink();
-            tequilla.setName("Tequilla");
-            tequilla.setCategory("High Percentage!");
+            tequilla.setName("Tequila");
+            tequilla.setCategory("Tequila");
             if (locationRepository.findByName("Postgarage").isPresent()) {
                 tequilla.setLocations(locationRepository.findByName("Postgarage").get());
             }

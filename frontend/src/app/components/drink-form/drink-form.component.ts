@@ -24,7 +24,7 @@ export class DrinkFormComponent implements OnInit {
   loc: Location;
   cat: string;
   text: string;
-  categories: Array<string> = ['Beer', 'Wine', 'Vodka', 'Gin'];
+  categories: Array<string> = ['Beer', 'Wine', 'Vodka', 'Gin', 'Liquor', 'Tequila', 'Soft drink'];
   message;
 
   constructor(private drinkService: DrinkService, private route: ActivatedRoute, private router: Router,
