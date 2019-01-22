@@ -1,13 +1,15 @@
 # Bartendr
-A spring boot application intended as an encyclopaedia to look up drinks and recommended places.
+###### A spring boot application intended as an encyclopaedia to look up drinks and recommended places.
 
-Team Members:
+This Application was built as part of a study course at FH JOANNEUM Graz (UAS) called Software Engineering Selective in the bachelor's programme Information Management.
+
+# Team Members:
 
 * @GregorFernbach
 * @heiderst16
 * @sweiland
 
-Work Load Distribution
+# Work Load Distribution:
 
 * CRUD user entity: Gregor Fernbach
 * CRUD drink entitiy: Stefan Heider
@@ -19,6 +21,8 @@ Work Load Distribution
 * Backend entities: Gregor Fernbach, Sebastian Weiland, Stefan Heider
 * Backend REST: Gregor Fernbach, Sebastian Weiland, Stefan Heider
 * Form validation: Gregor Fernbach
+
+# Setup Instructions
 
 
 
