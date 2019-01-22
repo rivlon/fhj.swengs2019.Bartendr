@@ -36,10 +36,16 @@ Bartendr was built with Spring Boot and Angular 7. Therefor you need the followi
 
 # Setup Instructions
 
+0. Install all required software.
 1. Clone this project.
-2. Open both the frontend and the backend folder seperately in IntelliJ.
+2. Open both the frontend and the backend folder seperately in IntelliJ (in separate windows).
 3. In the frontend folder up a CMD or in IntelliJ use the terminal and execute "npm install"
-4. In the backend folder you need to adapt the application.properties to be able to use your 
+4. In the backend folder you need to adapt the application.properties to be able to use your application. Therefor go to
+Bartendr\backend\src\main\resources\application.properties and edit your database configurations.
+5. Next start the backend and the frontend (or run "ng serve --open") in IntelliJ or start a webserver.
+6. Go to URL localhost:4200 (if run with Angular CLI) or your custom URL when run with a webserver.
+7. The predefined admin is the "sysAdmin" which has the Username "sysAdmin" and password "sysAdmin". The predefined user is "tester" with password "tester".
+
 
 
 
