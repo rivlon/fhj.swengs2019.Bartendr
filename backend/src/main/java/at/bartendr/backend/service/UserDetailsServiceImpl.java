@@ -122,6 +122,12 @@ public class UserDetailsServiceImpl implements UserDetailsService {
             poga.setRating(4);
             locationRepository.save(poga);
 
+            Location noLocation = new Location();
+            noLocation.setName("No Location");
+            noLocation.setPlusCode("6FG22222+22");
+            noLocation.setRating(0);
+            locationRepository.save(noLocation);
+
         }
 
         if (drinkRepository.count() == 0) {

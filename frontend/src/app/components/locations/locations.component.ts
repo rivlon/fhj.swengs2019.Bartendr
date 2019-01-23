@@ -21,6 +21,7 @@ export class LocationsComponent implements OnInit, OnDestroy {
 
   zoom = 14;
   locations: Array<Location>;
+  unfilteredLocations: Array<Location>;
   isLoggedIn: boolean;
   isAdmin: boolean;
   username: string;
@@ -66,8 +67,10 @@ export class LocationsComponent implements OnInit, OnDestroy {
   }
 
   fetchData() {
-    this.http.get('/api/locations').subscribe((response: any) => {
-      this.locations = response._embedded.locations;
+
+    this.locationService.getAll().subscribe((res: any) => {
+      this.unfilteredLocations = res;
+      this.locations = this.unfilteredLocations.filter(location => location.name !== 'No Location');
       this.fetchCoords(this.locations);
       this.rerender();
     });

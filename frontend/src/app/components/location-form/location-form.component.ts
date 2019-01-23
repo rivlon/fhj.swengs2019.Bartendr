@@ -99,7 +99,7 @@ export class LocationFormComponent implements OnInit {
   }
 
   saveLocation() {
-    if (this.isAdmin) {
+    if (this.isAdmin && this.locationForm.value.id !== 5) {
       const locationToBeSafe = this.locationForm.value;
       if (locationToBeSafe.id) {
         this.locationService.update(locationToBeSafe)
@@ -117,7 +117,11 @@ export class LocationFormComponent implements OnInit {
           });
       }
     } else {
-      this.toastr.error('Not authorized', 'Error:');
+      if ( this.locationForm.value.id === 5 ) {
+        this.toastr.error('No Location cannot be modified', 'Error:');
+      } else {
+        this.toastr.error('Not authorized', 'Error:');
+      }
     }
   }
 

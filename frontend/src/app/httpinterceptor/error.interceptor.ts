@@ -16,24 +16,24 @@ export class ErrorInterceptor implements HttpInterceptor {
       catchError((err: HttpErrorResponse) => {
         if (err instanceof HttpErrorResponse) {
           if (err.status === 409) {
-            this.toastrService.error('Could not be deleted, still Drinks assigned!', 'Message');
+            this.toastrService.error('Could not be deleted, still Drinks assigned!', 'Error');
           } else if (err.status === 410) {
-            this.toastrService.success('Successfully deleted', 'Message');
+            this.toastrService.success('Successfully deleted', 'Success');
           } else if (err.status === 504) {
             this.toastrService.error('Gateway timeout!', 'Error');
           } else if (err.status > 499 && err.status < 600) {
-            this.toastrService.error('Some Server Error occurred!', 'Message');
+            this.toastrService.error('Some Server Error occurred!', 'Error');
           } else if (err.status === 400) {
-            this.toastrService.error('Bad Request!', 'Message');
+            this.toastrService.error('Bad Request!', 'Error');
           } else if (err.status === 401) {
-            this.toastrService.error('Unauthorized', 'Not authorized!');
+            this.toastrService.error('Unauthorized', 'Error');
             this.authService.logout();
           } else if (err.status === 403) {
-            this.toastrService.error('Forbidden', 'Message');
+            this.toastrService.error('Forbidden', 'Error');
           } else if (err.status === 404) {
-            this.toastrService.error('Not Found', 'Message');
+            this.toastrService.error('Not Found', 'Error');
           }  else {
-            this.toastrService.error('Some Error occurred!', 'Message');
+            this.toastrService.error('Some Error occurred!', 'Error');
           }
         }
         return throwError(err);

@@ -47,13 +47,18 @@ public class LocationController {
     }
 
     @DeleteMapping("/dto/locations/{id}")
-    ResponseEntity delete(@PathVariable Long id){
-        Location location = this.locationRepository.findById(id).get();
-        if(location.getDrinks().size() == 0) {
-            this.locationFacade.delete(id);
-            return new ResponseEntity<>(HttpStatus.GONE);
-        } else {
-            return new ResponseEntity<>(HttpStatus.CONFLICT);
+    ResponseEntity delete(@PathVariable Long id) {
+        try {
+            Location location = this.locationRepository.findById(id).get();
+            if (location.getDrinks().size() == 0) {
+                this.locationFacade.delete(id);
+                return new ResponseEntity<>(HttpStatus.GONE);
+            } else {
+                return new ResponseEntity<>(HttpStatus.CONFLICT);
+            }
+        } catch (java.util.NoSuchElementException exception) {
+            System.out.println("No Value found Exception. Null is returned to have no Error in Frontend.");
+            return null;
         }
     }
 }
