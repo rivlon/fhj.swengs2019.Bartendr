@@ -70,30 +70,31 @@ export class LocationFormComponent implements OnInit {
     if (this.locationForm.value.address !== '') {
       const address = this.locationForm.value.address;
       this.code = this.locationService.makeCodeRequest(address);
+      this.getRatings();
       return;
     } else {
       const address = this.adrs;
       this.code = this.locationService.makeCodeRequest(address);
+      this.getRatings();
       return;
     }
+
   }
 
   async getPlusCode() {
     await this.generatePlusCode();
-    await this.getRatings();
     await this.code.subscribe((val: any) => {
       this.locationForm.patchValue(
         {plusCode: (val.plus_code.local_code + ' ' + val.plus_code.locality.local_address)});
-    });
-    await this.rating.subscribe((val: any) => {
-      if (val.status === 'OK') {
-        this.locationForm.patchValue({rating: val.candidates[0].rating});
-        console.log(val.candidates[0].rating);
-        this.saveLocation();
-      } else {
-        this.locationForm.patchValue({rating: this.locationForm.value.rating});
-        this.saveLocation();
-      }
+      this.rating.subscribe((val: any) => {
+        if (val.status === 'OK') {
+          this.locationForm.patchValue({rating: val.candidates[0].rating});
+          this.saveLocation();
+        } else {
+          this.locationForm.patchValue({rating: this.locationForm.value.rating});
+          this.saveLocation();
+        }
+      });
     });
   }
 

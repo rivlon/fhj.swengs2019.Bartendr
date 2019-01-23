@@ -14,7 +14,6 @@ export class ErrorInterceptor implements HttpInterceptor {
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     return next.handle(req).pipe(
       catchError((err: HttpErrorResponse) => {
-        console.log('error.interceptor');
         if (err instanceof HttpErrorResponse) {
           if (err.status === 409) {
             this.toastrService.error('Could not be deleted, still Drinks assigned!', 'Message');

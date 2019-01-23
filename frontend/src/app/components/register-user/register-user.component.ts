@@ -4,6 +4,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {ToastrService} from 'ngx-toastr';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {AuthService} from '../../service/auth.service';
+import {UserNameValidator} from '../../shared/validateUsername';
 
 @Component({
   selector: 'app-register-user',
@@ -40,7 +41,7 @@ export class RegisterUserComponent implements OnInit {
     this.userForm = new FormGroup({
       'id': new FormControl(),
       'username': new FormControl([''], [Validators.required, Validators.minLength(2),
-        Validators.maxLength(35)]/*, [UserNameValidator.createValidator(this.userService)]*/),
+        Validators.maxLength(35)], [UserNameValidator.createValidator(this.userService)]),
       'firstname': new FormControl([''], [Validators.required, Validators.minLength(2),
         Validators.maxLength(35)]),
       'lastname': new FormControl([''], [Validators.required, Validators.minLength(2),

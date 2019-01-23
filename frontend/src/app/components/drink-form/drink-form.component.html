@@ -114,7 +114,9 @@
             </div>
             <div class="col">
               <div class="dropdown" id="location" ngbDropdown placement="bottom">
-                <button class="btn btn-default dropdown-toggle" ngbDropdownToggle style="width: 20rem;"
+                <button [ngClass]="{'btn-danger': drinkForm.controls.locationID.invalid,
+                  'btn-success': drinkForm.controls.locationID.valid}" class="btn btn-default dropdown-toggle"
+                        ngbDropdownToggle style="width: 20rem;"
                         type="button">{{loc ? loc.name : 'Location'}}
                   <span
                     class="caret"></span></button>
@@ -123,6 +125,12 @@
                     <a (click)="setLocation(loc)" class="dropdown-item" style="cursor: pointer">{{loc.name}}</a>
                   </div>
                 </div>
+              </div>
+              <div
+                *ngIf="drinkForm.controls.locationID.invalid" class="form-control-feedback">
+                <p *ngIf="drinkForm.controls.locationID.errors.required">
+                  A location is required!
+                </p>
               </div>
             </div>
             <div class="col">

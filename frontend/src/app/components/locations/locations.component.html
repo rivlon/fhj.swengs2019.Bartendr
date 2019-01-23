@@ -14,7 +14,7 @@
                 <th>Location Name</th>
                 <th>Address</th>
                 <th>Rating</th>
-                <th>Actions</th>
+                <th *ngIf="isAdmin">Actions</th>
               </tr>
               </thead>
               <tbody>
@@ -23,7 +23,7 @@
                 <td><a [routerLink]="'/location-form/' + location.id">{{location.name}}</a></td>
                 <td>{{location.address}}</td>
                 <td>{{location.rating}}</td>
-                <td>
+                <td *ngIf="isAdmin">
                   <div class="btn-group">
                     <button *ngIf="isAdmin" [routerLink]="'/location-form/' + location.id" class="btn btn-warning">
                       Edit

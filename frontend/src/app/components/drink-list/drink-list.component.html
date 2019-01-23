@@ -17,7 +17,7 @@
                 <th>Price</th>
                 <th>Rating</th>
                 <th>Required Age</th>
-                <th>Actions</th>
+                <th *ngIf="isAdmin">Actions</th>
               </tr>
               </thead>
               <tbody>
@@ -30,7 +30,7 @@
                 <td>{{drink.price}}</td>
                 <td>{{drink.rating}}</td>
                 <td>{{convertAge(drink.age)}}</td>
-                <td>
+                <td *ngIf="isAdmin">
                   <div class="btn-group">
                     <button *ngIf="isAdmin" [routerLink]="'/drink-form/' + drink.id" class="btn btn-warning">Edit
                     </button>
