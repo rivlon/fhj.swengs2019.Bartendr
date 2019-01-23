@@ -22,6 +22,8 @@ export class AppComponent  {
   So, in the ngOnInit of my app.component.ts, I added an event listener for beforeunload to the window
    and I call a function which calls the logout function.
 
+   Tryed to implment logout on WindowClose, however 'beforeundload', logs us out on every reload.
+
   ngOnInit() {
     const context = this;
     window.addEventListener('beforeunload', function (e) {

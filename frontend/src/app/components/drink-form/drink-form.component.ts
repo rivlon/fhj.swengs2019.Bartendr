@@ -59,7 +59,7 @@ export class DrinkFormComponent implements OnInit {
       });
       this.cat = this.drinkForm.value.category;
     } else {
-      this.locationService.getById('1').subscribe((val: any) => {
+      this.locationService.getById('5').subscribe((val: any) => {
         this.loc = val;
         this.loc.name = 'Location';
       });
