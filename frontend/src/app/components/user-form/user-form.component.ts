@@ -23,6 +23,7 @@ export class UserFormComponent implements OnInit {
   readOnly: boolean;
   readonlyPassword: boolean;
   shouldNavigateToList: boolean;
+  passWordChanged: boolean;
 
   constructor(private userService: UserService, private route: ActivatedRoute, private router: Router, private authService: AuthService,
               private toastr: ToastrService) {
@@ -73,7 +74,6 @@ export class UserFormComponent implements OnInit {
       this.userForm.setValue(data.user);
     } else {
       this.readOnly = false;
-      //this.readonlyPassword = false;
       this.userForm.setValue({
         id: null,
         username: '',
@@ -94,12 +94,22 @@ export class UserFormComponent implements OnInit {
       this.toastr.error('You cannot delete yourself!', 'Error');
     } else if (userToBeSafed.username === 'sysAdmin') {
       this.toastr.error('System Administrator cannot be modified!', 'Error!');
-    } else if (userToBeSafed.id ) {
+    } else if (userToBeSafed.username === 'creator') {
+      this.toastr.error('Creator cannot be modified!', 'Error!');
+    } else if (userToBeSafed.id) {
       this.userService.update(userToBeSafed)
         .subscribe(() => {
-          this.toastr.success('User: ' + userToBeSafed.username + ' has been succesfully updated!', 'Successfully Updated:');
-          this.readonlyPassword = true;
-          this.navigateToList();
+          if (userToBeSafed.username === this.username && this.isAdmin && !userToBeSafed.isAdmin) {
+            this.toastr.info('Your data has been successfully updated but you have to login again.', 'Success!');
+            this.authService.logout();
+          } else if (this.passWordChanged) {
+            this.toastr.info('Password successfully changed. Please login in again!', 'Success!');
+            this.authService.logout();
+          } else {
+            this.toastr.success('User: ' + userToBeSafed.username + ' has been succesfully updated!', 'Successfully Updated:');
+            this.readonlyPassword = true;
+            this.navigateToList();
+          }
         });
     } else if (this.isAdmin) {
       this.userService.create(userToBeSafed)
@@ -107,6 +117,7 @@ export class UserFormComponent implements OnInit {
           this.toastr.success('User: ' + userToBeSafed.username + ' has been succesfully created!', 'Successfully Created:');
           this.readOnly = true;
           this.readonlyPassword = true;
+          this.setShouldNavigateToList();
           this.navigateToList();
         });
     } else {
@@ -130,6 +141,7 @@ export class UserFormComponent implements OnInit {
 
   activatePasswordInsert() {
     this.readonlyPassword = false;
+    this.passWordChanged = true;
   }
 
   private loadData() {

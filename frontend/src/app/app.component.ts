@@ -22,9 +22,9 @@ export class AppComponent implements OnInit {
    */
   ngOnInit() {
     const context = this;
-    /*window.addEventListener('beforeunload', function (e) {
+    window.addEventListener('beforeunload', function (e) {
       context.logoutOnClose();
-    });*/
+    });
   }
 
   logoutOnClose() {

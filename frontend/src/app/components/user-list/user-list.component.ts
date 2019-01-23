@@ -19,6 +19,7 @@ export class UserListComponent implements OnInit, OnDestroy {
   @ViewChild(DataTableDirective)
   private datatableElement: DataTableDirective;
 
+  unfilteredUsers: Array<User>;
   users: Array<User>;
   isLoggedIn: boolean;
   isAdmin: boolean;
@@ -35,7 +36,8 @@ export class UserListComponent implements OnInit, OnDestroy {
   ngOnInit() {
     const data = this.route.snapshot.data;
     if (data.users) {
-      this.users = data.users;
+      this.unfilteredUsers = data.users;
+      this.users = this.unfilteredUsers.filter(user => user.username !== 'creator');
       this.dtTrigger.next();
       this.dtOptions = {
         pagingType: 'full_numbers',
@@ -84,7 +86,8 @@ export class UserListComponent implements OnInit, OnDestroy {
 
   fetchData() {
     this.userService.getAllUsers().subscribe((response: any) => {
-      this.users = response;
+      this.unfilteredUsers = response;
+      this.users = this.unfilteredUsers.filter(user => user.username !== 'creator');
       this.rerender();
     });
   }
