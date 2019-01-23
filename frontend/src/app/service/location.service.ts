@@ -19,7 +19,7 @@ export class LocationService {
   }
 
   delete(location: Location) {
-      return this.http.delete('api/dto/locations/' + location.id);
+    return this.http.delete('api/dto/locations/' + location.id);
   }
 
   getById(id: string) {
@@ -30,9 +30,17 @@ export class LocationService {
     return this.http.get('/api/dto/locations');
   }
 
-  makeRequest(param: string) {
+  makeCodeRequest(param: string) {
     return this.http.get(
-      'https://plus.codes/api?ekey=B5Ssb0e4WP0KVL9mDeGRPfCtC6EDoGhQUjmPh2CIFQb2HA5L%2Fo%2B4VFJR8pgd8DLfo9WSAjk%2FFFGQvNJCzFNN43APfTc%3D&address='
+      'https://plus.codes/api?ekey=B5Ssb0e4WP0KVL9mDeGRPfCtC6EDoGhQUjmPh2CIFQb2HA5L%2Fo%2B4VFJR8pgd8DLfo9WSAjk%2FFFGQvNJCzFNN43APfTc%3D' +
+      '&address='
+      + encodeURIComponent(param));
+  }
+
+  makeRatingRequest(param: string) {
+    return this.http.get(
+      '/google/maps/api/place/findplacefromtext/json?key=AIzaSyB8d4_zfbw1kp0hYV18zvi60JSmqXw25Qw&inputtype=textquery' +
+      '&fields=plus_code,rating,formatted_address,name&input='
       + encodeURIComponent(param));
   }
 }

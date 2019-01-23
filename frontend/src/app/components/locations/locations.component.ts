@@ -88,7 +88,7 @@ export class LocationsComponent implements OnInit, OnDestroy {
 
   fetchCoords(inp: Array<Location>) {
     inp.forEach((value) => {
-      this.locationService.makeRequest(value.plusCode).subscribe((response: any) => {
+      this.locationService.makeCodeRequest(value.plusCode).subscribe((response: any) => {
         value.lat = response.plus_code.geometry.location.lat;
         value.lng = response.plus_code.geometry.location.lng;
         value.address = response.plus_code.best_street_address;

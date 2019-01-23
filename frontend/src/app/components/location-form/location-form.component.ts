@@ -26,11 +26,11 @@ export class LocationFormComponent implements OnInit {
   drinkOptions: Array<Drink>;
   drinkIDs;
   code;
+  rating;
   adrs = '';
   lat: number;
   lng: number;
   zoom = 18;
-  clicked = false;
   message;
 
   constructor(private drinkService: DrinkService, private route: ActivatedRoute, private router: Router,
@@ -52,7 +52,7 @@ export class LocationFormComponent implements OnInit {
     const data = this.route.snapshot.data;
     if (data.location) {
       data.location.address = this.adrs;
-      this.locationService.makeRequest(data.location.plusCode).subscribe((response: any) => {
+      this.locationService.makeCodeRequest(data.location.plusCode).subscribe((response: any) => {
         this.adrs = response.plus_code.best_street_address;
         this.lat = response.plus_code.geometry.location.lat;
         this.lng = response.plus_code.geometry.location.lng;
@@ -69,23 +69,31 @@ export class LocationFormComponent implements OnInit {
   generatePlusCode(): Promise<string> {
     if (this.locationForm.value.address !== '') {
       const address = this.locationForm.value.address;
-      this.code = this.locationService.makeRequest(address);
-      this.clicked = true;
+      this.code = this.locationService.makeCodeRequest(address);
       return;
     } else {
       const address = this.adrs;
-      this.code = this.locationService.makeRequest(address);
-      this.clicked = true;
+      this.code = this.locationService.makeCodeRequest(address);
       return;
     }
   }
 
   async getPlusCode() {
     await this.generatePlusCode();
+    await this.getRatings();
     await this.code.subscribe((val: any) => {
       this.locationForm.patchValue(
         {plusCode: (val.plus_code.local_code + ' ' + val.plus_code.locality.local_address)});
-      this.saveLocation();
+    });
+    await this.rating.subscribe((val: any) => {
+      if (val.status === 'OK') {
+        this.locationForm.patchValue({rating: val.candidates[0].rating});
+        console.log(val.candidates[0].rating);
+        this.saveLocation();
+      } else {
+        this.locationForm.patchValue({rating: this.locationForm.value.rating});
+        this.saveLocation();
+      }
     });
   }
 
@@ -124,6 +132,12 @@ export class LocationFormComponent implements OnInit {
 
   navigateToDrink(id) {
     this.router.navigate(['/drink-form/' + id]);
+  }
+
+  getRatings(): Promise<string> {
+    const name = this.locationForm.value.name;
+    this.rating = this.locationService.makeRatingRequest(name);
+    return;
   }
 
   private loadData() {
