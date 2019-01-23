@@ -47,7 +47,7 @@ export class DrinkFormComponent implements OnInit {
       'price': new FormControl([], [Validators.min(0), Validators.max(99999), Validators.required]),
       'age': new FormControl([], [Validators.required]),
       'rating': new FormControl(),
-      'locationID': new FormControl(),
+      'locationID': new FormControl([], [Validators.required]),
       'pictures': new FormControl([])
     });
 
