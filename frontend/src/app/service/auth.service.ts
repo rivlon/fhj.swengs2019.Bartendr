@@ -22,8 +22,6 @@ export class AuthService {
     this.jwtHelperService = new JwtHelperService();
     const token = localStorage.getItem(this.accessTokenLocalStorageKey);
     if (token && !this.jwtHelperService.isTokenExpired(token)) {
-      console.log('Token expiration date: '
-        + this.jwtHelperService.getTokenExpirationDate(token));
       this.isLoggedIn = true;
       const infos = this.jwtHelperService.decodeToken(token);
       if (infos.authorities.filter((o) => o === 'ROLE_ADMIN').length > 0) {
@@ -32,8 +30,6 @@ export class AuthService {
         this.isAdmin = false;
       }
       this.userName = infos.sub;
-      console.log('Auth-Data: '
-        + this.isLoggedIn + '/' + this.userName);
     }
 
     this.loggedInChange.subscribe((value) => {
@@ -61,7 +57,6 @@ export class AuthService {
         this.isAdmin = false;
       }
       this.userName = infos.sub;
-      console.log(this.jwtHelperService.decodeToken(token));
       this.loggedInChange.next(true);
       this.loggedInChange.subscribe((value) => {
         this.isLoggedIn = value;
@@ -80,7 +75,6 @@ export class AuthService {
   public checkForJWTExpiration() {
     const token = localStorage.getItem(this.accessTokenLocalStorageKey);
     if (token != null && this.jwtHelperService.isTokenExpired(token)) {
-      console.log('Token expired !');
       return true;
     } else {
       return false;

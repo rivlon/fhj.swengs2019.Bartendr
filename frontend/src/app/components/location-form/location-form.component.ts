@@ -90,11 +90,9 @@ export class LocationFormComponent implements OnInit {
         if (val.status === 'OK') {
           this.locationForm.patchValue({rating: val.candidates[0].rating});
           this.saveLocation();
-          console.log(this.locationForm.value);
         } else {
           this.locationForm.patchValue({rating: this.locationForm.value.rating});
           this.saveLocation();
-          console.log(this.locationForm.value);
         }
       });
     });
