@@ -14,7 +14,7 @@ This Application was built as part of a study course at FH JOANNEUM Graz (UAS) c
 * CRUD user entity: Gregor Fernbach
 * CRUD drink entitiy: Stefan Heider
 * CRUD location entity: Stefan Heider, Sebastian Weiland
-* Google MAPS integration: Sebastian Weiland
+* Google MAPS and Google Ratings integration: Sebastian Weiland
 * File Upload/Download/displaying: Stefan Heider
 * Authentication & Authorization (Backend & Frontend): Gregor Fernbach
 * Styling frontend: Sebastian Weiland
